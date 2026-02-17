@@ -1,0 +1,16 @@
+{
+  "submit": "Submit",
+  "lightMode": "Light mode",
+  "darkMode": "Dark mode",
+  "dropzone": {
+    "defaultMessage": "You can drag & drop files here or click to select",
+    "multiple": "You can select multiple files",
+    "single": "Select a single file",
+    "supported": "Supported formats: {{formats}}",
+    "uploadFailed": "Upload failed",
+    "uploadSuccess": "Uploaded",
+    "retry": "Retry",
+    "removeExisting": "Please remove the existing image before uploading a new one.",
+    "fileTooLarge": "File \"{{name}}\" exceeds maximum size of {{size}} MB"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "signin": "Signin",
+  "signinBtn": "Login",
+  "forgetPassword": "Forget password",
+  "myAccount": "My account",
+  "logout": "Logout",
+  "label": {
+    "password": "Password",
+    "email": "Email",
+    "rememberMe": "Remember me",
+    "fullName": "Full name",
+    "phone": "Phone"
+  },
+  "placeHolder": {
+    "password": "Please enter your password",
+    "email": "Please enter your email",
+    "fullName": "Please enter your full name",
+    "phone": "Please enter your phone"
+  },
+  "validation": {
+    "invalid_email": "Invalid email",
+    "email_required": "Email is required",
+    "password_required": "Password is required",
+    "password_min": "Password should be 6 character at least",
+    "full_name_required": "Full name is required",
+    "full_name_min": "Full name should be 6 character at least",
+    "invalid_phone": "Invalid phone",
+    "phone": "Phone is required"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "signin": "تسجيل الدخول",
+  "signinBtn": "دخول",
+  "forgetPassword": "نسيت كلمة المرور",
+  "myAccount": "حسابي",
+  "logout": "تسجيل الخروج",
+  "label": {
+    "password": "كلمة المرور",
+    "email": "البريد الإلكتروني",
+    "rememberMe": "تذكرني"
+  },
+  "placeHolder": {
+    "password": "من فضلك أدخل كلمة المرور",
+    "email": "من فضلك أدخل البريد الإلكتروني"
+  },
+  "validation": {
+    "invalid_email": "البريد الإلكتروني غير صالح",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_min": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+  }
+}

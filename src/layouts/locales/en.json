@@ -1,0 +1,38 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+
+    "books": {
+      "root": "Books",
+      "list": "All Books",
+      "create": "Add Book"
+    },
+
+    "myAccount": "My account",
+    "email": "Email",
+    "password": "Password",
+
+    "categories": "Categories",
+    "authors": "Authors",
+    "tags": "Tags",
+
+    "orders": "Orders",
+
+    "users": {
+      "root": "Users",
+      "list": "All Users",
+      "roles": "Roles & Permissions",
+      "create": "Add User"
+    },
+
+    "banners": "Banners",
+
+    "chat": "Chat Support",
+
+    "notifications": "Notifications",
+
+    "analytics": "Analytics",
+
+    "settings": "Settings"
+  }
+}
