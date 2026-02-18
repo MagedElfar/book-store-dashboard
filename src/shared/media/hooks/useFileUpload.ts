@@ -103,7 +103,7 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
         const fileObj = files[index];
 
         if (fileObj.url && fileObj.status === "success") {
-            const filePath = extractFilePathFromUrl(fileObj.url, "store");
+            const filePath = extractFilePathFromUrl(fileObj.url);
             if (filePath) {
                 try { await mediaApi.deleteFile(filePath); }
                 catch (error) { errorMapper(error).forEach(err => toast.error(err)) }

@@ -2,21 +2,47 @@
   "signin": "تسجيل الدخول",
   "signinBtn": "دخول",
   "forgetPassword": "نسيت كلمة المرور",
+  "restPassword": "إعادة تعيين كلمة المرور",
+  "forgetPasswordBtn": "إرسال",
   "myAccount": "حسابي",
   "logout": "تسجيل الخروج",
+  "backToLogin": "العودة إلى تسجيل الدخول",
+  "feedback": {
+    "successForgetPassword": "تم إرسال رابط إعادة تعيين كلمة المرور بنجاح، يرجى التحقق من بريدك الإلكتروني.",
+    "successRestPassword": "تم إعادة تعيين كلمة المرور بنجاح."
+  },
   "label": {
     "password": "كلمة المرور",
     "email": "البريد الإلكتروني",
-    "rememberMe": "تذكرني"
+    "rememberMe": "تذكرني",
+    "fullName": "الاسم الكامل",
+    "phone": "رقم الهاتف",
+    "confirmPassword": "تأكيد كلمة المرور"
   },
   "placeHolder": {
-    "password": "من فضلك أدخل كلمة المرور",
-    "email": "من فضلك أدخل البريد الإلكتروني"
+    "password": "يرجى إدخال كلمة المرور",
+    "email": "يرجى إدخال البريد الإلكتروني",
+    "fullName": "يرجى إدخال الاسم الكامل",
+    "phone": "يرجى إدخال رقم الهاتف",
+    "confirmPassword": "يرجى تأكيد كلمة المرور"
   },
   "validation": {
     "invalid_email": "البريد الإلكتروني غير صالح",
     "email_required": "البريد الإلكتروني مطلوب",
+    "full_name_required": "الاسم الكامل مطلوب",
+    "full_name_min": "يجب أن يكون الاسم الكامل 6 أحرف على الأقل",
+    "invalid_phone": "رقم الهاتف غير صالح",
+    "phone": "رقم الهاتف مطلوب",
     "password_required": "كلمة المرور مطلوبة",
-    "password_min": "يجب أن تكون كلمة المرور 6 أحرف على الأقل"
+    "password_min": "يجب أن تكون كلمة المرور {{length}} أحرف على الأقل",
+    "confirm_password_required": "تأكيد كلمة المرور مطلوب",
+    "passwords_do_not_match": "كلمتا المرور غير متطابقتين"
+  },
+  "errorContent": {
+    "resetLinkInvalid": {
+      "title": "الرابط غير صالح أو منتهي الصلاحية",
+      "description": "رابط إعادة تعيين كلمة المرور غير صالح أو انتهت صلاحيته. يرجى طلب رابط جديد والمحاولة مرة أخرى.",
+      "button": "طلب رابط جديد"
+    }
   }
 }

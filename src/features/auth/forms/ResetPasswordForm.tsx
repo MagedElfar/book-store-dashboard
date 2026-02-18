@@ -7,38 +7,37 @@ import { toast } from 'react-toastify';
 
 import { Logo, RouterLink } from '@/shared/components';
 import { paths } from '@/shared/constants';
-import { FormCheckbox, FormContainer, FormPasswordField, FormTextField, AppFormProvider } from '@/shared/form';
+import { FormContainer, FormPasswordField, AppFormProvider } from '@/shared/form';
 import { errorMapper } from '@/shared/utilities';
 
-import { useAuthActions } from '../hooks/useAuthActions';
-import { LoginSchema, type LoginSchemaType } from '../schema'
+import { resetPassword } from '../api';
+import { ResetPasswordSchema, type ResetPasswordSchemaType } from '../schema'
 
-export function LoginForm() {
+export function ResetPasswordForm() {
 
-    const { login } = useAuthActions()
     const { t } = useTranslation("auth")
 
     const navigate = useNavigate()
 
-    const defaultValues: LoginSchemaType = {
-        email: "",
+    const defaultValues: ResetPasswordSchemaType = {
         password: "",
-        rememberMe: false
+        confirmPassword: ""
     }
 
 
-    const methods = useForm<LoginSchemaType>({
-        resolver: zodResolver(LoginSchema(t)),
+    const methods = useForm<ResetPasswordSchemaType>({
+        resolver: zodResolver(ResetPasswordSchema(t)),
         defaultValues,
     });
 
-    const onsubmit = async (data: LoginSchemaType) => {
+    const onsubmit = async (data: ResetPasswordSchemaType) => {
 
-        const { email, password } = data
+        const { password } = data
         try {
 
-            await login(email, password)
-            navigate("/", { replace: true })
+            await resetPassword(password)
+            toast.success(t("feedback.successRestPassword"))
+            navigate(paths.auth.login)
 
         } catch (error) {
             errorMapper(error).forEach(err => toast.error(err))
@@ -46,9 +45,8 @@ export function LoginForm() {
     }
 
     return (
-        <AppFormProvider<LoginSchemaType> methods={methods} onSubmit={onsubmit}>
+        <AppFormProvider<ResetPasswordSchemaType> methods={methods} onSubmit={onsubmit}>
             <FormContainer
-                submitText={t("signinBtn")}
                 stackProps={{ alignItems: "center" }}
                 buttonProps={{
                     sx: { width: "100%" }
@@ -56,14 +54,7 @@ export function LoginForm() {
             >
                 <Logo />
 
-                <Typography variant="h4">{t("signin")}</Typography>
-
-                <FormTextField
-                    name="email"
-                    label={t("label.email")}
-                    placeholder={t("placeHolder.email")}
-                    required
-                />
+                <Typography variant="h4">{t("restPassword")}</Typography>
 
                 <FormPasswordField
                     name="password"
@@ -72,11 +63,17 @@ export function LoginForm() {
                     required
                 />
 
-                <Stack width="100%" direction="row" alignItems="center" justifyContent="space-between">
-                    <FormCheckbox name='rememberMe' label={t("label.rememberMe")} />
+                <FormPasswordField
+                    name="confirmPassword"
+                    label={t("label.confirmPassword")}
+                    placeholder={t("placeHolder.confirmPassword")}
+                    required
+                />
+
+                <Stack width="100%" direction="row" alignItems="center" justifyContent="flex-end">
                     <RouterLink
-                        text={t("forgetPassword")}
-                        to={paths.auth.forgetPassword}
+                        text={t("backToLogin")}
+                        to={paths.auth.login}
                         sx={{
                             typography: "caption",
                             fontSize: "0.75rem"

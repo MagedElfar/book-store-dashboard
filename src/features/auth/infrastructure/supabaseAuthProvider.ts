@@ -1,6 +1,7 @@
 import type { AuthApiProvider } from "@/features/auth/types/api-provider";
 import type { LoginApiRequest } from "@/features/auth/types/request";
 import type { AuthResponse } from "@/features/auth/types/response";
+import { paths } from "@/shared/constants";
 import { supabaseClient } from "@/shared/lib";
 
 import type { User } from "../types/user";
@@ -83,7 +84,7 @@ export const supabaseAuthProvider: AuthApiProvider = {
     updateUserProfile: async function (
         id: string,
         data: Partial<User>
-    ): Promise<User> {
+    ): Promise<void> {
 
         const { error: profileError } = await supabaseClient
             .from("profiles")
@@ -93,9 +94,27 @@ export const supabaseAuthProvider: AuthApiProvider = {
 
         if (profileError) throw new Error(profileError.message);
 
-        // 3️⃣ رجع user الجديد
-        return await this.getCurrentUser();
-    }
+    },
+
+
+    forgotPassword: async function (email: string) {
+
+        const redirectTo = `${window.location.origin}${paths.auth.restPassword}`;
+
+        const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+            redirectTo,
+        });
+
+        if (error) throw new Error(error.message);;
+    },
+
+    resetPassword: async function (newPassword: string) {
+        const { error } = await supabaseClient.auth.updateUser({
+            password: newPassword,
+        });
+
+        if (error) throw new Error(error.message);;
+    },
 
 
 };

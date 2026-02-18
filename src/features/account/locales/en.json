@@ -38,12 +38,12 @@
   "validation": {
     "invalid_email": "Invalid email",
     "email_required": "Email is required",
-    "password_required": "Password is required",
-    "password_min": "Password should be {{length}} character at least",
     "full_name_required": "Full name is required",
     "full_name_min": "Full name should be 6 character at least",
     "invalid_phone": "Invalid phone",
     "phone": "Phone is required",
+    "password_required": "Password is required",
+    "password_min": "Password should be {{length}} character at least",
     "confirm_password_required": "Confirm password is required",
     "passwords_do_not_match": "Passwords mismatch",
     "avatar_invalid": "Invalid avatar"

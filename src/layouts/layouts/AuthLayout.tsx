@@ -1,6 +1,8 @@
 import { Box, Stack, useTheme } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
+import { Container } from "@/shared/components";
+
 import { LanguageSwitch, ModeSwitch } from "../components";
 
 
@@ -13,11 +15,10 @@ export function AuthLayout() {
             alignItems="center"
             bgcolor={theme.palette.background.paper}
             sx={{
-                p: 2,
                 display: "grid",
                 gridTemplateColumns: "1fr",
                 gridTemplateRows: "auto 1fr",
-                rowGap: 2
+                rowGap: 2,
             }}
         >
             <Stack
@@ -27,12 +28,17 @@ export function AuthLayout() {
                 spacing={1}
                 sx={{
                     width: "100%",
+                    p: 2,
                 }}
             >
                 <LanguageSwitch />
                 <ModeSwitch />
             </Stack>
-            <Outlet />
+            <Box display="flex" alignItems="center" justifyContent="center">
+                <Container maxWidth="xs">
+                    <Outlet />
+                </Container>
+            </Box>
         </Box>
     )
 }

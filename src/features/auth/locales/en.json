@@ -2,29 +2,47 @@
   "signin": "Signin",
   "signinBtn": "Login",
   "forgetPassword": "Forget password",
+  "restPassword": "Rest password",
+  "forgetPasswordBtn": "Send",
   "myAccount": "My account",
   "logout": "Logout",
+  "backToLogin": "Back to login",
+  "feedback": {
+    "successForgetPassword": "Rest password link sent successfully, please check your email.",
+    "successRestPassword": "Password is rest successfully."
+  },
   "label": {
     "password": "Password",
     "email": "Email",
     "rememberMe": "Remember me",
     "fullName": "Full name",
-    "phone": "Phone"
+    "phone": "Phone",
+    "confirmPassword": "Confirm password"
   },
   "placeHolder": {
     "password": "Please enter your password",
     "email": "Please enter your email",
     "fullName": "Please enter your full name",
-    "phone": "Please enter your phone"
+    "phone": "Please enter your phone",
+    "confirmPassword": "Confirm password"
   },
   "validation": {
     "invalid_email": "Invalid email",
     "email_required": "Email is required",
-    "password_required": "Password is required",
-    "password_min": "Password should be 6 character at least",
     "full_name_required": "Full name is required",
     "full_name_min": "Full name should be 6 character at least",
     "invalid_phone": "Invalid phone",
-    "phone": "Phone is required"
+    "phone": "Phone is required",
+    "password_required": "Password is required",
+    "password_min": "Password should be {{length}} character at least",
+    "confirm_password_required": "Confirm password is required",
+    "passwords_do_not_match": "Passwords mismatch"
+  },
+  "errorContent": {
+    "resetLinkInvalid": {
+      "title": "Invalid or Expired Link",
+      "description": "This password reset link is invalid or has expired. Please request a new link and try again.",
+      "button": "Request New Link"
+    }
   }
 }

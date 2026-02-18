@@ -1,10 +1,8 @@
 import * as tus from "tus-js-client";
 
-import { env } from "@/core";
+import { env, SUPABASE_BUCKET } from "@/core";
 import { supabaseClient } from "@/shared/lib";
 import type { MediaApiProvider } from "@/shared/media/types";
-
-const bucket = "store"
 
 export const supabaseMediaProvider: MediaApiProvider = {
     uploadFile: async function (
@@ -31,7 +29,7 @@ export const supabaseMediaProvider: MediaApiProvider = {
                 uploadDataDuringCreation: true,
                 removeFingerprintOnSuccess: true,
                 metadata: {
-                    bucketName: bucket,
+                    bucketName: SUPABASE_BUCKET,
                     objectName: filePath,
                     contentType: file.type,
                     cacheControl: "3600",
@@ -43,7 +41,7 @@ export const supabaseMediaProvider: MediaApiProvider = {
                     if (onProgress) onProgress(percentage);
                 },
                 onSuccess: () => {
-                    const publicUrl = supabaseClient.storage.from(bucket).getPublicUrl(filePath).data?.publicUrl;
+                    const publicUrl = supabaseClient.storage.from(SUPABASE_BUCKET).getPublicUrl(filePath).data?.publicUrl;
                     if (!publicUrl) return reject("Failed to generate public URL");
                     resolve({ publicUrl, upload }); // ⚡ رجع الـ upload instance
                 },
@@ -61,7 +59,7 @@ export const supabaseMediaProvider: MediaApiProvider = {
     },
 
     deleteFile: async function (id: string): Promise<void> {
-        const { error } = await supabaseClient.storage.from(bucket).remove([id]);
+        const { error } = await supabaseClient.storage.from(SUPABASE_BUCKET).remove([id]);
         if (error) throw new Error(error.message || "Delete failed");
     },
 };

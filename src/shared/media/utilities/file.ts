@@ -1,10 +1,12 @@
+import { SUPABASE_BUCKET } from "@/core";
+
 import type { UploadFile } from "../types";
 
-export const extractFilePathFromUrl = (url: string, bucket: string): string | null => {
+export const extractFilePathFromUrl = (url: string): string | null => {
     try {
         const parsedUrl = new URL(url);
 
-        const marker = `/storage/v1/object/public/${bucket}/`;
+        const marker = `/storage/v1/object/public/${SUPABASE_BUCKET}/`;
 
         const index = parsedUrl.pathname.indexOf(marker);
 

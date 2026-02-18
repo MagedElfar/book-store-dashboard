@@ -38,12 +38,12 @@
   "validation": {
     "invalid_email": "البريد الإلكتروني غير صالح",
     "email_required": "البريد الإلكتروني مطلوب",
-    "password_required": "كلمة المرور مطلوبة",
-    "password_min": "يجب أن تتكون كلمة المرور من {{length}} أحرف على الأقل",
     "full_name_required": "الاسم الكامل مطلوب",
     "full_name_min": "يجب أن يتكون الاسم الكامل من 6 أحرف على الأقل",
     "invalid_phone": "رقم الهاتف غير صالح",
     "phone": "رقم الهاتف مطلوب",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_min": "يجب أن تتكون كلمة المرور من {{length}} أحرف على الأقل",
     "confirm_password_required": "تأكيد كلمة المرور مطلوب",
     "passwords_do_not_match": "كلمتا المرور غير متطابقتين",
     "avatar_invalid": "صورة المستخدم غير صالحة"

@@ -14,6 +14,7 @@ export const paths = {
     auth: {
         login: "/auth/login",
         forgetPassword: "/auth/forget-password",
+        restPassword: "/auth/rest-password"
     },
 
     // =========================
