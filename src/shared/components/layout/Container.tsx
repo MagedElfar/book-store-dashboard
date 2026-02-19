@@ -13,7 +13,7 @@ export function Container({ children, sx, maxWidth, ...props }: Props) {
       sx={{
         height: "100%",
         px: 2,
-        py: 2,
+        py: { md: 4, xs: 2 },
         ...sx,
       }}
       {...props}

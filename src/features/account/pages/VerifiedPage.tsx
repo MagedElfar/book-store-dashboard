@@ -9,7 +9,7 @@ interface VerifiedPageProps {
 }
 
 const VerifiedPage: React.FC<VerifiedPageProps> = ({
-    rootPath = "/profile",
+    rootPath = paths.account.root,
 }) => {
     const { t } = useTranslation("account");
 

@@ -21,17 +21,17 @@ export function NavList({
     depth = 0,
     rootPath = "/"
 }: Props) {
-
     return (
         <List
+            disablePadding
             sx={{
                 px: depth === 0 ? 1 : 0,
-                pl: depth === 0 ? 1 : depth * 2,
+
             }}
         >
-            {items.map(item => (
+            {items.map((item) => (
                 <NavListItem
-                    key={item.label}
+                    key={item.path || item.label}
                     item={item}
                     open={open}
                     pathname={pathname}

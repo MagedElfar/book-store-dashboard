@@ -1,0 +1,63 @@
+{
+  "users": "Users",
+  "createUserBtn": "Create user",
+  "updateUserBtn": "Update user",
+  "createUser": "Create user",
+  "editUser": "Edit user",
+  "userDetails": "User details",
+  "deleteUserTitle": "Delete User",
+  "deleteUserConfirmWithName": "Are you sure you want to delete {{name}}?",
+  "deleteUserConfirm": "Are you sure you want to delete this user?",
+  "feedback": {
+    "successCreateUser": "User created successfully.",
+    "successUpdateUser": "User updated successfully."
+  },
+  "role": {
+    "all": "All roles",
+    "user": "User",
+    "support": "Support",
+    "admin": "Admin"
+  },
+  "label": {
+    "password": "Password",
+    "email": "Email",
+    "fullName": "Full name",
+    "phone": "Phone",
+    "avatar": "User avatar",
+    "Role": "Role"
+  },
+  "placeHolder": {
+    "password": "Please enter your password",
+    "email": "Please enter your email",
+    "fullName": "Please enter your full name",
+    "phone": "Please enter your phone"
+  },
+  "validation": {
+    "invalid_email": "Invalid email",
+    "email_required": "Email is required",
+    "full_name_required": "Full name is required",
+    "full_name_min": "Full name should be 6 character at least",
+    "invalid_phone": "Invalid phone",
+    "phone": "Phone is required",
+    "password_required": "Password is required",
+    "password_min": "Password should be {{length}} character at least",
+    "avatar_invalid": "Invalid avatar",
+    "role_required": "Role is required",
+    "role_invalid": "Invalid role selected"
+  },
+  "table": {
+    "user": "User",
+    "role": "Role",
+    "createdAt": "Created At"
+  },
+  "filter": {
+    "search": "Search by name, email or phone...",
+    "role": "Role",
+    "sortBy": "Sort By",
+    "newest": "Newest",
+    "oldest": "Oldest"
+  },
+  "info": {
+    "personalDetails": "Personal details"
+  }
+}

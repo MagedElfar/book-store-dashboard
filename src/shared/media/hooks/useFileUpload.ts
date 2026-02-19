@@ -12,14 +12,45 @@ import { extractFilePathFromUrl, mapUrlToUploadFile } from "../utilities";
 interface UseDropzoneLogicProps {
     name: string;
     multiple?: boolean;
-    maxSize?: number; // الحجم الأقصى بالبايت (اختياري)
+    maxSize?: number;
 }
 
 export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLogicProps) {
-
     const { t } = useTranslation("common");
-    const { getValues, setValue } = useFormContext();
+    const { setValue, getValues, watch, setError, clearErrors } = useFormContext();
     const [files, setFiles] = useState<UploadFile[]>([]);
+
+    // مراقبة قيمة الحقل في React Hook Form
+    const fieldValue = watch(name);
+
+    // 1. منطق الـ Reset: إذا أصبحت قيمة الفورم فارغة، نفرغ المصفوفة المحلية
+    useEffect(() => {
+        const hasNoValue = !fieldValue || (Array.isArray(fieldValue) && fieldValue.length === 0);
+        const hasLocalFiles = files.length > 0;
+
+        if (hasNoValue && hasLocalFiles) {
+            // التحقق من أن الملفات الموجودة ليست في حالة "جاري الرفع" لتجنب مسحها أثناء العمل
+            const isUploading = files.some(f => f.status === "uploading");
+            if (!isUploading) {
+                setFiles(prev => {
+                    prev.forEach(f => f.preview && URL.revokeObjectURL(f.preview));
+                    return [];
+                });
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [fieldValue]);
+
+    // 2. تعيين القيم الابتدائية (عند فتح الصفحة للتعديل مثلاً)
+    useEffect(() => {
+        const initialValue = getValues(name);
+        if (initialValue && files.length === 0) {
+            const mapped = (Array.isArray(initialValue) ? initialValue : [initialValue])
+                .map(url => mapUrlToUploadFile(url));
+            setFiles(mapped);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name]);
 
     const uploadSingle = useCallback((fileObj: UploadFile, index: number) => {
         const { file } = fileObj;
@@ -35,16 +66,23 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
 
         setFiles(prev => {
             const copy = [...prev];
-            copy[index].status = "uploading";
+            if (copy[index]) copy[index].status = "uploading";
             return copy;
         });
 
         uploadPromise.then(({ publicUrl, upload }) => {
             setFiles(prev => {
                 const copy = [...prev];
+                if (!copy[index]) return prev;
+
                 copy[index] = { ...copy[index], status: "success", progress: 100, url: publicUrl, tusUpload: upload };
+
                 const urls = copy.filter(f => f.status === "success" && f.url).map(f => f.url!);
-                setValue(name, multiple ? urls : urls[0] ?? null, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+                setValue(name, multiple ? urls : urls[0] ?? null, {
+                    shouldDirty: true,
+                    shouldTouch: true,
+                    shouldValidate: true
+                });
                 return copy;
             });
         }).catch(() => {
@@ -57,7 +95,7 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
     }, [name, multiple, setValue]);
 
     const handleDrop = useCallback((droppedFiles: File[]) => {
-        if (!droppedFiles || droppedFiles.length === 0) return;
+        if (!droppedFiles?.length) return;
 
         if (!multiple && files.length > 0) {
             toast.warning(t("dropzone.removeExisting"));
@@ -65,10 +103,12 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
         }
 
         const validFiles: UploadFile[] = [];
-
         droppedFiles.forEach(file => {
             if (maxSize && file.size > maxSize) {
-                toast.error(t("dropzone.fileTooLarge", { name: file.name, size: Math.round(maxSize / 1024 / 1024) }));
+                toast.error(t("dropzone.fileTooLarge", {
+                    name: file.name,
+                    size: Math.round(maxSize / 1024 / 1024)
+                }));
             } else {
                 validFiles.push({
                     file,
@@ -79,25 +119,13 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
             }
         });
 
-        const updatedFiles = multiple ? [...files, ...validFiles] : validFiles;
-        setFiles(updatedFiles);
+        const currentLength = files.length;
+        setFiles(prev => multiple ? [...prev, ...validFiles] : validFiles);
 
-        validFiles.forEach((fileObj, idx) => uploadSingle(fileObj, multiple ? files.length + idx : 0));
-    }, [multiple, files, t, maxSize, uploadSingle]);
-
-
-    const handleCancelUpload = useCallback((index: number) => {
-        setFiles(prev => {
-            const copy = [...prev];
-            const fileObj = copy[index];
-            if (fileObj && fileObj.status === "uploading" && fileObj.tusUpload) {
-                fileObj.tusUpload.abort();
-                copy[index].status = "canceled";
-                copy[index].progress = 0;
-            }
-            return copy;
+        validFiles.forEach((fileObj, idx) => {
+            uploadSingle(fileObj, multiple ? currentLength + idx : idx);
         });
-    }, []);
+    }, [multiple, files, t, maxSize, uploadSingle]);
 
     const handleRemoveFile = useCallback(async (index: number) => {
         const fileObj = files[index];
@@ -112,32 +140,42 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
 
         setFiles(prev => {
             const updated = [...prev];
+            if (updated[index]?.preview) URL.revokeObjectURL(updated[index].preview!);
             updated.splice(index, 1);
+
             const urls = updated.filter(f => f.status === "success" && f.url).map(f => f.url!);
-            setValue(name, multiple ? urls : urls[0] ?? null, { shouldDirty: true, shouldTouch: true, shouldValidate: true });
+            setValue(name, multiple ? urls : urls[0] ?? null, { shouldDirty: true, shouldValidate: true });
             return updated;
         });
     }, [files, multiple, name, setValue]);
 
+    const handleCancelUpload = useCallback((index: number) => {
+        setFiles(prev => {
+            const copy = [...prev];
+            const fileObj = copy[index];
+            if (fileObj?.tusUpload) {
+                fileObj.tusUpload.abort();
+                copy[index].status = "canceled";
+            }
+            return copy;
+        });
+    }, []);
+
     const handleRetry = useCallback((index: number) => {
-        const fileObj = files[index];
-        if (fileObj) uploadSingle(fileObj, index);
+        if (files[index]) uploadSingle(files[index], index);
     }, [files, uploadSingle]);
 
     useEffect(() => {
-        return () => {
-            files.forEach(f => f.preview && URL.revokeObjectURL(f.preview));
-        };
-    }, [files]);
+        const isUploading = files.some(f => f.status === "uploading");
 
-    useEffect(() => {
-        const existingValue = getValues(name);
-        if (existingValue) {
-            const initialFiles = (Array.isArray(existingValue) ? existingValue : [existingValue])
-                .map(url => mapUrlToUploadFile(url));
-            setFiles(initialFiles);
+        if (isUploading) {
+            // نضع خطأ في الفورم يمنع الـ Submit
+            setError(name, { type: "manual", message: "uploading" });
+        } else {
+            // نمسح الخطأ لما الرفع يخلص
+            clearErrors(name);
         }
-    }, [getValues, name]);
+    }, [files, name, setError, clearErrors]);
 
     return { files, handleDrop, handleCancelUpload, handleRemoveFile, handleRetry };
 }

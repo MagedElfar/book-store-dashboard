@@ -26,7 +26,7 @@ export const dashboardNav: NavItem[] = [
     {
         label: "nav.dashboard",
         icon: Dashboard,
-        path: paths.dashboard.home,
+        path: paths.dashboard.root,
         roles: ["admin", "support"],
     },
 

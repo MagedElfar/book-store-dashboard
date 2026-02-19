@@ -13,6 +13,12 @@ export const authReducer = (state: AuthState, action: AuthAction): AuthState => 
             return { ...state, user: { ...state.user, ...action.payload } }
         case "SET_LOADING":
             return { ...state, isLoading: action.payload }
+        case "SET_ROLE_PERMISSIONS":
+            return {
+                ...state,
+                role: action.payload.role,
+                permissions: action.payload.permissions,
+            };
         default: return state
     }
 }

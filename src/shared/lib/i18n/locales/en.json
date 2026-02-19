@@ -2,6 +2,8 @@
   "submit": "Submit",
   "lightMode": "Light mode",
   "darkMode": "Dark mode",
+  "filter": "Filter",
+  "clear": "Clear",
   "dropzone": {
     "defaultMessage": "You can drag & drop files here or click to select",
     "multiple": "You can select multiple files",
@@ -12,5 +14,31 @@
     "retry": "Retry",
     "removeExisting": "Please remove the existing image before uploading a new one.",
     "fileTooLarge": "File \"{{name}}\" exceeds maximum size of {{size}} MB"
+  },
+  "errorFallback": {
+    "title": "Something went wrong",
+    "message": "Unexpected error occurred",
+    "reload": "Reload page",
+    "noRecords": "Failed to load data",
+    "noRecordsMsg": "An unexpected error occurred while fetching records.",
+    "tryAgain": "Try Again"
+  },
+  "forbidden": {
+    "title": "Access denied",
+    "message": "You don't have permission to access this resource",
+    "action": "Go back"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "The page you are looking for doesn't exist or was moved",
+    "action": "Go to homepage",
+    "noRecords": "No records found",
+    "noRecordsMsg": "No data matches your current filters."
+  },
+  "actions": {
+    "title": "Actions",
+    "edit": "Edit",
+    "delete": "delete",
+    "view": "View"
   }
 }

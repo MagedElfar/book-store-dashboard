@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { useContext, type ReactNode } from "react";
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 
 import { AuthStateContext } from "@/features/auth/context/AuthStateContext";
 import { paths } from "@/shared/constants";

@@ -51,7 +51,7 @@ export function SuccessRedirect({ title, content, btnText, redirectPath }: Props
 
                     <Button
                         variant="contained"
-                        color="error"
+                        color="success"
                         fullWidth
                         onClick={handelRedirect}
                     >

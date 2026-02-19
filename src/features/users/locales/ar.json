@@ -1,0 +1,63 @@
+{
+  "users": "المستخدمين",
+  "createUserBtn": "إنشاء مستخدم",
+  "updateUserBtn": "تحديث المستخدم",
+  "createUser": "إنشاء مستخدم جديد",
+  "editUser": "تعديل المستخدم",
+  "userDetails": "تفاصيل المستخدم",
+  "deleteUserTitle": "حذف المستخدم",
+  "deleteUserConfirmWithName": "هل أنت متأكد من رغبتك في حذف {{name}}؟",
+  "deleteUserConfirm": "هل أنت متأكد من رغبتك في حذف هذا المستخدم؟",
+  "feedback": {
+    "successCreateUser": "تم إنشاء المستخدم بنجاح.",
+    "successUpdateUser": "تم تحديث بيانات المستخدم بنجاح."
+  },
+  "role": {
+    "all": "جميع الأدوار",
+    "user": "مستخدم",
+    "support": "دعم فني",
+    "admin": "مدير"
+  },
+  "label": {
+    "password": "كلمة المرور",
+    "email": "البريد الإلكتروني",
+    "fullName": "الاسم الكامل",
+    "phone": "رقم الهاتف",
+    "avatar": "الصورة الشخصية",
+    "Role": "الدور"
+  },
+  "placeHolder": {
+    "password": "يرجى إدخال كلمة المرور",
+    "email": "يرجى إدخال البريد الإلكتروني",
+    "fullName": "يرجى إدخال الاسم الكامل",
+    "phone": "يرجى إدخال رقم الهاتف"
+  },
+  "validation": {
+    "invalid_email": "البريد الإلكتروني غير صالح",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "full_name_required": "الاسم الكامل مطلوب",
+    "full_name_min": "يجب أن يكون الاسم الكامل 6 أحرف على الأقل",
+    "invalid_phone": "رقم الهاتف غير صالح",
+    "phone": "رقم الهاتف مطلوب",
+    "password_required": "كلمة المرور مطلوبة",
+    "password_min": "يجب أن تكون كلمة المرور {{length}} أحرف على الأقل",
+    "avatar_invalid": "الصورة غير صالحة",
+    "role_required": "الدور مطلوب",
+    "role_invalid": "الدور المحدد غير صالح"
+  },
+  "table": {
+    "user": "المستخدم",
+    "role": "الدور",
+    "createdAt": "تاريخ الإنشاء"
+  },
+  "filter": {
+    "search": "بحث بالاسم، البريد أو الهاتف...",
+    "role": "الدور",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث",
+    "oldest": "الأقدم"
+  },
+  "info": {
+    "personalDetails": "التفاصيل الشخصية"
+  }
+}

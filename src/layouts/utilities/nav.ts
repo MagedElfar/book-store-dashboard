@@ -1,8 +1,9 @@
-import type { SystemRole } from "@/shared/types";
+
+import type { Role } from "@/features/auth";
 
 import type { NavItem } from "../types/navigation";
 
-export function filterNavByRole(items: NavItem[], role?: SystemRole): NavItem[] {
+export function filterNavByRole(items: NavItem[], role?: Role): NavItem[] {
 
     if (!role) return []
     return items

@@ -10,9 +10,11 @@ export const supabaseProfileProvider: AccountApiProvider = {
         const { error: authError } = await supabaseClient.auth.updateUser(
             {
                 email,
+
             },
             {
-                emailRedirectTo: redirectUrl
+                emailRedirectTo: redirectUrl,
+
             }
         );
 

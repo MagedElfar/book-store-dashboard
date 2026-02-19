@@ -1,1 +1,0 @@
-export type SystemRole = "admin" | "support" | "user"

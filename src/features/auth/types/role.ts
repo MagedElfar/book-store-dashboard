@@ -1,0 +1,43 @@
+export type Role =
+    | "guest"
+    | "user"
+    | "support"
+    | "admin"
+
+export type Permission =
+    | "book.read"
+    | "book.create"
+    | "book.update"
+    | "book.delete"
+
+    | "category.read"
+    | "category.create"
+    | "category.update"
+    | "category.delete"
+
+    | "author.read"
+    | "author.create"
+    | "author.update"
+    | "author.delete"
+
+    | "tag.read"
+    | "tag.create"
+    | "tag.update"
+    | "tag.delete"
+
+    | "category.read"
+    | "category.create"
+    | "category.update"
+    | "category.delete"
+
+
+    | "user.read"
+    | "user.update"
+    | "user.delete"
+    | "user.create"
+
+    | "order.read"
+    | "order.manage"
+
+    | "analytics.read"
+    | "chat.manage"

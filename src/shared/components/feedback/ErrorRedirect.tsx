@@ -6,15 +6,21 @@ interface Props {
     title: string
     content: string,
     btnText: string,
-    redirectPath: string
+    redirectPath?: string
+    rest?: () => void
 }
 
-export function ErrorRedirect({ title, content, btnText, redirectPath }: Props) {
+export function ErrorRedirect({ title, content, btnText, redirectPath, rest }: Props) {
 
     const navigate = useNavigate()
 
     const handelRedirect = () => {
-        navigate(redirectPath)
+        if (redirectPath) {
+            navigate(redirectPath)
+            return
+        }
+
+        rest?.()
     }
     return <Box
         sx={{

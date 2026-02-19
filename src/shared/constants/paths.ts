@@ -1,5 +1,8 @@
 export const paths = {
 
+    forbidden: "/403",
+    notfound: "/404",
+
     account: {
         root: "/account",
         verified: "/account/verified",
@@ -22,13 +25,8 @@ export const paths = {
     // =========================
     dashboard: {
         root: "/dashboard",
-
-        // Dashboard Home
         home: "/",
 
-        // =========================
-        // BOOKS
-        // =========================
         books: {
             root: "/dashboard/books",
             list: "/dashboard/books",

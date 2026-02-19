@@ -1,5 +1,5 @@
 import { Button, Card, Stack, type ButtonProps, type CardProps, type StackProps } from '@mui/material'
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
@@ -15,10 +15,19 @@ interface Props extends CardProps {
 
 export function FormContainer({ children, submitText, sx, buttonProps, stackProps }: Props) {
     const { t } = useTranslation("common");
+    const cardRef = useRef<HTMLDivElement>(null);
 
     const {
         formState: { isSubmitting, errors },
     } = useFormContext();
+
+    const isUploading = Object.values(errors).some(err => err?.message === "uploading");
+
+    // useEffect(() => {
+    //     if (isSubmitSuccessful) {
+    //         cardRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //     }
+    // }, [isSubmitSuccessful]);
 
     useEffect(() => {
         const firstErrorPath = getFirstErrorPath(errors)?.split('.')?.[0];
@@ -51,6 +60,7 @@ export function FormContainer({ children, submitText, sx, buttonProps, stackProp
 
     return (
         <Card
+            ref={cardRef}
             sx={{
                 p: { xs: 2, sm: 3 },
                 borderRadius: 4,
@@ -64,7 +74,7 @@ export function FormContainer({ children, submitText, sx, buttonProps, stackProp
                     type="submit"
                     variant="contained"
                     color="primary"
-                    disabled={isSubmitting}
+                    disabled={isSubmitting || isUploading}
                     loading={isSubmitting}
                     sx={{
                         width: '250px',
