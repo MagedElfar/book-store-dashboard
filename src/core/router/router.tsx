@@ -4,7 +4,9 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 
 import { accountRoutes } from "@/features/account";
 import { authRoutes } from "@/features/auth";
+import { authorsRoutes } from "@/features/authors";
 import { categoriesRoutes } from "@/features/categories";
+import { tagsRoutes } from "@/features/tags";
 import { usersRoutes } from "@/features/users";
 import { AuthLayout, DashboardLayout, ProfileLayout } from "@/layouts";
 import { ErrorFallback, ProtectedRoute, PublicRoute, SplashScreen } from "@/shared/components";
@@ -54,7 +56,9 @@ export const router = createBrowserRouter([
                 ),
                 children: [
                     ...usersRoutes,
-                    ...categoriesRoutes
+                    ...categoriesRoutes,
+                    ...authorsRoutes,
+                    ...tagsRoutes
                 ],
             },
             // مسارات الصفحات الخاصة

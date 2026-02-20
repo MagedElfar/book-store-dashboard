@@ -1,0 +1,76 @@
+{
+  "authors": "المؤلفون",
+  "authorsTitle": "إدارة المؤلفين",
+  "createAuthor": "إضافة مؤلف جديد",
+  "editAuthor": "تعديل بيانات المؤلف",
+  "authorDetails": "تفاصيل المؤلف",
+  "deleteAuthorTitle": "حذف المؤلف",
+  "deleteAuthorConfirm": "هل أنت متأكد من رغبتك في حذف هذا المؤلف؟",
+  "deleteAuthorConfirmWithName": "هل أنت متأكد من رغبتك في حذف المؤلف \"{{name}}\"؟",
+  "label": {
+    "nameEn": "اسم المؤلف (EN)",
+    "nameAr": "اسم المؤلف (AR)",
+    "slug": "الرابط الفرعي (Slug)",
+    "bio": "السيرة الذاتية",
+    "bioEn": "السيرة الذاتية (EN)",
+    "bioAr": "السيرة الذاتية (AR)",
+    "birthDate": "تاريخ الميلاد",
+    "status": "الحالة",
+    "image": "صورة المؤلف",
+    "isActive": "نشط"
+  },
+  "placeHolder": {
+    "nameEn": "مثلاً: Naguib Mahfouz",
+    "nameAr": "مثلاً: نجيب محفوظ",
+    "slug": "naguib-mahfouz",
+    "bioEn": "اكتب السيرة الذاتية بالإنجليزية...",
+    "bioAr": "اكتب السيرة الذاتية بالعربية...",
+    "birthDate": "اختر تاريخ الميلاد",
+    "search": "البحث عن مؤلف..."
+  },
+  "validation": {
+    "name_ar_required": "الاسم بالعربية مطلوب",
+    "name_en_required": "الاسم بالإنجليزية مطلوب",
+    "name_min": "الاسم يجب أن يكون حرفين على الأقل",
+    "slug_required": "الرابط الفرعي مطلوب",
+    "slug_invalid": "الرابط الفرعي يجب أن يحتوي على حروف صغيرة وأرقام وشرطات فقط",
+    "invalid_url": "يرجى إدخال رابط صورة صحيح"
+  },
+  "info": {
+    "authorDetails": "بيانات المؤلف",
+    "authorBooks": "كتب المؤلف"
+  },
+  "status": {
+    "all": "كل الحالات",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "table": {
+    "author": "المؤلف",
+    "status": "الحالة",
+    "createdAt": "تاريخ الإضافة"
+  },
+  "helper": {
+    "slugInfo": "الـ 'slug' هو المعرف الفريد في الرابط، يتم إنشاؤه تلقائياً من الاسم الإنجليزي."
+  },
+  "feedback": {
+    "successDeleteAuthor": "تم حذف المؤلف بنجاح",
+    "successUpdateAuthor": "تم تحديث بيانات المؤلف بنجاح",
+    "successCreateAuthor": "تم إضافة المؤلف بنجاح"
+  },
+  "actions": {
+    "editAuthor": "تعديل المؤلف",
+    "createAuthor": "إضافة جديد"
+  },
+  "filter": {
+    "searchPlaceholder": "البحث باسم المؤلف...",
+    "status": "الحالة",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "alphabetical": "أبجدياً"
+  },
+  "stats": {
+    "totalAuthors": "إجمالي المؤلفين"
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "tags": "الوسوم",
+  "tagsTitle": "إدارة الوسوم",
+  "createTag": "إنشاء وسم جديد",
+  "editTag": "تعديل الوسم",
+  "deleteTagTitle": "حذف الوسم",
+  "deleteTagConfirm": "هل أنت متأكد من رغبتك في حذف هذا الوسم؟",
+  "deleteTagConfirmWithName": "هل أنت متأكد من رغبتك في حذف الوسم \"{{name}}\"؟",
+  "label": {
+    "nameEn": "اسم الوسم (بالإنجليزي)",
+    "nameAr": "اسم الوسم (بالعربي)",
+    "slug": "الرابط المختصر (Slug)",
+    "status": "الحالة",
+    "isActive": "نشط"
+  },
+  "placeHolder": {
+    "nameEn": "مثلاً: Bestseller",
+    "nameAr": "مثلاً: الأكثر مبيعاً",
+    "slug": "tag-slug",
+    "search": "البحث عن وسم..."
+  },
+  "validation": {
+    "name_ar_required": "الاسم بالعربي مطلوب",
+    "name_en_required": "الاسم بالإنجليزي مطلوب",
+    "name_min": "يجب أن يكون الاسم حرفين على الأقل",
+    "slug_required": "الرابط المختصر مطلوب",
+    "slug_invalid": "يجب أن يحتوي الرابط على حروف صغيرة وأرقام وفواصل فقط"
+  },
+  "status": {
+    "all": "كل الحالات",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "table": {
+    "tag": "الوسم",
+    "status": "الحالة",
+    "createdAt": "تاريخ الإضافة"
+  },
+  "helper": {
+    "slugInfo": "الـ 'slug' هو المعرف الذي يظهر في رابط الصفحة (URL)."
+  },
+  "feedback": {
+    "successDeleteTag": "تم حذف الوسم بنجاح",
+    "successUpdateTag": "تم تحديث الوسم بنجاح",
+    "successCreateTag": "تم إنشاء الوسم بنجاح"
+  },
+  "actions": {
+    "editTag": "تعديل الوسم",
+    "createTag": "إضافة وسم جديد"
+  },
+  "filter": {
+    "searchPlaceholder": "بحث باسم الوسم...",
+    "status": "الحالة",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "alphabetical": "أبجدياً"
+  },
+  "stats": {
+    "totalTags": "إجمالي الوسوم"
+  }
+}

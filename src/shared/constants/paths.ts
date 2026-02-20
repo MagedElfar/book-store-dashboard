@@ -61,6 +61,8 @@ export const paths = {
             create: "/dashboard/authors/create",
 
             edit: (id: string) => `/dashboard/authors/${id}/edit`,
+
+            details: (id: string) => `/dashboard/authors/${id}`,
         },
 
         // =========================

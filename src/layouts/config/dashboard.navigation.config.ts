@@ -49,26 +49,26 @@ export const dashboardNav: NavItem[] = [
                 icon: Add,
                 path: paths.dashboard.books.create,
                 roles: ["admin", "support"],
-            },
-            {
-                label: "nav.categories",
-                icon: Category,
-                path: paths.dashboard.categories.root,
-                roles: ["admin", "support"],
-            },
-            {
-                label: "nav.authors",
-                icon: Person,
-                path: paths.dashboard.authors.root,
-                roles: ["admin", "support"],
-            },
-            {
-                label: "nav.tags",
-                icon: Label,
-                path: paths.dashboard.tags.root,
-                roles: ["admin", "support"],
-            },
+            }
         ],
+    },
+    {
+        label: "nav.categories",
+        icon: Category,
+        path: paths.dashboard.categories.root,
+        roles: ["admin", "support"],
+    },
+    {
+        label: "nav.authors",
+        icon: Person,
+        path: paths.dashboard.authors.root,
+        roles: ["admin", "support"],
+    },
+    {
+        label: "nav.tags",
+        icon: Label,
+        path: paths.dashboard.tags.root,
+        roles: ["admin", "support"],
     },
 
     // =========================
