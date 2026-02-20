@@ -46,6 +46,9 @@ export const paths = {
             create: "/dashboard/categories/create",
 
             edit: (id: string) => `/dashboard/categories/${id}/edit`,
+
+            details: (id: string) => `/dashboard/categories/${id}`,
+
         },
 
         // =========================

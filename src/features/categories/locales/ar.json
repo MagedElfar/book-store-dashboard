@@ -1,0 +1,78 @@
+{
+  "categories": "الأصناف",
+  "categoriesTitle": "إدارة الأصناف",
+  "createCategory": "إضافة صنف جديد",
+  "editCategory": "تعديل الصنف",
+  "categoryDetails": "تفاصيل الصنف",
+  "deleteCategoryTitle": "حذف الصنف",
+  "deleteCategoryConfirm": "هل أنت متأكد من حذف هذا الصنف؟",
+  "deleteCategoryConfirmWithName": "هل أنت متأكد من حذف صنف \"{{name}}\"؟",
+  "label": {
+    "nameEn": "الاسم بالإنجليزية",
+    "nameAr": "الاسم بالعربية",
+    "slug": "الرابط المختصر (Slug)",
+    "description": "الوصف",
+    "descriptionEn": "الوصف بالإنجليزية",
+    "descriptionAr": "الوصف بالعربية",
+    "status": "الحالة",
+    "image": "صورة الصنف",
+    "isActive": "نشط"
+  },
+  "placeHolder": {
+    "nameEn": "مثال: Electronics",
+    "nameAr": "مثال: الإلكترونيات",
+    "slug": "مثال: electronics-devices",
+    "descriptionEn": "اكتب وصف القسم بالإنجليزية...",
+    "descriptionAr": "اكتب وصف القسم بالعربية...",
+    "search": "البحث عن الأصناف..."
+  },
+  "validation": {
+    "name_ar_required": "الاسم بالعربية مطلوب",
+    "name_en_required": "الاسم بالإنجليزية مطلوب",
+    "name_min": "يجب أن يكون الاسم حرفين على الأقل",
+    "slug_required": "الرابط (Slug) مطلوب",
+    "slug_invalid": "يجب أن يحتوي الرابط على أحرف صغيرة، أرقام، وفواصل (-) فقط",
+    "invalid_url": "يرجى إدخال رابط صورة صحيح"
+  },
+  "info": {
+    "categoryDetails": "معلومات الصنف",
+    "relatedProducts": "الكتب التابعة"
+  },
+  "status": {
+    "all": "كل الحالات",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "stats": {
+    "totalCategories": "إجمالي الأصناف",
+    "activeCategories": "الأصناف النشطة",
+    "inactiveCategories": "الأصناف المعطلة",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "filter": {
+    "searchPlaceholder": "بحث بالاسم أو الرابط...",
+    "status": "الحالة",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث أولاً",
+    "oldest": "الأقدم أولاً",
+    "alphabetical": "أبجدياً"
+  },
+  "feedback": {
+    "successDeleteCategory": "تم حذف الصنف بنجاح",
+    "successUpdateCategory": "تم تحديث الصنف بنجاح",
+    "successCreateCategory": "تم إضافة الصنف بنجاح"
+  },
+  "table": {
+    "category": "الصنف",
+    "status": "الحالة",
+    "createdAt": "تاريخ الإنشاء"
+  },
+  "helper": {
+    "slugInfo": "الـ 'slug' هو رابط الصنف الذي يظهر في المتصفح. يجب أن يحتوي فقط على أحرف صغيرة، أرقام، وفواصل (-)."
+  },
+  "actions": {
+    "createCategory": "إضافة صنف",
+    "editCategory": "تعديل الصنف"
+  }
+}

@@ -87,19 +87,19 @@ export const dashboardNav: NavItem[] = [
     {
         label: "nav.users.root",
         icon: People,
-        roles: ["admin"],
+        roles: ["admin", "support"],
         children: [
             {
                 label: "nav.users.list",
                 icon: List,
                 path: paths.dashboard.users.list,
-                roles: ["admin"],
+                roles: ["admin", "support"],
             },
             {
                 label: "nav.users.create",
                 icon: Add,
                 path: paths.dashboard.users.create,
-                roles: ["admin"],
+                roles: ["admin", "support"],
             },
         ],
     },

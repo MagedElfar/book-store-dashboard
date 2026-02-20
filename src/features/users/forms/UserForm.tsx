@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
+import { useAuthState } from '@/features/auth';
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormPhoneInput, FormPasswordField, FormSelectField } from '@/shared/form';
 import { DropzoneField } from '@/shared/media';
@@ -20,6 +21,7 @@ interface Props {
 
 export function UserForm({ user }: Props) {
 
+    const { user: authUser } = useAuthState()
     const { t } = useTranslation("user")
     const { mutateAsync: createUser } = useCreateUser()
     const { mutateAsync: updateUser } = useUpdateUser()
@@ -117,8 +119,10 @@ export function UserForm({ user }: Props) {
                             name="role"
                             options={[
                                 { value: "user", label: t("role.user") },
-                                { value: "support", label: t("role.support") },
-                                { value: "admin", label: t("role.admin") },
+                                ...(authUser?.role === "admin" ? [
+                                    { value: "support", label: t("role.support") },
+                                    { value: "admin", label: t("role.admin") }
+                                ] : [])
                             ]}
                         />
                     </Grid>

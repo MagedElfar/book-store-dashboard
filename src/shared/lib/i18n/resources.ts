@@ -2,6 +2,8 @@ import accountAR from "@/features/account/locales/ar.json";
 import accountEN from "@/features/account/locales/en.json";
 import authAR from "@/features/auth/locales/ar.json";
 import authEN from "@/features/auth/locales/en.json";
+import categoryAr from "@/features/categories/locales/ar.json";
+import categoryEn from "@/features/categories/locales/en.json";
 import userAr from "@/features/users/locales/ar.json";
 import userEN from "@/features/users/locales/en.json";
 import AddressAr from "@/features/users/sub-features/addresses/locales/ar.json";
@@ -23,7 +25,8 @@ export const resources = {
         layout: layoutEN,
         account: accountEN,
         user: userEN,
-        address: AddressEN
+        address: AddressEN,
+        category: categoryEn
     },
     ar: {
         common: translationAR,
@@ -31,6 +34,7 @@ export const resources = {
         layout: layoutAR,
         account: accountAR,
         user: userAr,
-        address: AddressAr
+        address: AddressAr,
+        category: categoryAr
     },
 } as const;

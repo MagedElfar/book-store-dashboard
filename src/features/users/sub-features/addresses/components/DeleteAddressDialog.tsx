@@ -1,5 +1,3 @@
-// src/features/users/sub-features/addresses/components/DeleteAddressDialog.tsx
-
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
