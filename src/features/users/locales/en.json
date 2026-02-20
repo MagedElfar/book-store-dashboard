@@ -58,7 +58,8 @@
     "oldest": "Oldest"
   },
   "info": {
-    "personalDetails": "Personal details"
+    "personalDetails": "Personal details",
+    "userAddresses": "User Addresses"
   },
   "stats": {
     "totalUsers": "Total Users",

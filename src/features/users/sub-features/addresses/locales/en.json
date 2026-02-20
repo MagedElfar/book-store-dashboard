@@ -1,0 +1,54 @@
+{
+  "titles": {
+    "createAddress": "Create address",
+    "EditAdders": "Edit Address"
+  },
+  "validation": {
+    "full_name_required": "Address name is required",
+    "full_name_min": "Address name must be at least 2 characters",
+    "phone": "Please enter a valid phone number",
+    "country_required": "Country is required",
+    "city_required": "City is required",
+    "street_required": "Street address is required",
+    "street_min": "Street address must be at least 5 characters",
+    "location_required": "Please select a location on the map",
+    "role_invalid": "Selected role is invalid"
+  },
+  "labels": {
+    "fullName": "Address name",
+    "phone": "Phone Number",
+    "country": "Country",
+    "city": "City",
+    "streetAddress": "Street Address",
+    "isDefault": "Set as default address",
+    "location": "Location",
+    "default": "Default"
+  },
+  "placeHolder": {
+    "fullName": "Enter address name",
+    "phone": "e.g. +20 123 456 7890",
+    "country": "e.g. Egypt",
+    "city": "e.g. Cairo",
+    "streetAddress": "Enter street name, building number, and apartment"
+  },
+  "feedback": {
+    "successCreateAddress": "Address has been added successfully",
+    "successUpdateAddress": "Address has been updated successfully",
+    "successDeleteAddress": "Address has been deleted successfully",
+    "confirmDelete": "Are you sure you want to delete this address?"
+  },
+  "info": {
+    "provideAddressDetails": "Fill in the details below to add a new delivery location for this user",
+    "noAddresses": "No addresses found for this user."
+  },
+  "actions": {
+    "addAddress": "Add New Address",
+    "editAddress": "Edit Address",
+    "deleteAddress": "Delete Address",
+    "saveAddress": "Save Address"
+  },
+  "dialogs": {
+    "deleteTitle": "Delete Address",
+    "deleteDescription": "Are you sure you want to delete this address? This action cannot be undone."
+  }
+}

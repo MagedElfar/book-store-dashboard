@@ -5,20 +5,20 @@ interface Props {
     title: string
     onClick?: () => void
     btnText?: string
+    nested?: boolean
 }
 
-export function RootPageTitle({ title, onClick, btnText }: Props) {
+export function RootPageTitle({ title, onClick, btnText, nested }: Props) {
     return (
         <Stack
             direction={{ xs: "column", md: "row" }}
             justifyContent={{ md: "space-between" }}
             alignItems={{ md: "center" }}
             spacing={1}
-        // mb={{ xs: 2, md: 3 }}
         >
             <Typography
-                component="h1"
-                variant="h1"
+                component={nested ? "h2" : "h1"}
+                variant={nested ? "h2" : "h1"}
             >
                 {title}
             </Typography>

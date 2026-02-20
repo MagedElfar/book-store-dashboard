@@ -23,6 +23,15 @@ export const rolePermissions: Record<Role, Permission[]> = {
         "category.create",
         "category.update",
 
+        "user.read",
+        "user.update",
+        "user.create",
+
+        "address.read",
+        "address.update",
+        "address.delete",
+        "address.create",
+
         "tag.read",
         "tag.create",
         "tag.update",
@@ -55,6 +64,11 @@ export const rolePermissions: Record<Role, Permission[]> = {
         "user.update",
         "user.delete",
         "user.create",
+
+        "address.read",
+        "address.update",
+        "address.delete",
+        "address.create",
 
         "order.read",
         "order.manage",

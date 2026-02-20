@@ -5,12 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 interface Props extends TypographyProps<"h1"> {
-    title: string;
+    title?: string;
     withBackArrow?: boolean;
     actions?: React.ReactNode;
+    nested?: boolean
 }
 
-export function PageTitle({ title, withBackArrow, actions, ...props }: Props) {
+export function PageTitle({ title, withBackArrow, actions, nested, ...props }: Props) {
     const { i18n } = useTranslation();
     const navigate = useNavigate();
     const isRtl = i18n.dir() === "rtl";
@@ -18,11 +19,11 @@ export function PageTitle({ title, withBackArrow, actions, ...props }: Props) {
     return (
         <Stack
             direction={{ xs: "column", md: "row" }}
-            justifyContent={{ md: "space-between" }}
+            justifyContent={{ md: title ? "space-between" : "flex-end" }}
             alignItems={{ md: "center" }}
             spacing={1}
         >
-            <Stack direction="row" alignItems="center" spacing={0.5}>
+            {title && <Stack direction="row" alignItems="center" spacing={0.5}>
                 {withBackArrow && (
                     <IconButton
                         onClick={() => navigate(-1)}
@@ -43,8 +44,8 @@ export function PageTitle({ title, withBackArrow, actions, ...props }: Props) {
 
                 <Typography
                     {...props}
-                    component="h1"
-                    variant="h1"
+                    component={nested ? "h2" : "h1"}
+                    variant={nested ? "h2" : "h1"}
                     sx={{
                         fontWeight: 'bold',
                         ...props.sx
@@ -52,7 +53,7 @@ export function PageTitle({ title, withBackArrow, actions, ...props }: Props) {
                 >
                     {title}
                 </Typography>
-            </Stack>
+            </Stack>}
 
             {actions && (
                 <Box sx={{ flexShrink: 0 }}>

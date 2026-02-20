@@ -89,6 +89,16 @@ export const paths = {
             roles: "/dashboard/users/roles",
         },
 
+        addresses: {
+            root: (userId: string) => `/dashboard/users/${userId}/addresses`,
+
+            create: (userId: string) => `/dashboard/users/${userId}/addresses/create`,
+
+            details: (id: string, userId: string) => `/dashboard/users/${userId}/addresses/${id}`,
+
+            edit: (id: string, userId: string) => `/dashboard/users/${userId}/addresses/${id}/edit`,
+        },
+
         // =========================
         // ORDERS
         // =========================

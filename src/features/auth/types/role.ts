@@ -36,6 +36,11 @@ export type Permission =
     | "user.delete"
     | "user.create"
 
+    | "address.read"
+    | "address.update"
+    | "address.delete"
+    | "address.create"
+
     | "order.read"
     | "order.manage"
 

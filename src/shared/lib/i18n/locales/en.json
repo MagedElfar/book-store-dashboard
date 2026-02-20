@@ -1,51 +1,55 @@
 {
-  "submit": "Submit",
-  "lightMode": "Light mode",
-  "darkMode": "Dark mode",
-  "filter": "Filter",
-  "clear": "Clear",
+  "submit": "إرسال",
+  "lightMode": "الوضع الفاتح",
+  "darkMode": "الوضع الداكن",
+  "filter": "تصفية",
+  "clear": "مسح",
   "dropzone": {
-    "defaultMessage": "You can drag & drop files here or click to select",
-    "multiple": "You can select multiple files",
-    "single": "Select a single file",
-    "supported": "Supported formats: {{formats}}",
-    "uploadFailed": "Upload failed",
-    "uploadSuccess": "Uploaded",
-    "retry": "Retry",
-    "removeExisting": "Please remove the existing image before uploading a new one.",
-    "fileTooLarge": "File \"{{name}}\" exceeds maximum size of {{size}} MB"
+    "defaultMessage": "يمكنك سحب وإفلات الملفات هنا أو النقر للاختيار",
+    "multiple": "يمكنك اختيار ملفات متعددة",
+    "single": "اختر ملفاً واحداً فقط",
+    "supported": "الصيغ المدعومة: {{formats}}",
+    "uploadFailed": "فشل الرفع",
+    "uploadSuccess": "تم الرفع بنجاح",
+    "retry": "إعادة المحاولة",
+    "removeExisting": "يرجى إزالة الصورة الموجودة قبل رفع صورة جديدة.",
+    "fileTooLarge": "الملف \"{{name}}\" يتجاوز الحد الأقصى للحجم وهو {{size}} ميجابايت"
   },
   "errorFallback": {
-    "title": "Something went wrong",
-    "message": "Unexpected error occurred",
-    "reload": "Reload page",
-    "noRecords": "Failed to load data",
-    "noRecordsMsg": "An unexpected error occurred while fetching records.",
-    "tryAgain": "Try Again"
+    "title": "حدث خطأ ما",
+    "message": "حدث خطأ غير متوقع",
+    "reload": "إعادة تحميل الصفحة",
+    "noRecords": "فشل في تحميل البيانات",
+    "noRecordsMsg": "حدث خطأ غير متوقع أثناء جلب السجلات.",
+    "tryAgain": "إعادة المحاولة"
   },
   "forbidden": {
-    "title": "Access denied",
-    "message": "You don't have permission to access this resource",
-    "action": "Go back"
+    "title": "غير مسموح بالدخول",
+    "message": "ليس لديك صلاحية للوصول إلى هذا المورد",
+    "action": "الرجوع للخلف"
   },
   "notFound": {
-    "title": "Page not found",
-    "message": "The page you are looking for doesn't exist or was moved",
-    "action": "Go to homepage",
-    "noRecords": "No records found",
-    "noRecordsMsg": "No data matches your current filters."
+    "title": "الصفحة غير موجودة",
+    "message": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها",
+    "action": "الذهاب للرئيسية",
+    "noRecords": "لم يتم العثور على سجلات",
+    "noRecordsMsg": "لا توجد بيانات تطابق الفلاتر الحالية."
   },
   "actions": {
-    "title": "Actions",
-    "edit": "Edit",
-    "delete": "delete",
-    "view": "View"
+    "title": "الإجراءات",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "view": "عرض"
   },
   "stats": {
-    "overview": "Overview",
-    "growth": "Growth Rate",
-    "sinceLastMonth": "Since last month",
-    "total": "Total",
-    "loading": "Loading statistics..."
+    "overview": "نظرة عامة",
+    "growth": "معدل النمو",
+    "sinceLastMonth": "منذ الشهر الماضي",
+    "total": "الإجمالي",
+    "loading": "جاري تحميل الإحصائيات..."
+  },
+  "map": {
+    "locateMe": "تحديد موقعي الآن",
+    "searchPlaceholder": "ابحث عن منطقة أو عنوان..."
   }
 }

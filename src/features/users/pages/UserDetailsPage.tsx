@@ -30,7 +30,6 @@ export default function UserDetailsPage() {
         <PageWrapper>
             <PageTitle
                 withBackArrow
-                title={t("userDetails")}
                 actions={
                     <Stack direction="row" spacing={1}>
                         {hasPermission("user.update") && (

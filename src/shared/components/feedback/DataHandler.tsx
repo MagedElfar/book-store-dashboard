@@ -1,7 +1,8 @@
-import { Stack, Skeleton, Typography } from "@mui/material";
+import { Stack, Skeleton } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 import { ErrorRedirect } from "./ErrorRedirect";
+import { NoDataRedirect } from "./NoDataRedirect";
 
 interface DataHandlerProps<T> {
     isLoading: boolean;
@@ -53,9 +54,10 @@ export function DataHandler<T>({
 
     if (isEmpty || !data) {
         return emptyComponent || (
-            <Typography variant="body1" sx={{ textAlign: 'center', py: 5, color: 'text.secondary' }}>
-                {t("notFound.noRecordsMsg")}
-            </Typography>
+            <NoDataRedirect
+                title={t("notFound.noRecords")}
+                content={t("notFound.noRecordsMsg")}
+            />
         );
     }
 

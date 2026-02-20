@@ -4,6 +4,9 @@ import { Outlet } from "react-router-dom"
 
 import { PermissionGuard, SplashScreen } from "@/shared/components";
 
+import UserDetailsLayout from "./pages/UserDetailsLayout";
+import { addressesRoutes } from "./sub-features/addresses";
+
 const CreateUserPage = lazy(() => import("@/features/users/pages/CreateUserPage"))
 const UsersPage = lazy(() => import("@/features/users/pages/UsersPage"))
 const EditUserPage = lazy(() => import("@/features/users/pages/EditUserPage"))
@@ -33,6 +36,7 @@ export const usersRoutes: RouteObject[] = [
             },
             {
                 path: ":id",
+                element: <UserDetailsLayout />,
                 children: [
                     {
                         index: true,
@@ -49,9 +53,10 @@ export const usersRoutes: RouteObject[] = [
                                 <EditUserPage />
                             </PermissionGuard>
                         </Suspense>
-                    }
+                    },
+                    ...addressesRoutes
                 ]
-            }
+            },
         ]
     }
 ]

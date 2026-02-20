@@ -15,12 +15,12 @@ export default function EditUserPage() {
     const navigate = useNavigate();
     const { data: user, isLoading, isError, refetch } = useGetUserById(id!);
 
-    // State للتحكم في فتح وإغلاق ديالوج الحذف
     const [openDelete, setOpenDelete] = useState(false);
 
     return (
         <PageWrapper>
             <PageTitle
+                nested
                 withBackArrow
                 title={t("editUser")}
             />
