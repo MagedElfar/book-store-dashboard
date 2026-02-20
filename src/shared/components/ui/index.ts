@@ -7,3 +7,7 @@ export * from "./PageTitle"
 export * from "./RootPageTitle"
 
 export * from "./DataTable"
+
+export * from "./StatCard"
+
+export * from "./StatsBoard"

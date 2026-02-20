@@ -1,6 +1,6 @@
 import { supabaseClient } from "@/shared/lib";
 
-import type { CreateUserPayload, UpdateUserPayload, User, UserApiProvider, UsersParams } from "../types";
+import type { CreateUserPayload, UpdateUserPayload, User, UserApiProvider, UsersParams, UserStatistics } from "../types";
 
 export const supabaseUserProvider: UserApiProvider = {
 
@@ -144,4 +144,36 @@ export const supabaseUserProvider: UserApiProvider = {
 
         if (error) throw new Error(error.message);
     },
+
+
+    getUsersStats: async function (): Promise<UserStatistics> {
+        const { data, error } = await supabaseClient
+            .from("profiles")
+            .select("role, created_at");
+
+        if (error) throw new Error(error.message);
+
+        const now = new Date();
+        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+
+        const stats: UserStatistics = {
+            total_users: data.length,
+            active_users: data.length,
+            inactive_users: 0,
+            roles_count: {
+                admin: data.filter(u => u.role === 'admin').length,
+                user: data.filter(u => u.role === 'user').length,
+                support: data.filter(u => u.role === 'support').length,
+            },
+            new_users_today: data.filter(u =>
+                new Date(u.created_at).toDateString() === now.toDateString()
+            ).length,
+            new_users_this_month: data.filter(u =>
+                u.created_at >= firstDayOfMonth
+            ).length,
+        };
+
+        return stats;
+    },
+
 };

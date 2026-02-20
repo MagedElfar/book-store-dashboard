@@ -40,5 +40,12 @@
     "edit": "Edit",
     "delete": "delete",
     "view": "View"
+  },
+  "stats": {
+    "overview": "Overview",
+    "growth": "Growth Rate",
+    "sinceLastMonth": "Since last month",
+    "total": "Total",
+    "loading": "Loading statistics..."
   }
 }

@@ -59,5 +59,14 @@
   },
   "info": {
     "personalDetails": "Personal details"
+  },
+  "stats": {
+    "totalUsers": "Total Users",
+    "activeUsers": "Active Users",
+    "inactiveUsers": "Inactive Users",
+    "newUsers": "New Users (This Month)",
+    "todayUsers": "Joined Today",
+    "admins": "Administrators",
+    "support": "Support Staff"
   }
 }

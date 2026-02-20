@@ -9,3 +9,5 @@ export * from "./useUserColumns"
 export * from "./useDeleteUser"
 
 export * from "./useUpdateUser"
+
+export * from "./useGetUsersStats"

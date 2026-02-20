@@ -29,7 +29,9 @@ export function useUserColumns(onDelete: (user: User) => void) {
                         src={url as string}
                         alt={row.full_name}
                         sx={{ width: 40, height: 40, textTransform: "uppercase" }}
-                    />
+                    >
+                        <Typography textTransform="uppercase" variant="body2">{row.full_name?.[0]}</Typography>
+                    </Avatar>
                     <Stack spacing={0.1}>
                         <Typography textTransform="capitalize" variant="subtitle2" noWrap>
                             {row.full_name}

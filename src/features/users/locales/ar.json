@@ -59,5 +59,14 @@
   },
   "info": {
     "personalDetails": "التفاصيل الشخصية"
+  },
+  "stats": {
+    "totalUsers": "إجمالي المستخدمين",
+    "activeUsers": "المستخدمين النشطين",
+    "inactiveUsers": "المستخدمين المعطلين",
+    "newUsers": "مستخدمين جدد (هذا الشهر)",
+    "todayUsers": "سجلوا اليوم",
+    "admins": "المدراء",
+    "support": "الدعم الفني"
   }
 }
