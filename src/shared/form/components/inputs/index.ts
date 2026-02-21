@@ -9,3 +9,7 @@ export * from "./FormPhoneInput"
 export * from "./FormSelectField"
 
 export * from "./FormDatePicker"
+
+export * from "./FormRichTextField"
+
+export * from "./FormAutocomplete"

@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { FormTextField, AppFormProvider, FormContainer } from '@/shared/form';
-import { errorMapper } from '@/shared/utilities';
+import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateTag, useUpdateTag } from '../hooks';
 import { TagFormSchema, type TagFormSchemaType } from '../schema';
@@ -39,11 +39,7 @@ export function TagForm({ tag, onSuccess }: Props) {
 
     useEffect(() => {
         if (!tag && nameEnValue) {
-            const generatedSlug = nameEnValue
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)+/g, '');
-            setValue('slug', generatedSlug, { shouldValidate: true });
+            setValue('slug', slugify(nameEnValue), { shouldValidate: true });
         }
     }, [nameEnValue, setValue, tag]);
 

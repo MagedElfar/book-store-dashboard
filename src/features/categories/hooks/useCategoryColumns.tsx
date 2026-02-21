@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { paths } from "@/shared/constants";
-import type { Column } from "@/shared/types";
+import type { Column, SupportedLang } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Category } from "../types";
@@ -18,7 +18,7 @@ export function useCategoryColumns(onDelete: (category: Category) => void) {
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Category>[]>(() => [
         {
@@ -36,7 +36,7 @@ export function useCategoryColumns(onDelete: (category: Category) => void) {
                     </Avatar>
                     <Stack spacing={0.1}>
                         <Typography variant="subtitle2" noWrap>
-                            {isAr ? row.name_ar : row.name_en}
+                            {row?.[`name_${lang}`]}
                         </Typography>
                         <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {row.slug}
@@ -74,7 +74,7 @@ export function useCategoryColumns(onDelete: (category: Category) => void) {
             render: (_, row) => (
                 <Stack direction="row" justifyContent="flex-end" spacing={1}>
                     {
-                        hasPermission("user.read") && <Tooltip title={t("common:actions.view")}>
+                        hasPermission("category.read") && <Tooltip title={t("common:actions.view")}>
                             <IconButton onClick={() => navigate(paths.dashboard.categories.details(row.id))} size="small" color="primary">
                                 <VisibilityIcon fontSize="small" />
                             </IconButton>
@@ -105,5 +105,5 @@ export function useCategoryColumns(onDelete: (category: Category) => void) {
                 </Stack>
             ),
         },
-    ], [navigate, hasPermission, onDelete, t, isAr]);
+    ], [t, lang, hasPermission, navigate, onDelete]);
 }

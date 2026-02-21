@@ -19,8 +19,9 @@ import {
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { usePagination } from "@/shared/hooks";
+import { useDialog } from '@/shared/hooks/useDialog';
+import type { SupportedLang } from '@/shared/types';
 
-// --- Local Components & Hooks ---
 import { DeleteCategoryDialog } from "../components";
 import { useGetCategories, useGetCategoriesStats, useCategoryColumns } from "../hooks";
 import type { Category, CategoriesParams } from "../types";
@@ -37,22 +38,30 @@ const getSortOptions = (t: any) => [
     { value: "alpha", label: t("filter.alphabetical") },
 ];
 
+const DEFAULT_FILTERS: Omit<CategoriesParams, "page" | "limit"> = {
+    search: "",
+    is_active: "",
+    sortBy: "newest"
+};
+
 export default function CategoriesPage() {
     const { t, i18n } = useTranslation(["category", "common"]);
     const navigate = useNavigate();
 
-    const isAr = i18n.language === "ar"
+    const lang = i18n.language as SupportedLang
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
 
     // --- Local State ---
-    const [selectedCategory, setSelectedCategory] = useState<Category | null>(null);
-    const [filters, setFilters] = useState<Omit<CategoriesParams, 'page' | 'limit'>>({
-        search: "",
-        is_active: "",
-        sortBy: "newest"
-    });
+    const [filters, setFilters] = useState<Omit<CategoriesParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+
+    const {
+        data: selectedCategory,
+        isDelete,
+        openDelete,
+        closeDialog,
+    } = useDialog<Category>();
 
     // --- Data Fetching ---
     const { data: stats, isLoading: isLoadingStats } = useGetCategoriesStats();
@@ -61,9 +70,6 @@ export default function CategoriesPage() {
         page: page + 1,
         ...filters
     });
-
-    // --- Memoized Columns ---
-    const columns = useCategoryColumns(setSelectedCategory);
 
     // --- Handlers ---
     const handleFilterChange = useCallback((key: keyof CategoriesParams, value: any) => {
@@ -75,13 +81,12 @@ export default function CategoriesPage() {
     }, [setPage]);
 
     const handleResetFilters = useCallback(() => {
-        setFilters({
-            search: "",
-            is_active: "",
-            sortBy: "newest"
-        });
+        setFilters(DEFAULT_FILTERS)
         handlePageChange(null, 0);
     }, [handlePageChange]);
+
+    // --- Memoized Columns ---
+    const columns = useCategoryColumns(openDelete);
 
     // --- Memoized Stats Data ---
     const statsItems: StatItem[] = useMemo(() => [
@@ -153,12 +158,12 @@ export default function CategoriesPage() {
                 onLimitChange={handleLimitChange}
             />
 
-            {selectedCategory && (
+            {selectedCategory && isDelete && (
                 <DeleteCategoryDialog
-                    open={Boolean(selectedCategory)}
+                    open
                     categoryId={selectedCategory.id}
-                    categoryName={isAr ? selectedCategory.name_ar : selectedCategory?.name_en}
-                    onClose={() => setSelectedCategory(null)}
+                    categoryName={selectedCategory?.[`name_${lang}`]}
+                    onClose={closeDialog}
                 />
             )}
         </PageWrapper>

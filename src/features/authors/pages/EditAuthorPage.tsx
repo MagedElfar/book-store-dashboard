@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import type { SupportedLang } from "@/shared/types";
 
 import { AuthorFormSkeleton, DeleteAuthorDialog } from "../components";
 import { AuthorForm } from "../forms";
@@ -19,7 +20,7 @@ export default function EditAuthorPage() {
     const { data: author, isLoading, isError, refetch } = useGetAuthorById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -43,7 +44,7 @@ export default function EditAuthorPage() {
                         <DeleteAuthorDialog
                             open={openDelete}
                             authorId={authorData.id}
-                            authorName={isAr ? authorData.name_ar : authorData.name_en}
+                            authorName={authorData?.[`name_${lang}`]}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.authors.root)}
                         />

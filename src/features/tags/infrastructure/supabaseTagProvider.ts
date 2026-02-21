@@ -1,5 +1,3 @@
-// src/features/tags/providers/supabaseTagProvider.ts
-
 import { supabaseClient } from "@/shared/lib";
 
 import type {
@@ -50,8 +48,11 @@ export const supabaseTagProvider: TagApiProvider = {
         } else if (sortBy === "oldest") {
             query = query.order("created_at", { ascending: true });
         } else if (sortBy === "alpha") {
-            query = query.order("name_en", { ascending: true });
+            const currentLang = params.lang;
+            query = query.order(`name_${currentLang}`, { ascending: true });
         }
+
+        query = query.order("id", { ascending: false });
 
         // Pagination
         const from = (page - 1) * limit;

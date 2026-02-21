@@ -47,7 +47,6 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
             .select("*", { count: "exact" });
 
         if (search) {
-            // بحث مرن بالاسم العربي أو الإنجليزي أو الـ slug
             query = query.or(`name_ar.ilike.%${search}%,name_en.ilike.%${search}%,slug.ilike.%${search}%`);
         }
 
@@ -57,9 +56,15 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
 
         if (sortBy === "newest") {
             query = query.order("created_at", { ascending: false });
-        } else {
+        } else if (sortBy === "oldest") {
             query = query.order("created_at", { ascending: true });
+        } else if (sortBy === "alpha") {
+            const currentLang = params.lang;
+            query = query.order(`name_${currentLang}`, { ascending: true });
         }
+
+        query = query.order("id", { ascending: false });
+
 
         // Pagination
         const from = (page - 1) * limit;

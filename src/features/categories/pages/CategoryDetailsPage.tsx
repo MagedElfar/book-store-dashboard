@@ -1,5 +1,3 @@
-// src/features/categories/pages/CategoryDetailsPage.tsx
-
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -12,8 +10,9 @@ import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
-import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
+import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import type { SupportedLang } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import { LoadingCategoryDetails } from "../components";
@@ -29,7 +28,7 @@ export default function CategoryDetailsPage() {
     const { data: category, isLoading, isError, refetch } = useGetCategoryById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -71,7 +70,6 @@ export default function CategoryDetailsPage() {
                 {(categoryData) => (
                     <>
                         <Grid container spacing={3} sx={{ alignItems: 'stretch' }}>
-                            {/* اليمين/اليسار: صورة الصنف والحالة */}
                             <Grid size={{ xs: 12, md: 4 }}>
                                 <Card sx={{
                                     height: '100%',
@@ -89,7 +87,7 @@ export default function CategoryDetailsPage() {
                                         sx={{ width: 140, height: 140, mx: 'auto', mb: 2, borderRadius: 3, border: '4px solid #f4f6f8' }}
                                     />
                                     <Typography variant="h5" fontWeight="bold">
-                                        {isAr ? categoryData.name_ar : categoryData.name_en}
+                                        {categoryData?.[`name_${lang}`]}
                                     </Typography>
                                     <Box sx={{ mt: 1 }}>
                                         <Chip
@@ -101,7 +99,6 @@ export default function CategoryDetailsPage() {
                                 </Card>
                             </Grid>
 
-                            {/* تفاصيل البيانات */}
                             <Grid size={{ xs: 12, md: 8 }}>
                                 <Card sx={{ height: '100%', borderRadius: 4 }}>
                                     <CardContent sx={{ p: 4 }}>
@@ -130,7 +127,7 @@ export default function CategoryDetailsPage() {
                                             <DetailItem
                                                 icon={<DescriptionIcon color="action" />}
                                                 label={t("label.description")}
-                                                value={(isAr ? categoryData.description_ar : categoryData.description_en) || "---"}
+                                                value={(categoryData?.[`description_${lang}`]) || "---"}
                                             />
                                             <Divider variant="middle" />
                                             <DetailItem
@@ -147,7 +144,7 @@ export default function CategoryDetailsPage() {
                         <DeleteCategoryDialog
                             open={openDelete}
                             categoryId={categoryData.id}
-                            categoryName={isAr ? categoryData.name_ar : categoryData.name_en}
+                            categoryName={categoryData?.[`name_${lang}`]}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.categories.root)}
                         />
@@ -155,32 +152,5 @@ export default function CategoryDetailsPage() {
                 )}
             </DataHandler>
         </PageWrapper>
-    );
-}
-
-// الـ Helper Component اللي بيعرض كل سطر بيانات
-function DetailItem({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
-    return (
-        <Stack direction="row" spacing={2} alignItems="center">
-            <Box sx={{
-                p: 1,
-                borderRadius: 1.5,
-                bgcolor: 'action.hover',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                {icon}
-            </Box>
-
-            <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.2 }}>
-                    {label}
-                </Typography>
-                <Typography variant="body1" sx={{ fontWeight: '600' }}>
-                    {value}
-                </Typography>
-            </Box>
-        </Stack>
     );
 }

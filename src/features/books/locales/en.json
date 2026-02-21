@@ -1,0 +1,85 @@
+{
+  "titles": {
+    "createBook": "Create book",
+    "editBook": "Edit book"
+  },
+  "steps": {
+    "basicInfo": "Basic Information",
+    "pricing": "Pricing & Specs",
+    "relations": "Relations",
+    "media": "Media Gallery"
+  },
+  "label": {
+    "titleAr": "Arabic Title",
+    "titleEn": "English Title",
+    "slug": "Slug",
+    "sku": "SKU",
+    "isbn": "ISBN",
+    "descAr": "Arabic Description",
+    "descEn": "English Description",
+    "price": "Regular Price",
+    "salePrice": "Sale Price",
+    "stock": "Stock Quantity",
+    "pages": "Number of Pages",
+    "publisher": "Publisher Name",
+    "publishedYear": "Published Year",
+    "isActive": "Is Active",
+    "author": "Author",
+    "categories": "Categories",
+    "tags": "Tags",
+    "coverImage": "Book Cover",
+    "gallery": "Additional Images",
+    "rating": "Initial Rating",
+    "reviewsCount": "Initial Reviews Count"
+  },
+  "placeHolder": {
+    "titleAr": "e.g. مقدمة في خوارزميات البرمجة",
+    "titleEn": "e.g. Introduction to Algorithms",
+    "slug": "auto-generated-slug",
+    "sku": "e.g. BOOK-12345",
+    "isbn": "e.g. 978-3-16-148410-0",
+    "descAr": "Write the book summary in Arabic...",
+    "descEn": "Write the book summary in English...",
+    "price": "0.00",
+    "publisher": "e.g. Penguin Books",
+    "selectAuthor": "Select an author",
+    "selectCategories": "Select one or more categories",
+    "selectTags": "Search for tags..."
+  },
+  "helper": {
+    "slugInfo": "The slug is used for the book URL and is auto-generated from the English title.",
+    "skuInfo": "Unique identifier for inventory tracking.",
+    "salePriceInfo": "Leave empty if there is no discount.",
+    "galleryInfo": "You can upload multiple images. Drag to reorder (0 is first)."
+  },
+  "validation": {
+    "title_ar_required": "Arabic title is required",
+    "title_en_required": "English title is required",
+    "title_min": "Title must be at least 3 characters",
+    "slug_required": "Slug is required",
+    "slug_invalid": "Slug must contain only lowercase letters, numbers, and hyphens",
+    "sku_required": "SKU is required",
+    "desc_ar_required": "Arabic description is required",
+    "desc_en_required": "English description is required",
+    "desc_min": "Description must be at least 10 characters",
+    "price_min": "Price cannot be less than 0",
+    "sale_price_invalid": "Sale price cannot be negative",
+    "stock_min": "Stock cannot be negative",
+    "pages_positive": "Pages must be a positive number",
+    "publisher_required": "Publisher name is required",
+    "year_invalid": "Enter a valid year between 1800 and now",
+    "cover_required": "Main cover image is required",
+    "invalid_url": "Please provide a valid URL",
+    "author_required": "Please select an author",
+    "category_required": "Select at least one category"
+  },
+  "feedback": {
+    "successSave": "Book has been saved successfully",
+    "errorSave": "An error occurred while saving the book",
+    "uploading": "Images are still uploading, please wait..."
+  },
+  "actions": {
+    "createBook": "Create Book",
+    "editBook": "Update Book"
+  }
+}

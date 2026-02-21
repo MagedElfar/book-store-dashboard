@@ -4,6 +4,8 @@
   "darkMode": "Dark Mode",
   "filter": "Filter",
   "clear": "Clear",
+  "back": "Back",
+  "next": "Next",
   "dropzone": {
     "defaultMessage": "Drag and drop files here or click to select",
     "multiple": "You can select multiple files",

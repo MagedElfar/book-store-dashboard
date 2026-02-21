@@ -11,3 +11,5 @@ export * from "./DataTable"
 export * from "./StatCard"
 
 export * from "./StatsBoard"
+
+export * from "./DetailItem"

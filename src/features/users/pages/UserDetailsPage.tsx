@@ -4,13 +4,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import EmailIcon from "@mui/icons-material/Email";
 import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
-import { Button, Card, CardContent, Divider, Grid, Stack, Typography, Avatar, Box } from "@mui/material";
+import { Button, Card, CardContent, Divider, Grid, Stack, Typography, Avatar } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
-import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
+import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { fDate } from "@/shared/utilities";
 
@@ -136,31 +136,5 @@ export default function UserDetailsPage() {
                 )}
             </DataHandler>
         </PageWrapper>
-    );
-}
-
-function DetailItem({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
-    return (
-        <Stack direction="row" spacing={2} alignItems="center">
-            <Box sx={{
-                p: 1,
-                borderRadius: 1.5,
-                bgcolor: 'action.hover',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                {icon}
-            </Box>
-
-            <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.2 }}>
-                    {label}
-                </Typography>
-                <Typography variant="body1" sx={{ fontWeight: '600' }}>
-                    {value}
-                </Typography>
-            </Box>
-        </Stack>
     );
 }

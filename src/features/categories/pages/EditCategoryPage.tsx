@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import type { SupportedLang } from "@/shared/types";
 
 import { CategoryFormSkeleton, DeleteCategoryDialog } from "../components";
 import { CategoryForm } from "../forms";
@@ -17,7 +18,7 @@ export default function EditCategoryPage() {
     const { data: category, isLoading, isError, refetch } = useGetCategoryById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -41,7 +42,7 @@ export default function EditCategoryPage() {
                         <DeleteCategoryDialog
                             open={openDelete}
                             categoryId={categoryData.id}
-                            categoryName={isAr ? categoryData.name_ar : categoryData.name_en}
+                            categoryName={categoryData?.[`name_${lang}`]}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.categories.root)}
                         />

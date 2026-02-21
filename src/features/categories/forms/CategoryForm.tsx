@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider } from '@/shared/form';
 import { DropzoneField } from '@/shared/media';
-import { errorMapper } from '@/shared/utilities';
+import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateCategory, useUpdateCategory } from '../hooks';
 import { CategoryFormSchema, type CategoryFormSchemaType } from '../schema';
@@ -48,11 +48,7 @@ export function CategoryForm({ category }: Props) {
     // Auto-generate slug from English name (Only when creating or if slug is empty)
     useEffect(() => {
         if (!category && nameEnValue) {
-            const generatedSlug = nameEnValue
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)+/g, '');
-            setValue('slug', generatedSlug, { shouldValidate: true });
+            setValue('slug', slugify(nameEnValue), { shouldValidate: true });
         }
     }, [nameEnValue, setValue, category]);
 

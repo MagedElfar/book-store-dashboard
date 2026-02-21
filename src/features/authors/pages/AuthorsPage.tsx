@@ -17,8 +17,9 @@ import {
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { usePagination } from "@/shared/hooks";
+import { useDialog } from '@/shared/hooks/useDialog';
+import type { SupportedLang } from '@/shared/types';
 
-// --- Local Components & Hooks ---
 import { DeleteAuthorDialog } from "../components";
 import { useGetAuthors, useGetAuthorsStats, useAuthorColumns } from "../hooks";
 import type { Author, AuthorsParams } from "../types";
@@ -35,22 +36,31 @@ const getSortOptions = (t: any) => [
     { value: "alpha", label: t("filter.alphabetical") },
 ];
 
+
+const DEFAULT_FILTERS: Omit<AuthorsParams, "page" | "limit"> = {
+    search: "",
+    is_active: "",
+    sortBy: "newest"
+};
+
 export default function AuthorsPage() {
     const { t, i18n } = useTranslation(["author", "common"]);
     const navigate = useNavigate();
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
 
     // --- Local State ---
-    const [selectedAuthor, setSelectedAuthor] = useState<Author | null>(null);
-    const [filters, setFilters] = useState<Omit<AuthorsParams, 'page' | 'limit'>>({
-        search: "",
-        is_active: "",
-        sortBy: "newest"
-    });
+    const [filters, setFilters] = useState<Omit<AuthorsParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+
+    const {
+        data: selectedAuthor,
+        isDelete,
+        openDelete,
+        closeDialog,
+    } = useDialog<Author>();
 
     // --- Data Fetching ---
     const { data: stats, isLoading: isLoadingStats } = useGetAuthorsStats();
@@ -59,9 +69,6 @@ export default function AuthorsPage() {
         page: page + 1,
         ...filters
     });
-
-    // --- Memoized Columns ---
-    const columns = useAuthorColumns(setSelectedAuthor);
 
     // --- Handlers ---
     const handleFilterChange = useCallback((key: keyof AuthorsParams, value: any) => {
@@ -73,15 +80,14 @@ export default function AuthorsPage() {
     }, [setPage]);
 
     const handleResetFilters = useCallback(() => {
-        setFilters({
-            search: "",
-            is_active: "",
-            sortBy: "newest"
-        });
+        setFilters(DEFAULT_FILTERS);
         handlePageChange(null, 0);
     }, [handlePageChange]);
 
     // --- Memoized Stats Data ---
+
+    const columns = useAuthorColumns(openDelete);
+
     const statsItems: StatItem[] = useMemo(() => [
         {
             title: t("stats.totalAuthors"),
@@ -151,12 +157,12 @@ export default function AuthorsPage() {
                 onLimitChange={handleLimitChange}
             />
 
-            {selectedAuthor && (
+            {selectedAuthor && isDelete && (
                 <DeleteAuthorDialog
-                    open={Boolean(selectedAuthor)}
+                    open
                     authorId={selectedAuthor.id}
-                    authorName={isAr ? selectedAuthor.name_ar : selectedAuthor?.name_en}
-                    onClose={() => setSelectedAuthor(null)}
+                    authorName={selectedAuthor?.[`name_${lang}`]}
+                    onClose={closeDialog}
                 />
             )}
         </PageWrapper>

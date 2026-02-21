@@ -11,3 +11,7 @@ export * from "./useGetAuthorsStats"
 export * from "./useGetAuthorById"
 
 export * from "./useUpdateAuthor"
+
+export * from "./useGetInfiniteAuthors"
+
+export * from "./useAuthorAutoComplete"

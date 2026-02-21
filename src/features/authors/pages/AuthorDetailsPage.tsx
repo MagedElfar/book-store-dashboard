@@ -12,8 +12,9 @@ import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
-import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
+import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import type { SupportedLang } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import { LoadingAuthorDetails } from "../components";
@@ -29,7 +30,7 @@ export default function AuthorDetailsPage() {
     const { data: author, isLoading, isError, refetch } = useGetAuthorById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -95,7 +96,7 @@ export default function AuthorDetailsPage() {
                                         }}
                                     />
                                     <Typography variant="h5" fontWeight="bold">
-                                        {isAr ? authorData.name_ar : authorData.name_en}
+                                        {authorData?.[`name_${lang}`]}
                                     </Typography>
                                     <Box sx={{ mt: 1 }}>
                                         <Chip
@@ -142,7 +143,7 @@ export default function AuthorDetailsPage() {
                                             <DetailItem
                                                 icon={<DescriptionIcon color="action" />}
                                                 label={t("label.bio")}
-                                                value={(isAr ? authorData.bio_ar : authorData.bio_en) || "---"}
+                                                value={(authorData?.[`bio_${lang}`]) || "---"}
                                             />
                                         </Stack>
                                     </CardContent>
@@ -153,7 +154,7 @@ export default function AuthorDetailsPage() {
                         <DeleteAuthorDialog
                             open={openDelete}
                             authorId={authorData.id}
-                            authorName={isAr ? authorData.name_ar : authorData.name_en}
+                            authorName={authorData?.[`name_${lang}`]}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.authors.root)}
                         />
@@ -161,31 +162,5 @@ export default function AuthorDetailsPage() {
                 )}
             </DataHandler>
         </PageWrapper>
-    );
-}
-
-function DetailItem({ label, value, icon }: { label: string; value: string; icon: React.ReactNode }) {
-    return (
-        <Stack direction="row" spacing={2} alignItems="center">
-            <Box sx={{
-                p: 1,
-                borderRadius: 1.5,
-                bgcolor: 'action.hover',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}>
-                {icon}
-            </Box>
-
-            <Box sx={{ flexGrow: 1 }}>
-                <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mb: 0.2 }}>
-                    {label}
-                </Typography>
-                <Typography variant="body1" sx={{ fontWeight: '600' }}>
-                    {value}
-                </Typography>
-            </Box>
-        </Stack>
     );
 }

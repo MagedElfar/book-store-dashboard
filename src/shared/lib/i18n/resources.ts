@@ -4,6 +4,8 @@ import authAR from "@/features/auth/locales/ar.json";
 import authEN from "@/features/auth/locales/en.json";
 import authorsAr from "@/features/authors/locales/ar.json";
 import authorsEn from "@/features/authors/locales/en.json";
+import bookAr from "@/features/books/locales/ar.json";
+import bookEn from "@/features/books/locales/en.json";
 import categoryAr from "@/features/categories/locales/ar.json";
 import categoryEn from "@/features/categories/locales/en.json";
 import tagAr from "@/features/tags/locales/ar.json";
@@ -32,7 +34,8 @@ export const resources = {
         address: AddressEN,
         category: categoryEn,
         author: authorsEn,
-        tag: tagEn
+        tag: tagEn,
+        book: bookEn
     },
     ar: {
         common: translationAR,
@@ -43,6 +46,7 @@ export const resources = {
         address: AddressAr,
         category: categoryAr,
         author: authorsAr,
-        tag: tagAr
+        tag: tagAr,
+        book: bookAr
     },
 } as const;

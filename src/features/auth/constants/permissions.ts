@@ -29,7 +29,6 @@ export const rolePermissions: Record<Role, Permission[]> = {
 
         "address.read",
         "address.update",
-        "address.delete",
         "address.create",
 
         "tag.read",

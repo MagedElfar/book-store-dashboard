@@ -67,9 +67,14 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
 
         if (sortBy === "newest") {
             query = query.order("created_at", { ascending: false });
-        } else {
+        } else if (sortBy === "oldest") {
             query = query.order("created_at", { ascending: true });
+        } else if (sortBy === "alpha") {
+            const currentLang = params.lang;
+            query = query.order(`name_${currentLang}`, { ascending: true });
         }
+
+        query = query.order("id", { ascending: false });
 
         // Pagination
         const from = (page - 1) * limit;

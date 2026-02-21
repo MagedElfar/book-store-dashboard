@@ -18,8 +18,9 @@ import {
     StatsBoard,
 } from "@/shared/components";
 import { usePagination } from "@/shared/hooks";
+import { useDialog } from '@/shared/hooks/useDialog';
+import type { SupportedLang } from '@/shared/types';
 
-// --- Local Components & Hooks ---
 import { DeleteTagDialog, TagFormDialog } from "../components";
 import { useGetTags, useGetTagsStats, useTagColumns } from "../hooks";
 import type { Tag, TagsParams } from "../types";
@@ -36,24 +37,33 @@ const getSortOptions = (t: any) => [
     { value: "alpha", label: t("filter.alphabetical") },
 ];
 
+const DEFAULT_FILTERS: Omit<TagsParams, "page" | "limit"> = {
+    search: "",
+    is_active: "",
+    sortBy: "newest"
+};
+
 export default function TagsPage() {
     const { t, i18n } = useTranslation(["tag", "common"]);
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     const { hasPermission } = usePermission()
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
 
     // --- Local State ---
-    const [selectedTag, setSelectedTag] = useState<Tag | null>(null);
-    const [isDeleteMode, setIsDeleteMode] = useState(false);
-    const [isCreateOpen, setIsCreateOpen] = useState(false);
+    const {
+        data: selectedTag,
+        isCreate,
+        isEdit,
+        isDelete,
+        openCreate,
+        openEdit,
+        openDelete,
+        closeDialog,
+    } = useDialog<Tag>();
 
-    const [filters, setFilters] = useState<Omit<TagsParams, 'page' | 'limit'>>({
-        search: "",
-        is_active: "",
-        sortBy: "newest"
-    });
+    const [filters, setFilters] = useState<Omit<TagsParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
 
     // --- Data Fetching ---
     const { data: stats, isLoading: isLoadingStats } = useGetTagsStats();
@@ -63,34 +73,18 @@ export default function TagsPage() {
         ...filters
     });
 
-    // --- Handlers ---
-    const handleCloseAll = useCallback(() => {
-        setSelectedTag(null);
-        setIsDeleteMode(false);
-        setIsCreateOpen(false);
-    }, []);
-
     const handleFilterChange = useCallback((key: keyof TagsParams, value: any) => {
         setFilters(prev => ({ ...prev, [key]: value }));
         setPage(0);
     }, [setPage]);
 
     const handleResetFilters = useCallback(() => {
-        setFilters({ search: "", is_active: "", sortBy: "newest" });
+        setFilters(DEFAULT_FILTERS);
         handlePageChange(null, 0);
     }, [handlePageChange]);
 
     // --- Memoized Columns ---
-    const columns = useTagColumns({
-        onEdit: (tag) => {
-            setIsDeleteMode(false);
-            setSelectedTag(tag);
-        },
-        onDelete: (tag) => {
-            setIsDeleteMode(true);
-            setSelectedTag(tag);
-        }
-    });
+    const columns = useTagColumns(openEdit, openDelete);
 
     const statsItems: StatItem[] = useMemo(() => [
         {
@@ -124,7 +118,7 @@ export default function TagsPage() {
                 actions={<>
                     {hasPermission("tag.create") && <Button
                         startIcon={<AddIcon fontSize="small" />}
-                        onClick={() => setIsCreateOpen(true)}
+                        onClick={openCreate}
                         variant="contained"
                     >
                         {t("actions.createTag")}
@@ -171,26 +165,25 @@ export default function TagsPage() {
 
             {/* --- Dialogs Logic --- */}
 
-            {/* 1. Create Dialog */}
             <TagFormDialog
-                open={isCreateOpen}
-                onClose={handleCloseAll}
+                open={isCreate}
+                onClose={closeDialog}
             />
 
-            {/* 2. Edit Dialog */}
-            <TagFormDialog
-                open={Boolean(selectedTag) && !isDeleteMode}
-                tag={selectedTag}
-                onClose={handleCloseAll}
-            />
+            {isEdit && selectedTag && (
+                <TagFormDialog
+                    open
+                    tag={selectedTag}
+                    onClose={closeDialog}
+                />
+            )}
 
-            {/* 3. Delete Confirmation Dialog */}
-            {selectedTag && isDeleteMode && (
+            {isDelete && selectedTag && (
                 <DeleteTagDialog
-                    open={isDeleteMode}
+                    open
                     tagId={selectedTag.id}
-                    tagName={isAr ? selectedTag.name_ar : selectedTag.name_en}
-                    onClose={handleCloseAll}
+                    tagName={selectedTag[`name_${lang}`]}
+                    onClose={closeDialog}
                 />
             )}
         </PageWrapper>

@@ -11,3 +11,7 @@ export * from "./useGetCategoriesStats"
 export * from "./useGetCategoryById"
 
 export * from "./useUpdateUser"
+
+export * from "./useGetInfiniteCategories"
+
+export * from "./useCategoryAutoComplete"

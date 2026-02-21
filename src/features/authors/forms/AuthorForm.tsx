@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormDatePicker } from '@/shared/form';
 import { DropzoneField } from '@/shared/media';
-import { errorMapper } from '@/shared/utilities';
+import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateAuthor, useUpdateAuthor } from '../hooks';
 import { AuthorFormSchema, type AuthorFormSchemaType } from '../schema';
@@ -46,14 +46,9 @@ export function AuthorForm({ author }: Props) {
     const { setValue, control } = methods;
     const nameEnValue = useWatch({ control, name: 'name_en' });
 
-    // توليد الـ Slug تلقائياً من الاسم الإنجليزي عند الإضافة فقط
     useEffect(() => {
         if (!author && nameEnValue) {
-            const generatedSlug = nameEnValue
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/(^-|-$)+/g, '');
-            setValue('slug', generatedSlug, { shouldValidate: true });
+            setValue('slug', slugify(nameEnValue), { shouldValidate: true });
         }
     }, [nameEnValue, setValue, author]);
 

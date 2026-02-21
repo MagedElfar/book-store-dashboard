@@ -5,6 +5,7 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { accountRoutes } from "@/features/account";
 import { authRoutes } from "@/features/auth";
 import { authorsRoutes } from "@/features/authors";
+import { booksRoutes } from "@/features/books";
 import { categoriesRoutes } from "@/features/categories";
 import { tagsRoutes } from "@/features/tags";
 import { usersRoutes } from "@/features/users";
@@ -58,7 +59,8 @@ export const router = createBrowserRouter([
                     ...usersRoutes,
                     ...categoriesRoutes,
                     ...authorsRoutes,
-                    ...tagsRoutes
+                    ...tagsRoutes,
+                    ...booksRoutes
                 ],
             },
             // مسارات الصفحات الخاصة

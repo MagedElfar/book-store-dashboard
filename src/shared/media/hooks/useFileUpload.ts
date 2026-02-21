@@ -1,3 +1,4 @@
+import { arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
@@ -165,17 +166,33 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
         if (files[index]) uploadSingle(files[index], index);
     }, [files, uploadSingle]);
 
+
+    const handleReorder = useCallback((activeId: string | number, overId: string | number) => {
+        setFiles((prev) => {
+            const oldIndex = prev.findIndex(f => (f.url || f.preview) === activeId);
+            const newIndex = prev.findIndex(f => (f.url || f.preview) === overId);
+
+            if (oldIndex === -1 || newIndex === -1) return prev;
+
+            const newOrder = arrayMove(prev, oldIndex, newIndex);
+
+            // تحديث react-hook-form
+            const urls = newOrder.filter(f => f.status === "success" && f.url).map(f => f.url!);
+            setValue(name, multiple ? urls : urls[0] ?? null, { shouldDirty: true });
+
+            return newOrder;
+        });
+    }, [multiple, name, setValue]);
+
     useEffect(() => {
         const isUploading = files.some(f => f.status === "uploading");
 
         if (isUploading) {
-            // نضع خطأ في الفورم يمنع الـ Submit
             setError(name, { type: "manual", message: "uploading" });
         } else {
-            // نمسح الخطأ لما الرفع يخلص
             clearErrors(name);
         }
     }, [files, name, setError, clearErrors]);
 
-    return { files, handleDrop, handleCancelUpload, handleRemoveFile, handleRetry };
+    return { files, handleDrop, handleCancelUpload, handleRemoveFile, handleRetry, handleReorder };
 }

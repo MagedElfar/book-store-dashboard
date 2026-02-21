@@ -8,6 +8,7 @@ import { Card, CardContent, Typography, Stack, IconButton, Chip, Divider, Toolti
 import { lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 
+import { usePermission } from "@/features/auth";
 import { MapSkeleton } from "@/shared/map";
 
 import type { UserAddress } from "../types";
@@ -22,6 +23,8 @@ interface Props {
 
 export function AddressCard({ address, onEdit, onDelete }: Props) {
     const { t } = useTranslation(["address", "common"]);
+
+    const { hasPermission } = usePermission()
 
     return (
         <Card variant="outlined" sx={{ height: '100%', borderRadius: 2 }}>
@@ -49,16 +52,16 @@ export function AddressCard({ address, onEdit, onDelete }: Props) {
                     </Stack>
 
                     <Stack direction="row">
-                        <Tooltip title={t("common:actions.edit")}>
+                        {hasPermission("address.update") && <Tooltip title={t("common:actions.edit")}>
                             <IconButton onClick={() => onEdit(address.id)} size="small" color="warning">
                                 <EditIcon fontSize="small" />
                             </IconButton>
-                        </Tooltip>
-                        <Tooltip title={t("common:actions.delete")}>
+                        </Tooltip>}
+                        {hasPermission("address.delete") && <Tooltip title={t("common:actions.delete")}>
                             <IconButton onClick={() => onDelete(address)} size="small" color="error">
                                 <DeleteIcon fontSize="small" />
                             </IconButton>
-                        </Tooltip>
+                        </Tooltip>}
                     </Stack>
                 </Stack>
 

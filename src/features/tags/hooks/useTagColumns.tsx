@@ -7,21 +7,18 @@ import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { usePermission } from "@/features/auth";
-import type { Column } from "@/shared/types";
+import type { Column, SupportedLang } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Tag } from "../types";
 
-interface UseTagColumnsProps {
-    onEdit: (tag: Tag) => void;
-    onDelete: (tag: Tag) => void;
-}
+type TagAction = (tag: Tag) => void
 
-export function useTagColumns({ onEdit, onDelete }: UseTagColumnsProps) {
+export function useTagColumns(onEdit: TagAction, onDelete: TagAction) {
     const { t, i18n } = useTranslation(["tag", "common"]);
     const { hasPermission } = usePermission();
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Tag>[]>(() => [
         {
@@ -30,7 +27,7 @@ export function useTagColumns({ onEdit, onDelete }: UseTagColumnsProps) {
             render: (_, row) => (
                 <Stack spacing={0.1}>
                     <Typography variant="subtitle2" noWrap>
-                        {isAr ? row.name_ar : row.name_en}
+                        {row?.[`name_${lang}`]}
                     </Typography>
                     <Typography variant="caption" sx={{ color: 'text.secondary', fontFamily: 'monospace' }} noWrap>
                         #{row.slug}
@@ -91,5 +88,5 @@ export function useTagColumns({ onEdit, onDelete }: UseTagColumnsProps) {
                 </Stack>
             ),
         },
-    ], [hasPermission, onEdit, onDelete, t, isAr]);
+    ], [t, lang, hasPermission, onEdit, onDelete]);
 }

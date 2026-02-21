@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { paths } from "@/shared/constants";
-import type { Column } from "@/shared/types";
+import type { Column, SupportedLang } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Author } from "../types";
@@ -18,7 +18,7 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
 
-    const isAr = i18n.language === "ar";
+    const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Author>[]>(() => [
         {
@@ -36,7 +36,7 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                     </Avatar>
                     <Stack spacing={0.1}>
                         <Typography variant="subtitle2" noWrap>
-                            {isAr ? row.name_ar : row.name_en}
+                            {row?.[`name_${lang}`]}
                         </Typography>
                         <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {row.slug}
@@ -109,5 +109,5 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                 </Stack>
             ),
         },
-    ], [navigate, hasPermission, onDelete, t, isAr]);
+    ], [t, lang, hasPermission, navigate, onDelete]);
 }

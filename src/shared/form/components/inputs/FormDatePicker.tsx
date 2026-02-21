@@ -13,6 +13,9 @@ export type FormDatePickerProps = Omit<DatePickerProps, "value" | "onChange"> & 
 export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, ...props }) => {
     const { control } = useFormContext();
 
+    // التأكد إذا كان المطلوب هو السنة فقط
+    const isYearOnly = props.views?.length === 1 && props.views[0] === 'year';
+
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Controller
@@ -23,9 +26,19 @@ export const FormDatePicker: React.FC<FormDatePickerProps> = ({ name, label, ...
                         {...field}
                         {...props}
                         label={label}
-                        value={value ? dayjs(value) : null}
+                        // القراءة: تحويل الرقم أو الـ string إلى كائن dayjs
+                        value={value ? (isYearOnly && typeof value === 'number' ? dayjs().year(value) : dayjs(value)) : null}
                         onChange={(date) => {
-                            onChange(date ? date.toISOString() : null);
+                            if (!date) {
+                                onChange(null);
+                                return;
+                            }
+
+                            if (isYearOnly) {
+                                onChange(date.year());
+                            } else {
+                                onChange(date.toISOString());
+                            }
                         }}
                         slotProps={{
                             textField: {
