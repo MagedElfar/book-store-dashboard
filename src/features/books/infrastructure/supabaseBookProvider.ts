@@ -7,7 +7,7 @@ export const supabaseBookProvider: BookApiProvider = {
 
     createBook: async function (payload: BookRequestPayload) {
 
-        const { images, tag_ids, category_ids, ...bookData } = payload
+        const { images, tag_ids, category_ids, author_ids, ...bookData } = payload
 
         const { data: book, error: bookError } = await supabaseClient
             .from("books")
@@ -18,7 +18,6 @@ export const supabaseBookProvider: BookApiProvider = {
         if (bookError) throw new Error(bookError.message);
         const bookId = book.id;
 
-        // add book images
         if (images.length > 0) {
             const imagesWithId = images.map(img => ({
                 ...img,
@@ -31,7 +30,6 @@ export const supabaseBookProvider: BookApiProvider = {
             if (imgError) throw new Error(imgError.message);
         }
 
-        // add book categories
         if (category_ids.length > 0) {
             const bookCategories = category_ids.map(catId => ({
                 book_id: bookId,
@@ -42,6 +40,18 @@ export const supabaseBookProvider: BookApiProvider = {
                 .insert(bookCategories);
 
             if (catError) throw new Error(catError.message);
+        }
+
+        if (author_ids.length > 0) {
+            const bookAuthors = author_ids.map(autId => ({
+                book_id: bookId,
+                author_id: autId
+            }));
+            const { error: authError } = await supabaseClient
+                .from("book_authors")
+                .insert(bookAuthors);
+
+            if (authError) throw new Error(authError.message);
         }
 
         // add book tags
@@ -65,14 +75,6 @@ export const supabaseBookProvider: BookApiProvider = {
             .from("books")
             .select(`
             *,
-            author:authors (
-                id,
-                name_en,
-                name_ar,
-                image_url,
-                bio_en,
-                bio_ar
-            ),
             book_images (
                 id,
                 book_id,
@@ -81,6 +83,13 @@ export const supabaseBookProvider: BookApiProvider = {
             ),
             book_categories (
                 categories (
+                    id,
+                    name_en,
+                    name_ar
+                )
+            ),
+            book_authors (
+                authors (
                     id,
                     name_en,
                     name_ar
@@ -102,7 +111,7 @@ export const supabaseBookProvider: BookApiProvider = {
 
         return {
             ...book,
-            author: Array.isArray(book.author) ? book.author[0] : book.author,
+            authors: book.book_authors?.map((bc: any) => bc.authors).filter(Boolean) || [],
 
             categories: book.book_categories?.map((bc: any) => bc.categories).filter(Boolean) || [],
 
@@ -113,7 +122,7 @@ export const supabaseBookProvider: BookApiProvider = {
     },
 
     updateBook: async function (id: string, payload: BookRequestPayload) {
-        const { images, tag_ids, category_ids, ...bookData } = payload;
+        const { images, tag_ids, category_ids, author_ids, ...bookData } = payload;
 
         const { data: book, error: bookError } = await supabaseClient
             .from("books")
@@ -125,6 +134,7 @@ export const supabaseBookProvider: BookApiProvider = {
         if (bookError) throw new Error(bookError.message);
 
         await supabaseClient.from("book_images").delete().eq("book_id", id);
+
         if (images.length > 0) {
             const imagesWithId = images.map(img => ({
                 ...img,
@@ -137,6 +147,8 @@ export const supabaseBookProvider: BookApiProvider = {
         }
 
         await supabaseClient.from("book_categories").delete().eq("book_id", id);
+        await supabaseClient.from("book_authors").delete().eq("book_id", id);
+
         if (category_ids.length > 0) {
             const bookCategories = category_ids.map(catId => ({
                 book_id: id,
@@ -148,6 +160,17 @@ export const supabaseBookProvider: BookApiProvider = {
             if (catError) throw new Error(catError.message);
         }
 
+        if (author_ids.length > 0) {
+            const bookAuthors = author_ids.map(autId => ({
+                book_id: id,
+                author_id: autId
+            }));
+            const { error: authError } = await supabaseClient
+                .from("book_authors")
+                .insert(bookAuthors);
+
+            if (authError) throw new Error(authError.message);
+        }
         await supabaseClient.from("book_tags").delete().eq("book_id", id);
         if (tag_ids.length > 0) {
             const bookTags = tag_ids.map(tagId => ({
@@ -173,22 +196,16 @@ export const supabaseBookProvider: BookApiProvider = {
             .from("books")
             .select(`
             *,
-            book_categories!inner(category_id),
-            author:authors (
-                id,
-                name_en,
-                name_ar,
-                image_url
-            )
+            book_categories${params?.category_id ? '!inner' : ''}(category_id),
+            book_authors${params?.author_id ? '!inner' : ''}(author_id)
         `, { count: 'exact' });
 
 
         if (params?.search) {
             query = query.or(`title_en.ilike.%${params.search}%,title_ar.ilike.%${params.search}%`);
         }
-
         if (params?.author_id) {
-            query = query.eq("author_id", params.author_id);
+            query = query.eq("book_authors.author_id", params.author_id);
         }
 
         if (params?.category_id) {

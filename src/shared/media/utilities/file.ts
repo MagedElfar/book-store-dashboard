@@ -26,22 +26,26 @@ export const extractFilePathFromUrl = (url: string): string | null => {
 };
 
 export const mapUrlToUploadFile = (url: string): UploadFile => {
-    // حاول استخراج الاسم من آخر جزء من الـ URL
     const parts = url.split("/");
     const name = parts[parts.length - 1];
 
-    // حاول تخمين type بناءً على امتداد الملف
     const extension = name.split(".").pop()?.toLowerCase();
     let type = "application/octet-stream"; // default
 
     if (extension) {
-        if (["jpg", "jpeg"].includes(extension)) type = "image/jpeg";
-        else if (extension === "png") type = "image/png";
-        else if (extension === "gif") type = "image/gif";
-        else if (extension === "pdf") type = "application/pdf";
-        // أضف أي امتدادات أخرى حسب الحاجة
-    }
+        const ext = extension.toLowerCase();
 
+        if (["jpg", "jpeg"].includes(ext)) type = "image/jpeg";
+        else if (ext === "png") type = "image/png";
+        else if (ext === "webp") type = "image/webp";
+        else if (ext === "gif") type = "image/gif";
+        else if (ext === "svg") type = "image/svg+xml";
+        else if (ext === "pdf") type = "application/pdf";
+        else if (["doc", "docx"].includes(ext)) type = "application/msword";
+        else if (["xls", "xlsx"].includes(ext)) type = "application/vnd.ms-excel";
+        else if (ext === "txt") type = "text/plain";
+        else if (["avif", "bmp", "tiff"].includes(ext)) type = `image/${ext}`;
+    }
     return {
         file: { name: decodeURIComponent(name), type, size: 0 },       // ما عندنا ملف محلي
         preview: type.startsWith("image/") ? url : null,

@@ -53,6 +53,7 @@ export function AuthorForm({ author }: Props) {
     }, [nameEnValue, setValue, author]);
 
     const onsubmit = async (data: AuthorFormSchemaType) => {
+
         try {
             if (author) {
                 await updateAuthor({ id: author.id, data: data as UpdateAuthorPayload });
@@ -108,7 +109,6 @@ export function AuthorForm({ author }: Props) {
                         />
                     </Grid>
 
-                    {/* Birth Date - المكون الجديد */}
                     <Grid size={{ xs: 12, md: 6 }}>
                         <FormDatePicker
                             name="birth_date"
@@ -156,7 +156,7 @@ export function AuthorForm({ author }: Props) {
                         <DropzoneField
                             name="image_url"
                             label={t("label.image")}
-                            maxSize={2 * 1024 * 1024} // 2 MB كافية لصور المؤلفين
+                            maxSize={2 * 1024 * 1024}
                             accept={{
                                 "image/jpeg": [".jpeg", ".jpg"],
                                 "image/png": [".png"],

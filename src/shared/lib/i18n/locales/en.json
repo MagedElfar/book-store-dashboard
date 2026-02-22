@@ -6,6 +6,8 @@
   "clear": "Clear",
   "back": "Back",
   "next": "Next",
+  "unknown": "unknown",
+  "noData": "No data",
   "dropzone": {
     "defaultMessage": "Drag and drop files here or click to select",
     "multiple": "You can select multiple files",

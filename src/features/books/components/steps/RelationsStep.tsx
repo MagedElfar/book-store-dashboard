@@ -21,7 +21,8 @@ export function RelationsStep() {
         <Grid container spacing={3}>
             <Grid size={{ xs: 12 }}>
                 <FormAutocomplete
-                    name="author"
+                    name="authors"
+                    multiple
                     label={t("label.author")}
                     options={authorOptions}
                     loading={authorsQuery.isLoading}
@@ -29,7 +30,7 @@ export function RelationsStep() {
                     hasNextPage={authorsQuery.hasNextPage}
                     fetchNextPage={authorsQuery.fetchNextPage}
                     isFetchingNextPage={authorsQuery.isFetchingNextPage}
-                    defaultValue={watch("author")}
+                    defaultValue={watch("authors")}
                     onOpen={() => setIsAuthorsEnabled(true)}
                 />
             </Grid>

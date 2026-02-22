@@ -21,16 +21,13 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
     const { setValue, getValues, watch, setError, clearErrors } = useFormContext();
     const [files, setFiles] = useState<UploadFile[]>([]);
 
-    // مراقبة قيمة الحقل في React Hook Form
     const fieldValue = watch(name);
 
-    // 1. منطق الـ Reset: إذا أصبحت قيمة الفورم فارغة، نفرغ المصفوفة المحلية
     useEffect(() => {
         const hasNoValue = !fieldValue || (Array.isArray(fieldValue) && fieldValue.length === 0);
         const hasLocalFiles = files.length > 0;
 
         if (hasNoValue && hasLocalFiles) {
-            // التحقق من أن الملفات الموجودة ليست في حالة "جاري الرفع" لتجنب مسحها أثناء العمل
             const isUploading = files.some(f => f.status === "uploading");
             if (!isUploading) {
                 setFiles(prev => {
@@ -42,7 +39,6 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fieldValue]);
 
-    // 2. تعيين القيم الابتدائية (عند فتح الصفحة للتعديل مثلاً)
     useEffect(() => {
         const initialValue = getValues(name);
         if (initialValue && files.length === 0) {
@@ -176,7 +172,6 @@ export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLo
 
             const newOrder = arrayMove(prev, oldIndex, newIndex);
 
-            // تحديث react-hook-form
             const urls = newOrder.filter(f => f.status === "success" && f.url).map(f => f.url!);
             setValue(name, multiple ? urls : urls[0] ?? null, { shouldDirty: true });
 

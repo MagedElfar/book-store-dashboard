@@ -31,7 +31,10 @@
     "coverImage": "Book Cover",
     "gallery": "Additional Images",
     "rating": "Initial Rating",
-    "reviewsCount": "Initial Reviews Count"
+    "reviewsCount": "Initial Reviews Count",
+    "description": "Description",
+    "unit": "Book",
+    "authors": "Authors"
   },
   "placeHolder": {
     "titleAr": "e.g. مقدمة في خوارزميات البرمجة",
@@ -118,5 +121,7 @@
   },
   "deleteBookTitle": "Delete Book",
   "deleteBookConfirm": "Are you sure you want to delete this book?",
-  "deleteBookConfirmWithTitle": "Are you sure you want to delete the book \"{{title}}\"?"
+  "deleteBookConfirmWithTitle": "Are you sure you want to delete the book \"{{title}}\"?",
+  "bookDetails": "Book Details",
+  "noDescription": "No description available for this book."
 }

@@ -15,7 +15,7 @@ export interface BookRequestPayload {
     stock: number;
     cover_image: string | null;
     images: (BookImage)[];
-    author_id: string;
+    author_ids: string[];
     category_ids: string[];
     tag_ids: string[];
     pages: number;

@@ -4,6 +4,7 @@ import { type RouteObject } from "react-router";
 import { PermissionGuard, SplashScreen } from "@/shared/components";
 
 const BooksPage = lazy(() => import("./pages/BooksPage"));
+const BookDetailsPage = lazy(() => import("./pages/BookDetailsPage"));
 const CreateBookPage = lazy(() => import("./pages/CreateBookPage"));
 const EditBookPage = lazy(() => import("./pages/EditBookPage"));
 
@@ -35,16 +36,16 @@ export const booksRoutes: RouteObject[] = [
             {
                 path: ":id",
                 children: [
-                    // {
-                    //     index: true,
-                    //     element: (
-                    //         <Suspense fallback={<SplashScreen />}>
-                    //             <PermissionGuard requiredPermissions={["category.read"]}>
-                    //                 <CategoryDetailsPage />
-                    //             </PermissionGuard>
-                    //         </Suspense>
-                    //     ),
-                    // },
+                    {
+                        index: true,
+                        element: (
+                            <Suspense fallback={<SplashScreen />}>
+                                <PermissionGuard requiredPermissions={["book.read"]}>
+                                    <BookDetailsPage />
+                                </PermissionGuard>
+                            </Suspense>
+                        ),
+                    },
                     {
                         path: "edit",
                         element: (

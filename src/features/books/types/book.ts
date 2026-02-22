@@ -31,7 +31,7 @@ export interface Book {
     created_at: string;
     updated_at: string;
 
-    author?: Author;
+    authors?: Author[];
     book_images?: BookImage[];
     categories?: Category[];
     tags?: Tag[];

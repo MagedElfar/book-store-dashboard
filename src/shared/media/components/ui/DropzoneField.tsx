@@ -26,7 +26,6 @@ export function DropzoneField({ multiple = false, accept, label, name, maxSize }
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop: handleDrop, multiple, accept });
 
-    // مصفوفة المعرفات الفريدة للـ Sortable Context
     const itemIds = files.map(f => f.url || f.preview || "");
 
     return (
@@ -60,9 +59,11 @@ export function DropzoneField({ multiple = false, accept, label, name, maxSize }
                     <Box mt={2} display="flex" flexDirection="column" gap={2}>
                         {files.map((fileObj, index) => {
                             const { file, preview, progress, status, url } = fileObj;
-                            const isImage = file ? file.type.startsWith("image/") : !!preview;
 
-                            // نستخدم الـ URL أو الـ Preview كـ ID فريد ثابت
+                            const isImage = file
+                                ? file.type.startsWith("image/")
+                                : (url?.toLowerCase().endsWith('.webp') || url?.match(/\.(jpeg|jpg|gif|png)$/i));
+
                             const uniqueId = url || preview || `temp-${index}`;
 
                             return (
@@ -79,7 +80,7 @@ export function DropzoneField({ multiple = false, accept, label, name, maxSize }
                                     >
                                         <Box display="flex" alignItems="center" gap={2}>
                                             {isImage && preview && (
-                                                <img src={preview} alt="preview" style={{ width: 60, height: 60, objectFit: "cover", borderRadius: 6 }} />
+                                                <img src={preview} alt="preview" style={{ width: 60, height: 60, objectFit: "contain", borderRadius: 6 }} />
                                             )}
                                             <Box>
                                                 <Typography variant="body2">{file?.name || "Uploaded File"}</Typography>

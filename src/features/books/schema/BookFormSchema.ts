@@ -57,13 +57,14 @@ export const BookFormSchema = (t: TFunction<Namespace<"book">>) =>
 
         publisher: z
             .string()
-            .nonempty({ message: t("book:validation.publisher_required") }),
+            .optional(),
 
         published_year: z.coerce
             .number()
             .int()
-            .min(1800)
-            .max(new Date().getFullYear(), { message: t("book:validation.year_invalid") }),
+            .min(0)
+            .max(new Date().getFullYear(), { message: t("book:validation.year_invalid") })
+            .nullable(),
 
         cover_image: z
             .string()
@@ -82,8 +83,7 @@ export const BookFormSchema = (t: TFunction<Namespace<"book">>) =>
                 )
         ),
 
-        author: AutocompleteOptionSchema
-            .nullable(),
+        authors: z.array(AutocompleteOptionSchema),
 
         categories: z
             .array(AutocompleteOptionSchema)

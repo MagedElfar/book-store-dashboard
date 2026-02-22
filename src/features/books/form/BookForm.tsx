@@ -45,13 +45,14 @@ export function BookForm({ book }: Props) {
         stock: book?.stock ?? 0,
         pages: book?.pages ?? 0,
         publisher: book?.publisher || "",
-        published_year: book?.published_year || "",
+        published_year: book?.published_year || null,
         cover_image: book?.cover_image || "",
         images: book?.book_images?.map(img => img.image_url) || [],
-        author: book?.author ? mapAuthorToOption(lang, book?.author) : null,
+        authors: book?.authors?.map(a => mapAuthorToOption(lang, a)) || [],
         categories: book?.categories?.map(c => mapCategoryToOption(lang, c)) || [],
         tags: book?.tags?.map(t => mapTagToOption(lang, t)) || [],
         is_active: book?.is_active ?? true,
+        isbn: book?.isbn || null
     }
 
 
@@ -70,13 +71,13 @@ export function BookForm({ book }: Props) {
     }, [titleEnValue, setValue, book]);
 
     const onsubmit = async (data: BookFormSchemaType) => {
-        const { categories, images, tags, author, ...bookData } = data;
+        const { categories, images, tags, authors, ...bookData } = data;
 
         const payLoad: BookRequestPayload = {
             ...bookData,
             tag_ids: tags?.map(t => t.value) || [],
             category_ids: categories.map(c => c.value),
-            author_id: author!.value,
+            author_ids: authors.map(a => a.value),
             images: images.map((img, index) => ({
                 display_order: index,
                 image_url: img
@@ -86,11 +87,13 @@ export function BookForm({ book }: Props) {
         try {
             if (book) {
                 await updateBook({ id: book.id, data: payLoad })
-            } else {
-                await createBook(payLoad)
+                navigate(paths.dashboard.books.details(book.id));
+                toast.success(t("feedback.successSave"));
+                return
             }
-            toast.success(t("feedback.successSave"));
+            await createBook(payLoad)
             navigate(paths.dashboard.books.root);
+            toast.success(t("feedback.successSave"));
         } catch (error) {
             errorMapper(error).forEach(err => toast.error(err));
         }

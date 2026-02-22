@@ -46,7 +46,7 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
             .from("authors")
             .select(`
             *,
-            books:books(count) 
+            book_authors:book_authors(count)
         `, { count: "exact" });
 
         if (search) {
@@ -81,7 +81,7 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
         return {
             items: (data?.map(item => ({
                 ...item,
-                booksCount: item?.books?.[0]?.count ?? 0
+                booksCount: item?.book_authors?.[0]?.count ?? 0
             })) || []) as Author[],
             total: count || 0,
         };
