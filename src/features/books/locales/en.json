@@ -1,7 +1,8 @@
 {
   "titles": {
     "createBook": "Create book",
-    "editBook": "Edit book"
+    "editBook": "Edit book",
+    "books": "Books"
   },
   "steps": {
     "basicInfo": "Basic Information",
@@ -76,10 +77,46 @@
   "feedback": {
     "successSave": "Book has been saved successfully",
     "errorSave": "An error occurred while saving the book",
-    "uploading": "Images are still uploading, please wait..."
+    "uploading": "Images are still uploading, please wait...",
+    "successDeleteBook": "Book deleted successfully"
   },
   "actions": {
     "createBook": "Create Book",
     "editBook": "Update Book"
-  }
+  },
+  "status": {
+    "all": "All Statuses",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "table": {
+    "book": "Book",
+    "sku": "SKU",
+    "price": "Price",
+    "stock": "Stock",
+    "rating": "Rating",
+    "status": "Status",
+    "createdAt": "Created At"
+  },
+  "filter": {
+    "searchPlaceholder": "Search by title or SKU...",
+    "status": "Status",
+    "sortBy": "Sort By",
+    "category": "Category",
+    "newest": "Newest First",
+    "oldest": "Oldest First",
+    "alphabetical": "Alphabetical",
+    "priceHigh": "Price: High to Low",
+    "priceLow": "Price: Low to High",
+    "stockLow": "Low Stock First",
+    "author": "Author"
+  },
+  "stats": {
+    "totalBooks": "Total books",
+    "outOfStock": "Out of Stock",
+    "totalStock": "Total stock"
+  },
+  "deleteBookTitle": "Delete Book",
+  "deleteBookConfirm": "Are you sure you want to delete this book?",
+  "deleteBookConfirmWithTitle": "Are you sure you want to delete the book \"{{title}}\"?"
 }

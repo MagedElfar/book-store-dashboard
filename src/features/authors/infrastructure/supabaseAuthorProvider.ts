@@ -44,7 +44,10 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
 
         let query = supabaseClient
             .from("authors")
-            .select("*", { count: "exact" });
+            .select(`
+            *,
+            books:books(count) 
+        `, { count: "exact" });
 
         if (search) {
             query = query.or(`name_ar.ilike.%${search}%,name_en.ilike.%${search}%,slug.ilike.%${search}%`);
@@ -76,7 +79,10 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
         if (error) throw new Error(error.message);
 
         return {
-            items: (data || []) as Author[],
+            items: (data?.map(item => ({
+                ...item,
+                booksCount: item?.books?.[0]?.count ?? 0
+            })) || []) as Author[],
             total: count || 0,
         };
     },
@@ -104,30 +110,19 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
 
     getAuthorsStats: async function (): Promise<AuthorStatistics> {
         const { data, error } = await supabaseClient
-            .from("authors")
-            .select("is_active, created_at");
+            .rpc('get_author_statistics');
 
-        if (error) throw new Error(error.message);
+        if (error) {
+            throw new Error(error.message);
+        }
 
-        const now = new Date();
-        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        const growth = data.total_authors > 0
+            ? (data.new_authors_this_month / data.total_authors) * 100
+            : 0;
 
-        const stats: AuthorStatistics = {
-            total_authors: data.length,
-            active_authors: data.filter(a => a.is_active).length,
-            inactive_authors: data.filter(a => !a.is_active).length,
-            status_count: {
-                active: data.filter(a => a.is_active).length,
-                inactive: data.filter(a => !a.is_active).length,
-            },
-            new_authors_today: data.filter(a =>
-                new Date(a.created_at).toDateString() === now.toDateString()
-            ).length,
-            new_authors_this_month: data.filter(a =>
-                a.created_at >= firstDayOfMonth
-            ).length,
+        return {
+            ...data,
+            growth_percentage: Math.round(growth)
         };
-
-        return stats;
     },
 };

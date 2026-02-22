@@ -26,8 +26,8 @@ export interface BookRequestPayload {
 
 export interface BookParams {
     search?: string;
-    category_id?: string;
-    author_id?: string;
+    category_id?: string | null;
+    author_id?: string | null;
     is_active?: string;
     sortBy?: "newest" | "oldest" | "price_high" | "price_low" | "alpha";
     page?: number;

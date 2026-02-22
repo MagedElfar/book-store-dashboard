@@ -1,6 +1,6 @@
 import { supabaseClient } from "@/shared/lib";
 
-import type { BookApiProvider, BookRequestPayload } from "../types";
+import type { BookApiProvider, BookParams, BookRequestPayload } from "../types";
 
 
 export const supabaseBookProvider: BookApiProvider = {
@@ -106,9 +106,12 @@ export const supabaseBookProvider: BookApiProvider = {
 
             categories: book.book_categories?.map((bc: any) => bc.categories).filter(Boolean) || [],
 
-            tags: book.book_tags?.map((bt: any) => bt.tags).filter(Boolean) || []
+            tags: book.book_tags?.map((bt: any) => bt.tags).filter(Boolean) || [],
+
+            book_images: book.book_images?.sort((a: any, b: any) => a.display_order - b.display_order) || []
         };
     },
+
     updateBook: async function (id: string, payload: BookRequestPayload) {
         const { images, tag_ids, category_ids, ...bookData } = payload;
 
@@ -158,5 +161,113 @@ export const supabaseBookProvider: BookApiProvider = {
         }
 
         return book;
+    },
+
+    getBooks: async function (params?: BookParams) {
+        const page = params?.page || 1;
+        const pageSize = params?.limit || 10;
+        const from = (page - 1) * pageSize;
+        const to = from + pageSize - 1;
+
+        let query = supabaseClient
+            .from("books")
+            .select(`
+            *,
+            book_categories!inner(category_id),
+            author:authors (
+                id,
+                name_en,
+                name_ar,
+                image_url
+            )
+        `, { count: 'exact' });
+
+
+        if (params?.search) {
+            query = query.or(`title_en.ilike.%${params.search}%,title_ar.ilike.%${params.search}%`);
+        }
+
+        if (params?.author_id) {
+            query = query.eq("author_id", params.author_id);
+        }
+
+        if (params?.category_id) {
+            query = query.eq("book_categories.category_id", params.category_id);
+        }
+
+        if (params?.is_active !== "") {
+            query = query.eq("is_active", params?.is_active === "active");
+        }
+
+
+        const currentLang = params?.lang || "en";
+        switch (params?.sortBy) {
+            case "oldest":
+                query = query.order("created_at", { ascending: true });
+                break;
+            case "price_high":
+                query = query.order("price", { ascending: false });
+                break;
+            case "price_low":
+                query = query.order("price", { ascending: true });
+                break;
+            case "alpha":
+                query = query.order(`title_${currentLang}`, { ascending: true });
+                break;
+            case "newest":
+            default:
+                query = query.order("created_at", { ascending: false });
+                break;
+        }
+
+        query = query.order("id", { ascending: false });
+
+        const { data, error, count } = await query.range(from, to);
+
+        if (error) throw new Error(error.message);
+
+        const items = data.map(book => ({
+            ...book,
+            author: Array.isArray(book.author) ? book.author[0] : book.author,
+        }))
+
+        return {
+            items,
+            total: count || 0
+        };
+    },
+
+    getBooksStat: async function () {
+        const { data, error } = await supabaseClient
+            .rpc('get_book_statistics');
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        const thisMonth = data.new_books_this_month || 0;
+        const lastMonth = data.new_books_last_month || 0;
+
+        let growth = 0;
+
+        if (lastMonth > 0) {
+            growth = ((thisMonth - lastMonth) / lastMonth) * 100;
+        } else if (thisMonth > 0) {
+            growth = 100;
+        }
+
+        return {
+            ...data,
+            growth_percentage: Math.round(growth)
+        };
+    },
+
+    deleteBook: async function (id: string) {
+        const { error } = await supabaseClient
+            .from("books")
+            .delete()
+            .eq("id", id);
+
+        if (error) throw new Error(error.message);
     },
 };

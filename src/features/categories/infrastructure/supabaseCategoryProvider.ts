@@ -114,30 +114,19 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
 
     getCategoriesStats: async function (): Promise<CategoryStatistics> {
         const { data, error } = await supabaseClient
-            .from("categories")
-            .select("is_active, created_at");
+            .rpc('get_category_statistics');
 
-        if (error) throw new Error(error.message);
+        if (error) {
+            throw new Error(error.message);
+        }
 
-        const now = new Date();
-        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        const growth = data.total_categories > 0
+            ? (data.new_categories_this_month / data.total_categories) * 100
+            : 0;
 
-        const stats: CategoryStatistics = {
-            total_categories: data.length,
-            active_categories: data.filter(c => c.is_active).length,
-            inactive_categories: data.filter(c => !c.is_active).length,
-            status_count: {
-                active: data.filter(c => c.is_active).length,
-                inactive: data.filter(c => !c.is_active).length,
-            },
-            new_categories_today: data.filter(c =>
-                new Date(c.created_at).toDateString() === now.toDateString()
-            ).length,
-            new_categories_this_month: data.filter(c =>
-                c.created_at >= firstDayOfMonth
-            ).length,
+        return {
+            ...data,
+            growth_percentage: Math.round(growth)
         };
-
-        return stats;
     },
 };

@@ -1,3 +1,4 @@
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -42,6 +43,19 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                             {row.slug}
                         </Typography>
                     </Stack>
+                </Stack>
+            ),
+        },
+        {
+            id: "booksCount",
+            label: t("table.books"),
+            align: "center",
+            render: (booksCount) => (
+                <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
+                    <AutoStoriesIcon fontSize="small" sx={{ color: 'text.disabled' }} />
+                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                        {booksCount || 0}
+                    </Typography>
                 </Stack>
             ),
         },

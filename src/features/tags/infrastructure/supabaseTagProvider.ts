@@ -92,30 +92,19 @@ export const supabaseTagProvider: TagApiProvider = {
 
     getTagsStats: async function (): Promise<TagStatistics> {
         const { data, error } = await supabaseClient
-            .from("tags")
-            .select("is_active, created_at");
+            .rpc('get_tag_statistics');
 
-        if (error) throw new Error(error.message);
+        if (error) {
+            throw new Error(error.message);
+        }
 
-        const now = new Date();
-        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        const growth = data.total_tags > 0
+            ? (data.new_tags_this_month / data.total_tags) * 100
+            : 0;
 
-        const stats: TagStatistics = {
-            total_tags: data.length,
-            active_tags: data.filter(t => t.is_active).length,
-            inactive_tags: data.filter(t => !t.is_active).length,
-            status_count: {
-                active: data.filter(t => t.is_active).length,
-                inactive: data.filter(t => !t.is_active).length,
-            },
-            new_tags_today: data.filter(t =>
-                new Date(t.created_at).toDateString() === now.toDateString()
-            ).length,
-            new_tags_this_month: data.filter(t =>
-                t.created_at >= firstDayOfMonth
-            ).length,
+        return {
+            ...data,
+            growth_percentage: Math.round(growth)
         };
-
-        return stats;
     },
 };

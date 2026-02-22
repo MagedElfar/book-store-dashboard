@@ -147,33 +147,24 @@ export const supabaseUserProvider: UserApiProvider = {
 
 
     getUsersStats: async function (): Promise<UserStatistics> {
-        const { data, error } = await supabaseClient
-            .from("profiles")
-            .select("role, created_at");
+        const { data, error } = await supabaseClient.rpc('get_user_statistics');
 
         if (error) throw new Error(error.message);
 
-        const now = new Date();
-        const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+        const thisMonth = data.new_users_this_month || 0;
+        const lastMonth = data.new_users_last_month || 0;
 
-        const stats: UserStatistics = {
-            total_users: data.length,
-            active_users: data.length,
-            inactive_users: 0,
-            roles_count: {
-                admin: data.filter(u => u.role === 'admin').length,
-                user: data.filter(u => u.role === 'user').length,
-                support: data.filter(u => u.role === 'support').length,
-            },
-            new_users_today: data.filter(u =>
-                new Date(u.created_at).toDateString() === now.toDateString()
-            ).length,
-            new_users_this_month: data.filter(u =>
-                u.created_at >= firstDayOfMonth
-            ).length,
+        let growth = 0;
+
+        if (lastMonth > 0) {
+            growth = ((thisMonth - lastMonth) / lastMonth) * 100;
+        } else if (thisMonth > 0) {
+            growth = 100;
+        }
+
+        return {
+            ...data,
+            growth_percentage: Math.round(growth)
         };
-
-        return stats;
     },
-
 };

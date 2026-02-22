@@ -9,6 +9,7 @@ export interface Author {
     bio_en: string | null;
     image_url: string | null;
     birth_date: string | null;
+    booksCount: number
     is_active: boolean;
 }
 

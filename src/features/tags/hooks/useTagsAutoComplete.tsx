@@ -9,6 +9,7 @@ import { useGetInfiniteTags } from "./useGetInfiniteTags";
 
 export function useTagsAutoComplete() {
     const [search, setSearch] = useState("");
+    const [isTagsEnabled, setIsTagsEnabled] = useState(false);
     const { i18n } = useTranslation()
 
     const lang = i18n.language as SupportedLang;
@@ -18,7 +19,7 @@ export function useTagsAutoComplete() {
         limit: INFINITE_RECORDED_LIMIT,
         is_active: "active",
         lang
-    })
+    }, isTagsEnabled)
 
     const options: AutocompleteOptions[] = useMemo(() => {
         const pages = query?.data?.pages || [];
@@ -34,6 +35,7 @@ export function useTagsAutoComplete() {
     return {
         ...query,
         setSearch,
+        setIsTagsEnabled,
         options
     };
 }

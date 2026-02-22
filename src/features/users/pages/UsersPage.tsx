@@ -87,7 +87,8 @@ export default function UsersPage() {
             value: stats?.total_users || 0,
             icon: <PeopleIcon fontSize="large" />,
             color: 'primary',
-            loading: isLoadingStats
+            loading: isLoadingStats,
+            growth: stats?.growth_percentage,
         },
         {
             title: t("role.admin"),

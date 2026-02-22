@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
-import { FormRichTextField, FormTextField } from '@/shared/form';
+import { FormCheckbox, FormRichTextField, FormTextField } from '@/shared/form';
 
 export function BasicInfoStep() {
     const { t } = useTranslation("book");
@@ -31,6 +31,12 @@ export function BasicInfoStep() {
                     name="description_ar"
                     label={t("label.descAr")}
                     placeholder={t("placeHolder.descAr")}
+                />
+            </Grid>
+            <Grid size={{ xs: 12 }}>
+                <FormCheckbox
+                    name="is_active"
+                    label={t("label.isActive")}
                 />
             </Grid>
         </Grid>

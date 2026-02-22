@@ -1,5 +1,3 @@
-// src/features/categories/pages/CategoriesPage.tsx
-
 import CategoryIcon from '@mui/icons-material/Category';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';

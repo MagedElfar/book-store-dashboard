@@ -13,9 +13,9 @@ export function RelationsStep() {
     const { t } = useTranslation("book");
     const { watch } = useFormContext<BookFormSchemaType>()
 
-    const { options: tagOptions, setSearch: setTagSearch, ...tagsQuery } = useTagsAutoComplete();
-    const { options: authorOptions, setSearch: setAuthorSearch, ...authorsQuery } = useAuthorAutoComplete();
-    const { options: categoryOptions, setSearch: setCategorySearch, ...categoriesQuery } = useCategoryAutoComplete();
+    const { options: tagOptions, setIsTagsEnabled, setSearch: setTagSearch, ...tagsQuery } = useTagsAutoComplete();
+    const { options: authorOptions, setIsAuthorsEnabled, setSearch: setAuthorSearch, ...authorsQuery } = useAuthorAutoComplete();
+    const { options: categoryOptions, setIsCategoriesEnabled, setSearch: setCategorySearch, ...categoriesQuery } = useCategoryAutoComplete();
 
     return (
         <Grid container spacing={3}>
@@ -30,6 +30,7 @@ export function RelationsStep() {
                     fetchNextPage={authorsQuery.fetchNextPage}
                     isFetchingNextPage={authorsQuery.isFetchingNextPage}
                     defaultValue={watch("author")}
+                    onOpen={() => setIsAuthorsEnabled(true)}
                 />
             </Grid>
 
@@ -45,6 +46,7 @@ export function RelationsStep() {
                     fetchNextPage={categoriesQuery.fetchNextPage}
                     isFetchingNextPage={categoriesQuery.isFetchingNextPage}
                     defaultValue={watch("categories")}
+                    onOpen={() => setIsCategoriesEnabled(true)}
                 />
             </Grid>
 
@@ -60,6 +62,7 @@ export function RelationsStep() {
                     fetchNextPage={tagsQuery.fetchNextPage}
                     isFetchingNextPage={tagsQuery.isFetchingNextPage}
                     defaultValue={watch("tags")}
+                    onOpen={() => setIsTagsEnabled(true)}
                 />
             </Grid>
         </Grid>

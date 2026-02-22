@@ -36,3 +36,23 @@ export interface Book {
     categories?: Category[];
     tags?: Tag[];
 }
+
+export interface BookStatistics {
+    total_books: number;
+    active_books: number;
+    inactive_books: number;
+
+    status_count: {
+        active: number;
+        inactive: number;
+    };
+
+    new_books_today: number;
+    new_books_this_month: number;
+
+    total_stock: number;
+    out_of_stock: number;
+    average_price: number;
+
+    growth_percentage?: number;
+}

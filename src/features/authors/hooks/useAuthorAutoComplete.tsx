@@ -9,6 +9,7 @@ import { useGetInfiniteAuthors } from "./useGetInfiniteAuthors";
 
 export function useAuthorAutoComplete() {
     const [search, setSearch] = useState("");
+    const [isAuthorsEnabled, setIsAuthorsEnabled] = useState(false);
     const { i18n } = useTranslation()
 
     const lang = i18n.language as SupportedLang;
@@ -18,7 +19,7 @@ export function useAuthorAutoComplete() {
         is_active: "active",
         limit: INFINITE_RECORDED_LIMIT,
         lang
-    })
+    }, isAuthorsEnabled)
 
     const options: AutocompleteOptions[] = useMemo(() => {
         const pages = query?.data?.pages || [];
@@ -34,6 +35,8 @@ export function useAuthorAutoComplete() {
     }, [lang, query?.data?.pages]);
     return {
         ...query,
+        isAuthorsEnabled,
+        setIsAuthorsEnabled,
         setSearch,
         options
     };

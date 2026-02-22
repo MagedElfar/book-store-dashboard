@@ -25,17 +25,17 @@ interface Props {
     isFetchingNextPage?: boolean;
     fetchNextPage?: () => void;
     onSearchChange?: (value: string) => void;
-    defaultValue: AutocompleteOptions | AutocompleteOptions[] | null
+    defaultValue: AutocompleteOptions | AutocompleteOptions[] | null,
+    onOpen?: () => void
 }
 
 export function FormAutocomplete({
     name, label, options, loading, multiple, placeholder,
-    hasNextPage, isFetchingNextPage, fetchNextPage, onSearchChange, defaultValue
+    hasNextPage, isFetchingNextPage, fetchNextPage, onSearchChange, defaultValue,
+    onOpen
 }: Props) {
     const { control, setValue } = useFormContext();
 
-
-    // 1. استخدم حالة محلية للبحث
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearch = useDebounce(searchTerm, 500);
 
@@ -57,11 +57,9 @@ export function FormAutocomplete({
             name={name}
             control={control}
             render={({ fieldState: { error } }) => {
-
-
-
                 return (
                     <Autocomplete
+                        onFocus={() => onOpen?.()}
                         multiple={multiple}
                         options={options}
                         loading={loading}

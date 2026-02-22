@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 import { mapAuthorToOption } from '@/features/authors';
 import { mapCategoryToOption } from '@/features/categories/utilities';
 import { mapTagToOption } from '@/features/tags';
+import { paths } from '@/shared/constants';
 import { AppFormProvider } from '@/shared/form';
 import { MultiStepFormContainer } from '@/shared/form';
 import type { SupportedLang } from '@/shared/types';
@@ -33,23 +34,20 @@ export function BookForm({ book }: Props) {
 
 
     const defaultValues = {
-        title_ar: book?.title_ar || "test",
-        title_en: book?.title_en || "test",
-        slug: book?.slug || "test",
-        sku: book?.sku || "test",
-        description_ar: book?.description_ar || "test test test test",
-        description_en: book?.description_en || "test test test test",
+        title_ar: book?.title_ar || "",
+        title_en: book?.title_en || "",
+        slug: book?.slug || "",
+        sku: book?.sku || "",
+        description_ar: book?.description_ar || "",
+        description_en: book?.description_en || "",
         price: book?.price ?? 0,
         sale_price: book?.sale_price || null,
         stock: book?.stock ?? 0,
-        pages: book?.pages ?? 1,
-        publisher: book?.publisher || "test",
-        published_year: book?.published_year || new Date().getFullYear(),
+        pages: book?.pages ?? 0,
+        publisher: book?.publisher || "",
+        published_year: book?.published_year || "",
         cover_image: book?.cover_image || "",
-        images: book?.book_images
-            ?.slice()
-            .sort((a, b) => (a.display_order ?? 0) - (b.display_order ?? 0))
-            .map(img => img.image_url) || [],
+        images: book?.book_images?.map(img => img.image_url) || [],
         author: book?.author ? mapAuthorToOption(lang, book?.author) : null,
         categories: book?.categories?.map(c => mapCategoryToOption(lang, c)) || [],
         tags: book?.tags?.map(t => mapTagToOption(lang, t)) || [],
@@ -92,7 +90,7 @@ export function BookForm({ book }: Props) {
                 await createBook(payLoad)
             }
             toast.success(t("feedback.successSave"));
-            // navigate(paths.dashboard.books.root);
+            navigate(paths.dashboard.books.root);
         } catch (error) {
             errorMapper(error).forEach(err => toast.error(err));
         }

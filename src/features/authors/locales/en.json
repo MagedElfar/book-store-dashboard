@@ -48,6 +48,7 @@
   "table": {
     "author": "Author",
     "status": "Status",
+    "books": "Books",
     "createdAt": "Added At"
   },
   "helper": {

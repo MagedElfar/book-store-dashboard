@@ -9,6 +9,8 @@ import { useGetInfiniteCategories } from "./useGetInfiniteCategories";
 
 export function useCategoryAutoComplete() {
     const [search, setSearch] = useState("");
+    const [isCategoriesEnabled, setIsCategoriesEnabled] = useState(false);
+
     const { i18n } = useTranslation()
 
     const lang = i18n.language as SupportedLang;
@@ -18,7 +20,7 @@ export function useCategoryAutoComplete() {
         is_active: "active",
         limit: INFINITE_RECORDED_LIMIT,
         lang
-    })
+    }, isCategoriesEnabled)
 
     const options: AutocompleteOptions[] = useMemo(() => {
         const pages = query?.data?.pages || [];
@@ -35,6 +37,7 @@ export function useCategoryAutoComplete() {
     return {
         ...query,
         setSearch,
+        setIsCategoriesEnabled,
         options
     };
 }
