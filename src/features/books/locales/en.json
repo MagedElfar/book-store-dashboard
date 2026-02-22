@@ -112,7 +112,8 @@
     "priceHigh": "Price: High to Low",
     "priceLow": "Price: Low to High",
     "stockLow": "Low Stock First",
-    "author": "Author"
+    "author": "Author",
+    "tag": "Tag"
   },
   "stats": {
     "totalBooks": "Total books",

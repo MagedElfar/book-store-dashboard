@@ -5,6 +5,7 @@ export interface Tag {
     name_en: string;
     slug: string;
     is_active: boolean;
+    color?: string;
 }
 
 export interface TagStatistics {

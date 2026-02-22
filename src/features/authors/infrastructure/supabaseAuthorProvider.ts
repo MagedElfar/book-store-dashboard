@@ -43,11 +43,8 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
         } = params;
 
         let query = supabaseClient
-            .from("authors")
-            .select(`
-            *,
-            book_authors:book_authors(count)
-        `, { count: "exact" });
+            .from("authors_with_counts") // نستخدم الـ View هنا
+            .select("*", { count: "exact" });
 
         if (search) {
             query = query.or(`name_ar.ilike.%${search}%,name_en.ilike.%${search}%,slug.ilike.%${search}%`);
@@ -61,6 +58,8 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
             query = query.order("created_at", { ascending: false });
         } else if (sortBy === "oldest") {
             query = query.order("created_at", { ascending: true });
+        } else if (sortBy === "most_books") {
+            query = query.order("books_count", { ascending: false });
         } else if (sortBy === "alpha") {
             const currentLang = params.lang;
             query = query.order(`name_${currentLang}`, { ascending: true });
@@ -79,10 +78,7 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
         if (error) throw new Error(error.message);
 
         return {
-            items: (data?.map(item => ({
-                ...item,
-                booksCount: item?.book_authors?.[0]?.count ?? 0
-            })) || []) as Author[],
+            items: (data || []) as Author[],
             total: count || 0,
         };
     },

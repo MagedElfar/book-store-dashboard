@@ -197,7 +197,8 @@ export const supabaseBookProvider: BookApiProvider = {
             .select(`
             *,
             book_categories${params?.category_id ? '!inner' : ''}(category_id),
-            book_authors${params?.author_id ? '!inner' : ''}(author_id)
+            book_authors${params?.author_id ? '!inner' : ''}(author_id),
+            book_tags${params?.tagId ? '!inner' : ''}(tag_id)
         `, { count: 'exact' });
 
 
@@ -210,6 +211,10 @@ export const supabaseBookProvider: BookApiProvider = {
 
         if (params?.category_id) {
             query = query.eq("book_categories.category_id", params.category_id);
+        }
+
+        if (params?.tagId) {
+            query = query.eq("book_tags.tag_id", params.tagId);
         }
 
         if (params?.is_active !== "") {
@@ -243,13 +248,9 @@ export const supabaseBookProvider: BookApiProvider = {
 
         if (error) throw new Error(error.message);
 
-        const items = data.map(book => ({
-            ...book,
-            author: Array.isArray(book.author) ? book.author[0] : book.author,
-        }))
 
         return {
-            items,
+            items: data || [],
             total: count || 0
         };
     },

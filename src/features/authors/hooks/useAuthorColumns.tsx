@@ -47,14 +47,14 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
             ),
         },
         {
-            id: "booksCount",
+            id: "books_count",
             label: t("table.books"),
             align: "center",
-            render: (booksCount) => (
+            render: (books_count) => (
                 <Stack direction="row" alignItems="center" spacing={1} justifyContent="center">
                     <AutoStoriesIcon fontSize="small" sx={{ color: 'text.disabled' }} />
                     <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-                        {booksCount || 0}
+                        {books_count || 0}
                     </Typography>
                 </Stack>
             ),

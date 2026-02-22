@@ -13,3 +13,6 @@ export * from "./FormDatePicker"
 export * from "./FormRichTextField"
 
 export * from "./FormAutocomplete"
+
+export * from "./FormColorField"
+

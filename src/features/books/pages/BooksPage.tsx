@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router';
 
 import { useAuthorAutoComplete } from '@/features/authors';
 import { useCategoryAutoComplete } from '@/features/categories';
+import { useTagsAutoComplete } from '@/features/tags';
 import { DataFilterToolbar, DataTable, FilterAutocomplete, FilterSelect, PageWrapper, RootPageTitle, StatsBoard, type StatItem } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { useDialog, usePagination } from '@/shared/hooks';
@@ -82,6 +83,13 @@ export default function BooksPage() {
         setSearch: setCategorySearch,
         ...categoriesQuery
     } = useCategoryAutoComplete();
+
+    const {
+        options: tagsOptions,
+        setIsTagsEnabled,
+        setSearch: setTagSearch,
+        ...tagsQuery
+    } = useTagsAutoComplete();
 
     // --- Handlers ---
     const handleFilterChange = useCallback((key: keyof BookParams, value: any) => {
@@ -169,6 +177,7 @@ export default function BooksPage() {
                     value={filters.sortBy || "newest"}
                     options={getSortOptions(t)}
                     onChange={(val) => handleFilterChange("sortBy", val)}
+
                 />
 
                 <FilterAutocomplete
@@ -179,6 +188,9 @@ export default function BooksPage() {
                     onSearchChange={(s) => setAuthorSearch(s)}
                     loading={authorsQuery.isLoading}
                     onOpen={() => setIsAuthorsEnabled(true)}
+                    fetchNextPage={authorsQuery.fetchNextPage}
+                    isFetchingNextPage={authorsQuery.isFetchingNextPage}
+                    hasNextPage={authorsQuery.hasNextPage}
                 />
 
                 <FilterAutocomplete
@@ -189,6 +201,22 @@ export default function BooksPage() {
                     onSearchChange={(s) => setCategorySearch(s)}
                     loading={categoriesQuery.isLoading}
                     onOpen={() => setIsCategoriesEnabled(true)}
+                    fetchNextPage={categoriesQuery.fetchNextPage}
+                    isFetchingNextPage={categoriesQuery.isFetchingNextPage}
+                    hasNextPage={categoriesQuery.hasNextPage}
+                />
+
+                <FilterAutocomplete
+                    label={t("filter.tag")}
+                    value={filters.tagId}
+                    options={tagsOptions}
+                    onChange={(val) => handleFilterChange("tagId", val)}
+                    onSearchChange={(s) => setTagSearch(s)}
+                    loading={tagsQuery.isLoading}
+                    onOpen={() => setIsTagsEnabled(true)}
+                    fetchNextPage={tagsQuery.fetchNextPage}
+                    isFetchingNextPage={tagsQuery.isFetchingNextPage}
+                    hasNextPage={tagsQuery.hasNextPage}
                 />
             </DataFilterToolbar>
 

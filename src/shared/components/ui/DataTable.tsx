@@ -66,10 +66,9 @@ export function DataTable<T>({
                     maxWidth: '100%',
                     overflowX: 'auto',
                     maxHeight: 600,
-                    // تخصيص شكل الـ Scrollbar
                     '&::-webkit-scrollbar': {
-                        height: '6px', // عرض الشريط الأفقي
-                        width: '6px',  // عرض الشريط الرأسي
+                        height: '6px',
+                        width: '6px',
                     },
                     '&::-webkit-scrollbar-track': {
                         backgroundColor: (theme) => theme.palette.background.default,
@@ -81,7 +80,6 @@ export function DataTable<T>({
                             backgroundColor: (theme) => theme.palette.text.disabled,
                         },
                     },
-                    // للمتصفحات التي تدعم خاصية scrollbar-width (مثل Firefox)
                     scrollbarWidth: 'thin',
                     scrollbarColor: (theme) => `${theme.palette.divider} transparent`,
                 }}
@@ -91,6 +89,7 @@ export function DataTable<T>({
                     sx={{
                         tableLayout: 'auto',
                         minWidth: "100%",
+                        maxWidth: { xs: "100%" },
                         '& th, & td': {
                             whiteSpace: 'nowrap',
                         },

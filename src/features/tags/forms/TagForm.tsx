@@ -5,7 +5,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { FormTextField, AppFormProvider, FormContainer } from '@/shared/form';
+import { FormTextField, AppFormProvider, FormContainer, FormColorField } from '@/shared/form';
 import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateTag, useUpdateTag } from '../hooks';
@@ -26,6 +26,7 @@ export function TagForm({ tag, onSuccess }: Props) {
         name_ar: tag?.name_ar || "",
         name_en: tag?.name_en || "",
         slug: tag?.slug || "",
+        color: tag?.color || "",
         is_active: tag?.is_active ?? true,
     };
 
@@ -90,8 +91,17 @@ export function TagForm({ tag, onSuccess }: Props) {
                             label={t("label.slug")}
                             placeholder={t("placeHolder.slug")}
                             required
-                            disabled={!!tag} // ممنوع تعديل السلوج لو بنعمل Update
+                            disabled={!!tag}
                             helperText={t("helper.slugInfo")}
+                        />
+                    </Grid>
+
+                    <Grid size={{ xs: 12 }}>
+                        <FormColorField
+                            name="color"
+                            label={t("label.color")}
+                            placeholder={t("placeHolder.color")}
+                            helperText={t("helper.colorInfo")}
                         />
                     </Grid>
 

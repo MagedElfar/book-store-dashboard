@@ -69,7 +69,8 @@
     "sortBy": "ترتيب حسب",
     "newest": "الأحدث",
     "oldest": "الأقدم",
-    "alphabetical": "أبجدياً"
+    "alphabetical": "أبجدياً",
+    "most_books": "عدد الكتب"
   },
   "stats": {
     "totalAuthors": "إجمالي المؤلفين"

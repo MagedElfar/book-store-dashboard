@@ -9,7 +9,7 @@ export type UpdateAuthorPayload = CreateAuthorPayload;
 export type AuthorsParams = {
     search?: string;
     is_active?: string;
-    sortBy?: "oldest" | "newest" | "alpha";
+    sortBy?: "oldest" | "newest" | "alpha" | "most_books";
     limit?: number;
     page?: number;
     lang?: SupportedLang

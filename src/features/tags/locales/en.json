@@ -11,20 +11,23 @@
     "nameAr": "Tag Name (AR)",
     "slug": "Slug",
     "status": "Status",
-    "isActive": "Is Active"
+    "isActive": "Is Active",
+    "color": "Color"
   },
   "placeHolder": {
     "nameEn": "e.g. Bestseller",
     "nameAr": "مثلاً: الأكثر مبيعاً",
     "slug": "tag-slug",
-    "search": "Search for tag..."
+    "search": "Search for tag...",
+    "color": "e.g. #FF5733"
   },
   "validation": {
     "name_ar_required": "Arabic name is required",
     "name_en_required": "English name is required",
     "name_min": "Name must be at least 2 characters",
     "slug_required": "Slug is required",
-    "slug_invalid": "Slug can only contain lowercase letters, numbers, and hyphens"
+    "slug_invalid": "Slug can only contain lowercase letters, numbers, and hyphens",
+    "color_invalid": "Color invalid"
   },
   "status": {
     "all": "All Statuses",
@@ -37,7 +40,8 @@
     "createdAt": "Added At"
   },
   "helper": {
-    "slugInfo": "The 'slug' is used in the URL to identify the tag."
+    "slugInfo": "The 'slug' is used in the URL to identify the tag.",
+    "colorInfo": "The 'color' is used to visually distinguish the tag in the store."
   },
   "feedback": {
     "successDeleteTag": "Tag deleted successfully",

@@ -22,6 +22,14 @@ export const TagFormSchema = (
                 message: t("tag:validation.slug_invalid")
             }),
 
+        color: z
+            .string()
+            .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
+                message: t("tag:validation.color_invalid")
+            })
+            .optional()
+            .or(z.literal("")),
+
         is_active: z.boolean()
     });
 

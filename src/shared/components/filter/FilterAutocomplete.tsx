@@ -74,9 +74,9 @@ export function FilterAutocomplete({
                     onChange(newValue.map((v: any) => v.value));
                 } else {
                     onChange(newValue?.value ?? "");
+                    setSearchTerm("")
                 }
 
-                setSearchTerm("")
             }}
             isOptionEqualToValue={(option, val) => option.value === (val?.value ?? val)}
             getOptionLabel={(option) => option?.label || ""}

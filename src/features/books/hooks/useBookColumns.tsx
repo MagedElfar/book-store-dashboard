@@ -50,11 +50,9 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                             {row?.[`title_${lang}`]}
                         </Typography>
 
-                        {row.author?.[`name_${lang}`] && (
-                            <Typography variant="caption" sx={{ color: "text.secondary" }} noWrap>
-                                {row.author?.[`name_${lang}`]}
-                            </Typography>
-                        )}
+                        <Typography variant="caption" sx={{ color: "text.secondary" }} noWrap>
+                            {row.slug}
+                        </Typography>
                     </Stack>
                 </Stack>
             ),

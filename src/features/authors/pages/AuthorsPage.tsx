@@ -34,6 +34,8 @@ const getSortOptions = (t: any) => [
     { value: "newest", label: t("filter.newest") },
     { value: "oldest", label: t("filter.oldest") },
     { value: "alpha", label: t("filter.alphabetical") },
+    { value: "most_books", label: t("filter.most_books") },
+
 ];
 
 

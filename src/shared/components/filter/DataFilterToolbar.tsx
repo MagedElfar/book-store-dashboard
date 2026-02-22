@@ -18,7 +18,7 @@ interface DataFilterToolbarProps {
     searchPlaceholder?: string;
     searchValue: string;
     onSearchChange: (value: string) => void;
-    onClear?: () => void; // دالة المسح
+    onClear?: () => void;
     children?: React.ReactNode;
 }
 
@@ -35,19 +35,17 @@ export function DataFilterToolbar({
     const debouncedSearch = useDebounce(localSearch, 500);
 
     useEffect(() => {
-        // نرسل التحديث فقط إذا كان هناك تغيير حقيقي فعلاً عن القيمة القادمة من الخارج
         if (debouncedSearch !== searchValue) {
             onSearchChange(debouncedSearch);
         }
     }, [debouncedSearch, onSearchChange, searchValue]);
     const handleClearAll = () => {
-        setLocalSearch(""); // مسح البحث محلياً فوراً
+        setLocalSearch("");
         if (onClear) onClear();
     };
 
     return (
         <Box sx={{ mb: 3 }}>
-            {/* الجزء العلوي: البحث وزر الفلترة */}
             <Stack
                 direction={{ xs: "column", md: "row" }}
                 spacing={{ xs: 2, md: 4 }}

@@ -28,6 +28,7 @@ export interface BookParams {
     search?: string;
     category_id?: string | null;
     author_id?: string | null;
+    tagId?: string | null
     is_active?: string;
     sortBy?: "newest" | "oldest" | "price_high" | "price_low" | "alpha";
     page?: number;

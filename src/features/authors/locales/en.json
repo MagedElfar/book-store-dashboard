@@ -69,7 +69,8 @@
     "sortBy": "Sort By",
     "newest": "Newest",
     "oldest": "Oldest",
-    "alphabetical": "Alphabetical"
+    "alphabetical": "Alphabetical",
+    "most_books": "Book count"
   },
   "stats": {
     "totalAuthors": "Total authors"
