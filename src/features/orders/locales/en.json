@@ -1,0 +1,73 @@
+{
+  "createOrder": "Create order",
+  "status": {
+    "pending": "Pending",
+    "processing": "Processing",
+    "shipped": "Shipped",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "returned": "Returned"
+  },
+  "payments": {
+    "pending": "Pending",
+    "paid": "Paid",
+    "failed": "Failed",
+    "refunded": "Refunded"
+  },
+  "methods": {
+    "cod": "Cash on Delivery",
+    "credit_card": "Credit Card",
+    "digital_wallet": "Digital Wallet"
+  },
+  "validation": {
+    "name_required": "Customer name is required",
+    "name_min": "Name must be at least 3 characters",
+    "email_required": "Email address is required",
+    "email_invalid": "Please enter a valid email address",
+    "phone_required": "Phone number is required",
+    "phone_invalid": "Invalid phone number format",
+    "country_required": "Country is required",
+    "city_required": "City is required",
+    "state_required": "State/Province is required",
+    "address_required": "Detailed address is required",
+    "address_min": "Address should be more detailed (min 10 chars)",
+    "payment_method_required": "Please select a payment method",
+    "book_required": "Book selection is required",
+    "quantity_min": "Quantity must be at least 1",
+    "items_min": "Order must contain at least one item"
+  },
+  "fields": {
+    "searchCustomer": "Search Existing Customer (Optional)",
+    "shippingAddress": "Shipping Address",
+    "customerInfo": "Customer Basic Info",
+    "customer_name": "Customer Name",
+    "customer_email": "Email Address",
+    "customer_phone": "Phone Number",
+    "country": "Country",
+    "city": "City",
+    "state_province": "State / Province",
+    "address": "Street Address",
+    "apartment_suite": "Apartment / Suite",
+    "landmark": "Landmark",
+    "postal_code": "Postal Code",
+    "payment_method": "Payment Method",
+    "user": "User"
+  },
+  "steps": {
+    "items": "Select Books",
+    "shipping": "Shipping Details",
+    "summary": "Review & Confirm",
+    "customerInfo": "Customer Information",
+    "shippingDetails": "Shipping Details",
+    "orderItems": "Order Items & Payment"
+  },
+  "actions": {
+    "createOrder": "Create New Order",
+    "next": "Next Step",
+    "back": "Previous Step",
+    "add_item": "Add Book"
+  },
+  "feedback": {
+    "successSave": "Order has been created successfully!"
+  }
+}

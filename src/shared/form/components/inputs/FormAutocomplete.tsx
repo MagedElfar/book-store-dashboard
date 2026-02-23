@@ -12,7 +12,10 @@ export interface AutocompleteOptions {
     label: string;
     value: string;
     image?: string;
+    [key: string]: any
 }
+
+export type OptionValue = AutocompleteOptions | AutocompleteOptions[] | null;
 
 interface Props {
     name: string;
@@ -25,14 +28,15 @@ interface Props {
     isFetchingNextPage?: boolean;
     fetchNextPage?: () => void;
     onSearchChange?: (value: string) => void;
-    defaultValue: AutocompleteOptions | AutocompleteOptions[] | null,
-    onOpen?: () => void
+    defaultValue: OptionValue,
+    onOpen?: () => void,
+    handleSelect?: (val: OptionValue) => void
 }
 
 export function FormAutocomplete({
     name, label, options, loading, multiple, placeholder,
     hasNextPage, isFetchingNextPage, fetchNextPage, onSearchChange, defaultValue,
-    onOpen
+    onOpen, handleSelect
 }: Props) {
     const { control, setValue } = useFormContext();
 
@@ -74,6 +78,7 @@ export function FormAutocomplete({
                         onChange={(_, newValue) => {
 
                             setValue(name, newValue)
+                            handleSelect?.(newValue)
                             setSearchTerm("");
 
                         }}

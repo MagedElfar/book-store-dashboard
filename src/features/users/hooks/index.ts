@@ -11,3 +11,7 @@ export * from "./useDeleteUser"
 export * from "./useUpdateUser"
 
 export * from "./useGetUsersStats"
+
+export * from "./useGetInfiniteUsers"
+
+export * from "./useUserAutoComplete"

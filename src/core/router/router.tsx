@@ -7,6 +7,7 @@ import { authRoutes } from "@/features/auth";
 import { authorsRoutes } from "@/features/authors";
 import { booksRoutes } from "@/features/books";
 import { categoriesRoutes } from "@/features/categories";
+import { ordersRoutes } from "@/features/orders/routes";
 import { tagsRoutes } from "@/features/tags";
 import { usersRoutes } from "@/features/users";
 import { AuthLayout, DashboardLayout, ProfileLayout } from "@/layouts";
@@ -60,10 +61,10 @@ export const router = createBrowserRouter([
                     ...categoriesRoutes,
                     ...authorsRoutes,
                     ...tagsRoutes,
-                    ...booksRoutes
+                    ...booksRoutes,
+                    ...ordersRoutes
                 ],
             },
-            // مسارات الصفحات الخاصة
             { path: "403", element: <Suspense fallback={<SplashScreen withLogo sx={{ height: "100vh" }} />}><Page403 /></Suspense> },
             { path: "*", element: <Suspense fallback={<SplashScreen withLogo sx={{ height: "100vh" }} />}><Page404 /></Suspense> }
         ]

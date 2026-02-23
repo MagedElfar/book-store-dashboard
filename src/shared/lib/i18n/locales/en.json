@@ -8,6 +8,7 @@
   "next": "Next",
   "unknown": "unknown",
   "noData": "No data",
+  "processing": "Processing, please wait...",
   "dropzone": {
     "defaultMessage": "Drag and drop files here or click to select",
     "multiple": "You can select multiple files",

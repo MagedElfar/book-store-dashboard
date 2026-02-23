@@ -20,7 +20,10 @@ export function AppFormProvider<T extends FieldValues>({
     <FormProvider {...methods}>
       <Box
         component="form"
-        onSubmit={methods.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.stopPropagation();
+          methods.handleSubmit(onSubmit)(e);
+        }}
         noValidate
         autoComplete="on"
         sx={sx}

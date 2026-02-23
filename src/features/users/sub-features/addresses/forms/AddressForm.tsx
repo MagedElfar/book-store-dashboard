@@ -18,16 +18,18 @@ import type { CreateAddressPayload, UserAddress } from '../types';
 const MapPickerField = lazy(() => import('@/shared/map/components/MapPickerField'));
 
 interface Props {
-    address?: UserAddress;
+    usId?: string,
+    address?: UserAddress | null;
+    onSuccess?: () => void
 }
 
-export function AddressForm({ address }: Props) {
+export function AddressForm({ address, onSuccess, usId }: Props) {
     const { t } = useTranslation("address");
     const { id: userId } = useParams<{ id: string }>();
     const navigate = useNavigate();
 
-    const { mutateAsync: createAddress } = useCreateAddress(userId!);
-    const { mutateAsync: updateAddress } = useUpdateAddress(userId!);
+    const { mutateAsync: createAddress } = useCreateAddress(usId ?? userId!);
+    const { mutateAsync: updateAddress } = useUpdateAddress(usId ?? userId!);
 
     const defaultValues: AddressFormSchemaType = {
         full_name: address?.full_name || "",
@@ -35,10 +37,10 @@ export function AddressForm({ address }: Props) {
         country: address?.country || "",
         city: address?.city || "",
         street_address: address?.street_address || "",
-        is_default: address?.is_default || false,
+        is_default: address?.is_default || true,
         lat: address?.lat ?? 0,
         lng: address?.lng ?? 0,
-        user_id: userId,
+        user_id: usId ?? userId,
     };
 
     const methods = useForm<AddressFormSchemaType>({
@@ -58,6 +60,10 @@ export function AddressForm({ address }: Props) {
                 toast.success(t("feedback.successCreateAddress"));
             }
 
+            if (onSuccess) {
+                onSuccess?.()
+                return
+            }
             navigate(paths.dashboard.addresses.root(userId!));
 
 

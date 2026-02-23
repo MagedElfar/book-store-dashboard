@@ -47,7 +47,7 @@ export function AddressCard({ address, onEdit, onDelete }: Props) {
                         </Stack>
                         <Stack direction="row" spacing={1} alignItems="center" sx={{ color: 'text.secondary' }}>
                             <PhoneIcon sx={{ fontSize: 16 }} />
-                            <Typography variant="caption">{address.phone}</Typography>
+                            <Typography variant="caption">{address.phone || "N/A"}</Typography>
                         </Stack>
                     </Stack>
 

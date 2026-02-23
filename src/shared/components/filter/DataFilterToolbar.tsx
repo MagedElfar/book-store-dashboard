@@ -89,7 +89,7 @@ export function DataFilterToolbar({
                         bgcolor: (theme) => theme.palette.mode === "light"
                             ? theme.palette.grey[50]
                             : theme.palette.grey[900],
-                        border: (theme) => `1px dashed ${theme.palette.divider}`
+                        border: (theme) => `1px dashed ${theme.palette.divider}`,
                     }}
                 >
                     <Stack
@@ -98,10 +98,14 @@ export function DataFilterToolbar({
                         flexWrap="wrap"
                     >
                         <Box sx={{
-                            display: 'flex',
+                            display: 'grid',
                             gap: 2,
-                            flexWrap: 'wrap',
-                            width: "100%"
+                            width: "100%",
+                            gridTemplateColumns: {
+                                md: "repeat(3 , 1fr)",
+                                sm: "repeat(2 , 1fr)",
+                                xs: "1fr"
+                            }
                         }}>
                             {children}
                         </Box>

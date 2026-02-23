@@ -8,6 +8,8 @@ import bookAr from "@/features/books/locales/ar.json";
 import bookEn from "@/features/books/locales/en.json";
 import categoryAr from "@/features/categories/locales/ar.json";
 import categoryEn from "@/features/categories/locales/en.json";
+import orderAr from "@/features/orders/locales/ar.json";
+import orderEN from "@/features/orders/locales/en.json";
 import tagAr from "@/features/tags/locales/ar.json";
 import tagEn from "@/features/tags/locales/en.json";
 import userAr from "@/features/users/locales/ar.json";
@@ -35,7 +37,8 @@ export const resources = {
         category: categoryEn,
         author: authorsEn,
         tag: tagEn,
-        book: bookEn
+        book: bookEn,
+        order: orderEN
     },
     ar: {
         common: translationAR,
@@ -47,6 +50,7 @@ export const resources = {
         category: categoryAr,
         author: authorsAr,
         tag: tagAr,
-        book: bookAr
+        book: bookAr,
+        orders: orderAr
     },
 } as const;

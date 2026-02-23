@@ -112,7 +112,12 @@ export const paths = {
 
             list: "/dashboard/orders",
 
+            create: "/dashboard/orders/create",
+
             details: (id: string) => `/dashboard/orders/${id}`,
+
+            edit: (id: string) => `/dashboard/orders/${id}/edit`,
+
         },
 
         // =========================

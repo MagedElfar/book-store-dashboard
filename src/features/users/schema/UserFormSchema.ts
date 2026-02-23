@@ -8,7 +8,7 @@ export const allowedRoles = ["user", "support", "admin"] as const;
 
 export const UserFormSchema = (
     t: TFunction<Namespace<"user">>,
-    isCreate: boolean = true // true => create, false => update
+    isCreate: boolean = true //
 ) =>
     z.object({
         email: emailValidator({
