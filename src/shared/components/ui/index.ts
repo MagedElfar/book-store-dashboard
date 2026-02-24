@@ -17,3 +17,5 @@ export * from "./DetailItem"
 export * from "./HtmlContent"
 
 export * from "./ImageGallery"
+
+export * from "./PriceDisplay"

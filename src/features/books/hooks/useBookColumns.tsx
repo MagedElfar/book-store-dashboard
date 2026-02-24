@@ -14,9 +14,10 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
+import { PriceDisplay } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import type { Column, SupportedLang } from "@/shared/types";
-import { fDate, formatPrice } from "@/shared/utilities";
+import { fDate } from "@/shared/utilities";
 
 import type { Book } from "../types";
 
@@ -30,7 +31,6 @@ export function useBookColumns(onDelete: (book: Book) => void) {
 
 
     return useMemo<Column<Book>[]>(() => [
-        // Book Info
         {
             id: "title_en",
             label: t("table.book"),
@@ -73,28 +73,10 @@ export function useBookColumns(onDelete: (book: Book) => void) {
         {
             id: "price",
             label: t("table.price"),
-            render: (_, row) => (
-                <Stack spacing={0.3}>
-                    {row.sale_price ? (
-                        <>
-                            <Typography
-                                variant="body2"
-                                sx={{ textDecoration: "line-through", color: "text.disabled" }}
-                            >
-                                {formatPrice(row.price, lang)}
-                            </Typography>
-
-                            <Typography variant="subtitle2" color="error.main">
-                                {formatPrice(row.sale_price, lang)}
-                            </Typography>
-                        </>
-                    ) : (
-                        <Typography variant="subtitle2">
-                            {formatPrice(row.price, lang)}
-                        </Typography>
-                    )}
-                </Stack>
-            ),
+            render: (_, row) => <PriceDisplay
+                sale_price={row.sale_price}
+                price={row.price}
+            />
         },
 
         // Stock

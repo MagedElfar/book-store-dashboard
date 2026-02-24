@@ -3,7 +3,7 @@ import { useCallback, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { mapUserToOption, useUserAutoComplete, type User } from "@/features/users";
+import { useUserAutoComplete, type User } from "@/features/users";
 import { FormAutocomplete, FormCountrySelect, FormTextField } from "@/shared/form";
 
 import type { CreateOrderFormSchemaType } from "../../schema";
@@ -16,7 +16,7 @@ export function CustomerInfoStep() {
 
     const { options, setSearch, setIsUserEnabled, ...userQuery } = useUserAutoComplete();
 
-    const user = watch("user")
+    const user = watch("user")?.data as User
 
     const handleUserSelect = useCallback(() => {
         setValue("user_id", user?.id || null);
@@ -39,7 +39,7 @@ export function CustomerInfoStep() {
                 <Typography variant="subtitle2" color="primary" sx={{ mb: 1 }}>
                     {t("fields.searchCustomer")}
                 </Typography>
-                <FormAutocomplete
+                <FormAutocomplete<User>
                     name="user"
                     label={t("fields.user")}
                     options={options}
@@ -48,7 +48,7 @@ export function CustomerInfoStep() {
                     hasNextPage={userQuery.hasNextPage}
                     fetchNextPage={userQuery.fetchNextPage}
                     isFetchingNextPage={userQuery.isFetchingNextPage}
-                    defaultValue={user ? mapUserToOption(user as unknown as User) : null}
+                    defaultValue={watch("user")}
                     onOpen={() => setIsUserEnabled(true)}
                 />
             </Stack>
@@ -104,7 +104,6 @@ export function CustomerInfoStep() {
                         </Grid>
                     </Grid>
             }
-
         </Stack>
     );
 }

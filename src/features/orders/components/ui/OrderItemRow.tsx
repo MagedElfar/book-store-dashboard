@@ -1,0 +1,71 @@
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Paper, Stack, Avatar, Box, Typography, IconButton } from "@mui/material";
+import { useFormContext } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
+
+import type { Book } from '@/features/books';
+import { PriceDisplay } from '@/shared/components';
+import { FormTextField } from "@/shared/form";
+import type { SupportedLang } from '@/shared/types';
+import { formatPrice } from '@/shared/utilities';
+
+import type { CreateOrderFormSchemaType } from '../../schema';
+
+
+export default function OrderItemRow({ index, onRemove }: { index: number; onRemove: () => void }) {
+    const { watch } = useFormContext<CreateOrderFormSchemaType>();
+
+    const { i18n } = useTranslation("order")
+
+    const lang = i18n.language as SupportedLang
+
+    const bookItem = watch(`items.${index}`)
+    const book = bookItem.item.data as Book
+
+    const quantity = bookItem.quantity as number;
+    const price = bookItem.price as number;
+    const name = book?.[`title_${lang}`];
+    const image = book.cover_image || "";
+
+
+    return (
+        <Paper variant="outlined" sx={{ p: 1.5, borderRadius: 2 }}>
+            <Stack direction="row" alignItems="center" spacing={2}>
+                <Avatar
+                    src={image}
+                    alt={book.title_en}
+                    variant="rounded"
+                    sx={{ width: 45, height: 45, bgcolor: "background.neutral" }}
+                >
+                    {book.title_en?.[0]}
+                </Avatar>
+                <Box sx={{ flexGrow: 1 }}>
+                    <Typography variant="body2" fontWeight="bold">{name}</Typography>
+                    <PriceDisplay
+                        sale_price={book.sale_price}
+                        price={book.price}
+                    />
+                </Box>
+
+                <Box sx={{ width: 80 }}>
+                    <FormTextField
+                        name={`items.${index}.quantity`}
+                        type="number"
+                        size="small"
+                        slotProps={{ htmlInput: { min: 1 } }}
+                    />
+                </Box>
+
+                <Box sx={{ width: 100, textAlign: 'right' }}>
+                    <Typography variant="subtitle2" color="primary">
+                        {formatPrice(price * quantity, lang)}
+                    </Typography>
+                </Box>
+
+                <IconButton onClick={onRemove} color="error" size="small">
+                    <DeleteIcon fontSize="small" />
+                </IconButton>
+            </Stack>
+        </Paper>
+    );
+}

@@ -4,16 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
+import { paths } from '@/shared/constants';
 import { AppFormProvider, MultiStepFormContainer } from '@/shared/form';
 import { errorMapper } from '@/shared/utilities';
 
-import { CustomerInfoStep } from '../components';
+import { CustomerInfoStep, OrderItemsStep, PaymentAndReviewStep } from '../components';
+import { useCreateOrder } from '../hooks';
 import { CreateOrderFormSchema, type CreateOrderFormSchemaType } from '../schema';
+import { mapCreateOrderFormToRequest } from '../utilities';
 
 export function CreateOrderForm() {
     const { t } = useTranslation("order");
     const navigate = useNavigate();
-    // const { mutateAsync: createOrder } = useCreateOrder();
+    const { mutateAsync: createOrder } = useCreateOrder();
 
     const defaultValues: Partial<CreateOrderFormSchemaType> = {
         customer_name: "",
@@ -24,7 +27,6 @@ export function CreateOrderForm() {
         shipping_details: {
             country: "",
             city: "",
-            state: "",
             street_address: "",
         }
     };
@@ -36,10 +38,10 @@ export function CreateOrderForm() {
 
     const onsubmit = async (data: CreateOrderFormSchemaType) => {
         try {
-            // await createOrder(data);
-            console.log("Submitting Order:", data);
+            const payload = mapCreateOrderFormToRequest(data)
+            await createOrder(payload);
             toast.success(t("feedback.successSave"));
-            // navigate(paths.dashboard.orders.root);
+            navigate(paths.dashboard.orders.root);
         } catch (error) {
             errorMapper(error).forEach(err => toast.error(err));
         }
@@ -48,9 +50,21 @@ export function CreateOrderForm() {
     const steps = [
         {
             label: t("steps.customerInfo"),
-            fields: ['customer_name', 'customer_email', 'customer_phone'],
+            fields: [
+                'customer_name', 'customer_email', 'customer_phone', "customer_phone", "shipping_details.country", "shipping_details.city", "shipping_details.street_address"
+            ],
             component: <CustomerInfoStep />
-        }
+        },
+        {
+            label: t("steps.orderItems"),
+            fields: ["items"],
+            component: <OrderItemsStep />
+        },
+        {
+            label: t("steps.paymentAndReview"),
+            fields: [],
+            component: <PaymentAndReviewStep />
+        },
     ];
 
     return (

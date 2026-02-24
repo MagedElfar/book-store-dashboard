@@ -10,7 +10,6 @@ export default function CreateOrderPage() {
     return (
         <PageWrapper>
             <PageTitle withBackArrow title={t("createOrder")} />
-
             <CreateOrderForm />
         </PageWrapper>
     )

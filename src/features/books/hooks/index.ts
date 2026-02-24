@@ -11,3 +11,7 @@ export * from "./useBookColumns"
 export * from "./useGetBooksStats"
 
 export * from "./useDeleteBook"
+
+export * from "./useGetInfiniteBooks"
+
+export * from "./useBookAutoComplete"

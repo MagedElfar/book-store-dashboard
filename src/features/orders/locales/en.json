@@ -51,15 +51,18 @@
     "landmark": "Landmark",
     "postal_code": "Postal Code",
     "payment_method": "Payment Method",
-    "user": "User"
+    "user": "User",
+    "addProducts": "Add book",
+    "books": "Books",
+    "orderNotes": "Order notes"
   },
   "steps": {
     "items": "Select Books",
     "shipping": "Shipping Details",
-    "summary": "Review & Confirm",
+    "paymentAndReview": "Payment and ReviewStep",
     "customerInfo": "Customer Information",
     "shippingDetails": "Shipping Details",
-    "orderItems": "Order Items & Payment"
+    "orderItems": "Order Items"
   },
   "actions": {
     "createOrder": "Create New Order",
@@ -69,5 +72,18 @@
   },
   "feedback": {
     "successSave": "Order has been created successfully!"
+  },
+  "messages": {
+    "noItemsYet": "No items selected yet"
+  },
+  "summary": {
+    "title": "Order Summary",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping",
+    "vat": "Vat",
+    "total": "Total",
+    "items_review": "Items review",
+    "confirmation_title": "Confirmation",
+    "confirmation_text": "Order for <1>{{name}}</1> via <1>{{method}}</1>"
   }
 }

@@ -4,6 +4,7 @@ import { INFINITE_RECORDED_LIMIT } from "@/core";
 import type { AutocompleteOptions } from "@/shared/types";
 
 
+import type { User } from "../types";
 import { mapUserToOption } from "../utilities";
 
 import { useGetInfiniteUsers } from "./useGetInfiniteUsers";
@@ -17,14 +18,11 @@ export function useUserAutoComplete() {
         limit: INFINITE_RECORDED_LIMIT,
     }, isUsersEnabled)
 
-    const options: AutocompleteOptions[] = useMemo(() => {
+    const options: AutocompleteOptions<User>[] = useMemo(() => {
         const pages = query?.data?.pages || [];
-
-        return pages.flatMap(page =>
-
-            (page.items || []).map(item => mapUserToOption(item))
-        );
+        return pages.flatMap(page => (page.items || []).map(item => mapUserToOption(item)));
     }, [query?.data?.pages]);
+
     return {
         ...query,
         isUsersEnabled,

@@ -5,6 +5,9 @@ import { INFINITE_RECORDED_LIMIT } from "@/core";
 import type { AutocompleteOptions, SupportedLang } from "@/shared/types";
 
 
+import type { Tag } from "../types";
+import { mapTagToOption } from "../utilities";
+
 import { useGetInfiniteTags } from "./useGetInfiniteTags";
 
 export function useTagsAutoComplete() {
@@ -21,17 +24,13 @@ export function useTagsAutoComplete() {
         lang
     }, isTagsEnabled)
 
-    const options: AutocompleteOptions[] = useMemo(() => {
+    const options: AutocompleteOptions<Tag>[] = useMemo(() => {
         const pages = query?.data?.pages || [];
 
-        return pages.flatMap(page =>
+        return pages.flatMap(page => (page.items || []).map(item => mapTagToOption(item, lang)));
 
-            (page.items || []).map(item => ({
-                label: item?.[`name_${lang}`] || item?.name_en || "",
-                value: item.id,
-            }))
-        );
     }, [lang, query?.data?.pages]);
+
     return {
         ...query,
         setSearch,

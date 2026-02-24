@@ -5,6 +5,9 @@ import { INFINITE_RECORDED_LIMIT } from "@/core";
 import type { AutocompleteOptions, SupportedLang } from "@/shared/types";
 
 
+import type { Author } from "../types";
+import { mapAuthorToOption } from "../utilities";
+
 import { useGetInfiniteAuthors } from "./useGetInfiniteAuthors";
 
 export function useAuthorAutoComplete() {
@@ -21,18 +24,11 @@ export function useAuthorAutoComplete() {
         lang
     }, isAuthorsEnabled)
 
-    const options: AutocompleteOptions[] = useMemo(() => {
+    const options: AutocompleteOptions<Author>[] = useMemo(() => {
         const pages = query?.data?.pages || [];
-
-        return pages.flatMap(page =>
-
-            (page.items || []).map(item => ({
-                label: item?.[`name_${lang}`] || item?.name_en || "",
-                value: item.id,
-                image: item?.image_url || ""
-            }))
-        );
+        return pages.flatMap(page => (page.items || []).map(item => mapAuthorToOption(item, lang)));
     }, [lang, query?.data?.pages]);
+
     return {
         ...query,
         isAuthorsEnabled,

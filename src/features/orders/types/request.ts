@@ -8,9 +8,11 @@ export interface CreateOrderRequest {
     shipping_details: ShippingAddress;
     payment_method: PaymentMethod;
     items?: OrderItemPayload[];
+    note?: string
 }
 
 export interface OrderItemPayload {
     bookId: string,
-    quantity: number
+    quantity: number,
+    price: number
 }

@@ -5,22 +5,18 @@ import { useDebounce } from 'minimal-shared/hooks';
 import React, { useState, useEffect } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
+import type { AutocompleteOptions } from '@/shared/types';
+
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export interface AutocompleteOptions {
-    label: string;
-    value: string;
-    image?: string;
-    [key: string]: any
-}
 
-export type OptionValue = AutocompleteOptions | AutocompleteOptions[] | null;
+export type OptionValue<T> = AutocompleteOptions<T> | AutocompleteOptions<T>[] | null;
 
-interface Props {
+interface Props<T> {
     name: string;
     label: string;
-    options: AutocompleteOptions[];
+    options: AutocompleteOptions<T>[];
     loading?: boolean;
     multiple?: boolean;
     placeholder?: string;
@@ -28,16 +24,16 @@ interface Props {
     isFetchingNextPage?: boolean;
     fetchNextPage?: () => void;
     onSearchChange?: (value: string) => void;
-    defaultValue: OptionValue,
+    defaultValue: OptionValue<T>,
     onOpen?: () => void,
-    handleSelect?: (val: OptionValue) => void
+    handleSelect?: (val: OptionValue<T>) => void
 }
 
-export function FormAutocomplete({
+export function FormAutocomplete<T>({
     name, label, options, loading, multiple, placeholder,
     hasNextPage, isFetchingNextPage, fetchNextPage, onSearchChange, defaultValue,
     onOpen, handleSelect
-}: Props) {
+}: Props<T>) {
     const { control, setValue } = useFormContext();
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -68,7 +64,6 @@ export function FormAutocomplete({
                         options={options}
                         loading={loading}
                         defaultValue={defaultValue}
-
                         onInputChange={(_, newInputValue) => {
                             setSearchTerm(newInputValue);
                         }}
@@ -76,11 +71,9 @@ export function FormAutocomplete({
                         filterOptions={(x) => x}
 
                         onChange={(_, newValue) => {
-
                             setValue(name, newValue)
                             handleSelect?.(newValue)
                             setSearchTerm("");
-
                         }}
 
                         isOptionEqualToValue={(option, val) => option.value === (val?.value ?? val)}

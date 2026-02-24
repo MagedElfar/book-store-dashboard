@@ -2,9 +2,9 @@ import { Grid } from "@mui/material";
 import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
-import { useAuthorAutoComplete } from "@/features/authors";
-import { useCategoryAutoComplete } from "@/features/categories";
-import { useTagsAutoComplete } from "@/features/tags";
+import { useAuthorAutoComplete, type Author } from "@/features/authors";
+import { useCategoryAutoComplete, type Category } from "@/features/categories";
+import { useTagsAutoComplete, type Tag } from "@/features/tags";
 import { FormAutocomplete } from "@/shared/form";
 
 import type { BookFormSchemaType } from "../../schema";
@@ -20,7 +20,7 @@ export function RelationsStep() {
     return (
         <Grid container spacing={3}>
             <Grid size={{ xs: 12 }}>
-                <FormAutocomplete
+                <FormAutocomplete<Author>
                     name="authors"
                     multiple
                     label={t("label.author")}
@@ -36,7 +36,7 @@ export function RelationsStep() {
             </Grid>
 
             <Grid size={{ xs: 12 }}>
-                <FormAutocomplete
+                <FormAutocomplete<Category>
                     multiple
                     name="categories"
                     label={t("label.categories")}
@@ -52,7 +52,7 @@ export function RelationsStep() {
             </Grid>
 
             <Grid size={{ xs: 12 }}>
-                <FormAutocomplete
+                <FormAutocomplete<Tag>
                     multiple
                     name="tags"
                     label={t("label.tags")}

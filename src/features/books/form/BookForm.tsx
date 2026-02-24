@@ -48,9 +48,9 @@ export function BookForm({ book }: Props) {
         published_year: book?.published_year || null,
         cover_image: book?.cover_image || "",
         images: book?.book_images?.map(img => img.image_url) || [],
-        authors: book?.authors?.map(a => mapAuthorToOption(lang, a)) || [],
-        categories: book?.categories?.map(c => mapCategoryToOption(lang, c)) || [],
-        tags: book?.tags?.map(t => mapTagToOption(lang, t)) || [],
+        authors: book?.authors?.map(a => mapAuthorToOption(a, lang)) || [],
+        categories: book?.categories?.map(c => mapCategoryToOption(c, lang)) || [],
+        tags: book?.tags?.map(t => mapTagToOption(t, lang)) || [],
         is_active: book?.is_active ?? true,
         isbn: book?.isbn || null
     }
