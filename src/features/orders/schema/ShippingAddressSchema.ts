@@ -10,9 +10,6 @@ export const ShippingAddressSchema = (t: TFunction<Namespace<"order">>) =>
         city: z
             .string()
             .nonempty({ message: t("order:validation.city_required") }),
-        // state: z
-        //     .string()
-        //     .nonempty({ message: t("order:validation.state_required") }),
         street_address: z
             .string()
             .nonempty({ message: t("order:validation.address_required") })

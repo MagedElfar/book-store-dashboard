@@ -10,6 +10,7 @@ interface OrderSummaryCardProps {
     vatCost: number;
     finalTotal: number;
     title?: string;
+    variant?: "elevation" | "outlined"
 }
 
 export function OrderSummaryCard({
@@ -18,13 +19,14 @@ export function OrderSummaryCard({
     vatCost,
     finalTotal,
     title,
+    variant = "outlined"
 }: OrderSummaryCardProps) {
     const { t, i18n } = useTranslation("order");
 
     const lang = i18n.language as SupportedLang
     return (
         <Paper
-            variant="outlined"
+            variant={variant}
             sx={{
                 p: 3,
                 bgcolor: (theme) => theme.palette.background.default,

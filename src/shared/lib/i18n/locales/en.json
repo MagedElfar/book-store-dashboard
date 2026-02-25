@@ -9,6 +9,8 @@
   "unknown": "unknown",
   "noData": "No data",
   "processing": "Processing, please wait...",
+  "country": "country",
+  "no_notes": "No notes from the customer",
   "dropzone": {
     "defaultMessage": "Drag and drop files here or click to select",
     "multiple": "You can select multiple files",
@@ -56,5 +58,10 @@
   "map": {
     "locateMe": "Locate me now",
     "searchPlaceholder": "Search for an area or address..."
+  },
+  "countries": {
+    "eg": "Egypt",
+    "sa": "Saudi Arabia",
+    "ae": "United Arab Emirates"
   }
 }

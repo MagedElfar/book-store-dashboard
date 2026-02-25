@@ -48,7 +48,7 @@ export function PaymentAndReviewStep() {
 
                     <Box sx={{ mt: 3 }}>
                         <FormTextField
-                            name="notes"
+                            name="orderNotes"
                             label={t("fields.orderNotes")}
                             multiline
                             rows={3}

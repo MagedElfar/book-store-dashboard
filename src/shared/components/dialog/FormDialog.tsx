@@ -1,5 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Dialog, DialogTitle, DialogContent, Box, IconButton } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, Box, IconButton, type Breakpoint } from "@mui/material";
 import type { ReactNode } from "react";
 
 export interface Props {
@@ -7,16 +7,18 @@ export interface Props {
     onClose: () => void;
     children: ReactNode,
     title: string
+    maxWidth?: false | Breakpoint | undefined
+
 }
 
-export function FormDialog({ open, onClose, title, children }: Props) {
+export function FormDialog({ open, onClose, title, children, maxWidth = "sm" }: Props) {
 
     return (
         <Dialog
             open={open}
             onClose={onClose}
             fullWidth
-            maxWidth="sm"
+            maxWidth={maxWidth}
             disableRestoreFocus
         >
             <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -1,4 +1,4 @@
-import type { PaymentMethod, ShippingAddress } from "./order";
+import type { OrderStatus, PaymentMethod, PaymentStatus, ShippingAddress } from "./order";
 
 export interface CreateOrderRequest {
     customer_name: string,
@@ -11,8 +11,22 @@ export interface CreateOrderRequest {
     note?: string
 }
 
+export interface EditOrderRequest {
+    customer_name: string,
+    customer_email: string;
+    customer_phone: string;
+    shipping_details: ShippingAddress;
+    payment_method: PaymentMethod;
+    note?: string
+}
+
 export interface OrderItemPayload {
     bookId: string,
     quantity: number,
     price: number
+}
+
+export interface UpdateOrderStatusPayload {
+    status?: OrderStatus;
+    payment_status?: PaymentStatus;
 }

@@ -4,20 +4,17 @@ import { Autocomplete, TextField, CircularProgress, Checkbox, Box, Avatar } from
 import { useDebounce } from 'minimal-shared/hooks';
 import React, { useState, useEffect } from "react";
 
+import type { AutocompleteOptions } from '@/shared/types';
+
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export interface AutocompleteOptions {
-    label: string;
-    value: string;
-    image?: string;
-}
 
-interface Props {
+interface Props<T> {
     label: string;
     value: any;
     onChange: (value: any) => void;
-    options: AutocompleteOptions[];
+    options: AutocompleteOptions<T>[];
     loading?: boolean;
     multiple?: boolean;
     placeholder?: string;
@@ -28,7 +25,7 @@ interface Props {
     onOpen?: () => void
 }
 
-export function FilterAutocomplete({
+export function FilterAutocomplete<T>({
     label,
     value,
     onChange,
@@ -41,7 +38,7 @@ export function FilterAutocomplete({
     isFetchingNextPage,
     fetchNextPage,
     onOpen
-}: Props) {
+}: Props<T>) {
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearch = useDebounce(searchTerm, 500);
 

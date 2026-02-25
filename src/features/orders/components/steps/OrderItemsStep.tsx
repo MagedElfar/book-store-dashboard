@@ -35,7 +35,7 @@ export function OrderItemsStep() {
 
             update(existingIndex, {
                 ...fields[existingIndex],
-                quantity: currentQty + 1,
+                quantity: Number(currentQty) + 1,
             });
         } else {
             append({

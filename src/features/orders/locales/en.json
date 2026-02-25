@@ -1,5 +1,11 @@
 {
   "createOrder": "Create order",
+  "editOrder": "Edit order",
+  "orderDetails": "Order details {{orderNumber}}",
+  "customer_info": "Customer information",
+  "shipping_details": "Shipping details",
+  "order_details_tab": "Order Info",
+  "orderItems": "Order Items",
   "status": {
     "pending": "Pending",
     "processing": "Processing",
@@ -54,7 +60,12 @@
     "user": "User",
     "addProducts": "Add book",
     "books": "Books",
-    "orderNotes": "Order notes"
+    "orderNotes": "Order notes",
+    "payment_status": "Payment status",
+    "order_status": "Order status",
+    "status": "Status",
+    "payment": "Payment",
+    "created_at": "Created at"
   },
   "steps": {
     "items": "Select Books",
@@ -68,7 +79,8 @@
     "createOrder": "Create New Order",
     "next": "Next Step",
     "back": "Previous Step",
-    "add_item": "Add Book"
+    "add_item": "Add Book",
+    "update_status": "Update status"
   },
   "feedback": {
     "successSave": "Order has been created successfully!"
@@ -85,5 +97,15 @@
     "items_review": "Items review",
     "confirmation_title": "Confirmation",
     "confirmation_text": "Order for <1>{{name}}</1> via <1>{{method}}</1>"
+  },
+  "user_types": {
+    "registered": "Registered",
+    "guest": "Guest"
+  },
+  "itemsTable": {
+    "book": "Book",
+    "price": "Price",
+    "quantity": "Quantity",
+    "total": "Total"
   }
 }

@@ -1,15 +1,16 @@
 import type { Book } from "@/features/books";
+import type { User } from "@/features/users";
 
 export type OrderStatus = 'pending' | 'processing' | 'shipped' | 'completed' | 'cancelled' | 'returned';
 export type PaymentStatus = 'pending' | 'paid' | 'failed' | 'refunded';
 export type PaymentMethod = 'cod' | 'credit_card' | 'digital_wallet';
 
 export interface ShippingAddress {
-    country: string | null;
-    state: string | null;
-    city: string | null;
-    street_address: string | null;
-    postal_code: string | null;
+    country: string;
+    state?: string;
+    city: string;
+    street_address: string;
+    postal_code?: string;
 }
 
 export interface OrderItem {
@@ -29,7 +30,7 @@ export interface Order {
     customer_email: string;
     customer_phone: string;
     user_id?: string;
-
+    user?: Partial<User> | null,
     shipping_details: ShippingAddress;
 
     subtotal_amount: number;
@@ -42,4 +43,6 @@ export interface Order {
     payment_status: PaymentStatus;
 
     items?: OrderItem[];
+
+    note?: string
 }

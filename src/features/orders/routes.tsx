@@ -4,6 +4,7 @@ import { type RouteObject } from "react-router";
 import { PermissionGuard, SplashScreen } from "@/shared/components";
 
 const CreateOrderPage = lazy(() => import("./pages/CreateOrderPage"));
+const OrderDetailsPage = lazy(() => import("./pages/OrderDetailsPage"));
 
 export const ordersRoutes: RouteObject[] = [
     {
@@ -13,8 +14,8 @@ export const ordersRoutes: RouteObject[] = [
             //     index: true,
             //     element: (
             //         <Suspense fallback={<SplashScreen />}>
-            //             <PermissionGuard requiredPermissions={["book.read"]}>
-            //                 <BooksPage />
+            //             <PermissionGuard requiredPermissions={["order.read"]}>
+            //                 <OrderDetailsPage />
             //             </PermissionGuard>
             //         </Suspense>
             //     ),
@@ -29,31 +30,21 @@ export const ordersRoutes: RouteObject[] = [
                     </Suspense>
                 ),
             },
-            // {
-            //     path: ":id",
-            //     children: [
-            //         {
-            //             index: true,
-            //             element: (
-            //                 <Suspense fallback={<SplashScreen />}>
-            //                     <PermissionGuard requiredPermissions={["book.read"]}>
-            //                         <BookDetailsPage />
-            //                     </PermissionGuard>
-            //                 </Suspense>
-            //             ),
-            //         },
-            //         {
-            //             path: "edit",
-            //             element: (
-            //                 <Suspense fallback={<SplashScreen />}>
-            //                     <PermissionGuard requiredPermissions={["book.update"]}>
-            //                         <EditBookPage />
-            //                     </PermissionGuard>
-            //                 </Suspense>
-            //             ),
-            //         },
-            //     ],
-            // },
+            {
+                path: ":id",
+                children: [
+                    {
+                        index: true,
+                        element: (
+                            <Suspense fallback={<SplashScreen />}>
+                                <PermissionGuard requiredPermissions={["order.read"]}>
+                                    <OrderDetailsPage />
+                                </PermissionGuard>
+                            </Suspense>
+                        ),
+                    }
+                ],
+            },
         ],
     },
 ];

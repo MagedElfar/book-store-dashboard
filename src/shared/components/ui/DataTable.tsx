@@ -25,12 +25,12 @@ interface DataTableProps<T> {
     columns: Column<T>[];
     rows: T[];
     count: number;
-    page: number; // MUI page (starts from 0)
-    limit: number;
+    page?: number; // MUI page (starts from 0)
+    limit?: number;
     isLoading?: boolean;
     isError?: boolean;
-    onPageChange: (event: unknown, newPage: number) => void;
-    onLimitChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onPageChange?: (event: unknown, newPage: number) => void;
+    onLimitChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onRefetch?: () => void;
 }
 
@@ -117,7 +117,7 @@ export function DataTable<T>({
 
                     <TableBody>
                         {/* 1. Loading State */}
-                        {isLoading ? (
+                        {isLoading && limit ? (
                             Array.from({ length: limit }).map((_, idx) => (
                                 <TableRow key={idx}>
                                     {columns.map((_, colIdx) => (
@@ -205,7 +205,7 @@ export function DataTable<T>({
                 </Table>
             </TableContainer>
 
-            <TablePagination
+            {page && limit && onPageChange && <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 component="div"
                 count={count}
@@ -217,7 +217,7 @@ export function DataTable<T>({
                     borderTop: (theme) => `1px solid ${theme.palette.divider}`,
                     bgcolor: 'background.paper'
                 }}
-            />
+            />}
         </Paper>
     );
 }

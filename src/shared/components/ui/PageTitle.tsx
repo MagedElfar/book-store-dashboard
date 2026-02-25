@@ -1,6 +1,6 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { IconButton, Stack, Typography, type TypographyProps, Box } from '@mui/material'
+import { IconButton, Stack, Typography, type TypographyProps } from '@mui/material'
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
@@ -56,9 +56,15 @@ export function PageTitle({ title, withBackArrow, actions, nested, ...props }: P
             </Stack>}
 
             {actions && (
-                <Box sx={{ flexShrink: 0 }}>
+                <Stack
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="flex-end"
+                    spacing={1}
+                    sx={{ flexShrink: 0 }}
+                >
                     {actions}
-                </Box>
+                </Stack>
             )}
         </Stack>
     );

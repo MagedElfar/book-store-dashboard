@@ -28,8 +28,6 @@ export function useBookColumns(onDelete: (book: Book) => void) {
 
     const lang = i18n.language as SupportedLang;
 
-
-
     return useMemo<Column<Book>[]>(() => [
         {
             id: "title_en",

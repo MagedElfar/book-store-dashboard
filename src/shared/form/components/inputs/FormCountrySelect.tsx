@@ -3,13 +3,15 @@ import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
+import { COUNTRIES } from "@/shared/constants";
+
 type FormCountrySelectProps = TextFieldProps & {
     name: string;
 };
 
 export const FormCountrySelect: React.FC<FormCountrySelectProps> = ({ name, label, ...props }) => {
     const { control } = useFormContext();
-    const { t } = useTranslation("order");
+    const { t } = useTranslation("common");
 
     return (
         <Controller
@@ -21,7 +23,7 @@ export const FormCountrySelect: React.FC<FormCountrySelectProps> = ({ name, labe
                     {...props}
                     select
                     fullWidth
-                    label={label || t("fields.country")}
+                    label={label || t("country")}
                     error={!!fieldState.error}
                     helperText={fieldState.error?.message}
                     slotProps={{
@@ -33,12 +35,15 @@ export const FormCountrySelect: React.FC<FormCountrySelectProps> = ({ name, labe
                         }
                     }}
                 >
-                    {COUNTRIES.map((opt) => (
+                    {COUNTRIES.map(c => ({
+                        value: c.value,
+                        label: `${getFlagEmoji(c.value)} ${t(c.label)}`
+                    })).map((opt) => (
                         <MenuItem key={opt.value} value={opt.value}>
                             <Box component="span" sx={{ mr: 1.5, fontSize: '1.2rem' }}>
-                                {opt.label.split(' ')[0]} {/* العلم */}
+                                {opt.label.split(' ')[0]}
                             </Box>
-                            {opt.label.split(' ').slice(1).join(' ')} {/* اسم الدولة */}
+                            {opt.label.split(' ').slice(1).join(' ')}
                         </MenuItem>
                     ))}
                 </TextField>
@@ -55,15 +60,3 @@ const getFlagEmoji = (countryCode: string) => {
         .map(char => 127397 + char.charCodeAt(0));
     return String.fromCodePoint(...codePoints);
 };
-
-const COUNTRIES = [
-    { label: "Egypt", value: "EG" },
-    { label: "Saudi Arabia", value: "SA" },
-    { label: "United Arab Emirates", value: "AE" },
-    { label: "Kuwait", value: "KW" },
-    { label: "Qatar", value: "QA" },
-    { label: "Jordan", value: "JO" },
-].map(c => ({
-    value: c.value,
-    label: `${getFlagEmoji(c.value)} ${c.label}`
-}));
