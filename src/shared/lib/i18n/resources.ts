@@ -1,5 +1,7 @@
 import accountAR from "@/features/account/locales/ar.json";
 import accountEN from "@/features/account/locales/en.json";
+import analyticsAr from "@/features/analytics/locales/ar.json";
+import analyticsEN from "@/features/analytics/locales/en.json";
 import authAR from "@/features/auth/locales/ar.json";
 import authEN from "@/features/auth/locales/en.json";
 import authorsAr from "@/features/authors/locales/ar.json";
@@ -38,7 +40,8 @@ export const resources = {
         author: authorsEn,
         tag: tagEn,
         book: bookEn,
-        order: orderEN
+        order: orderEN,
+        analytics: analyticsEN
     },
     ar: {
         common: translationAR,
@@ -51,6 +54,7 @@ export const resources = {
         author: authorsAr,
         tag: tagAr,
         book: bookAr,
-        orders: orderAr
+        orders: orderAr,
+        analytics: analyticsAr
     },
 } as const;

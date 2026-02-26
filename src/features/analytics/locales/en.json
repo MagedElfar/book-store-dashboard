@@ -1,0 +1,37 @@
+{
+  "welcome": {
+    "title": "Welcome back, {{name}} 👋",
+    "subtitle": "Monitor your bookstore's performance at a glance."
+  },
+  "tabs": {
+    "overview": "Overview",
+    "inventory": "Books & Inventory",
+    "users": "Users Analysis"
+  },
+  "filters": {
+    "dateRange": "Date range",
+    "last24h": "Last 24 Hours",
+    "last7d": "Last 7 Days",
+    "last30d": "Last 30 Days",
+    "allTime": "All Time",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "custom": "Custom"
+  },
+  "stats": {
+    "totalSales": "Total Sales",
+    "newUsers": "New Users",
+    "inventoryHealth": "Inventory Health",
+    "activeOrders": "Active Orders",
+    "inventoryItems": "Inventory items"
+  },
+  "charts": {
+    "salesTrend": "Sales Trend Overview",
+    "customerTypes": "Customer Segmentation"
+  },
+  "status": {
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "loading": "Loading analytics data..."
+}

@@ -9,3 +9,5 @@ export * from "./routes"
 export * from "./filter"
 
 export * from "./dialog"
+
+export * from "./charts"

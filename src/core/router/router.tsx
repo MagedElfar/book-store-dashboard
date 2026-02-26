@@ -15,6 +15,7 @@ import { ErrorFallback, ProtectedRoute, PublicRoute, SplashScreen } from "@/shar
 
 const Page403 = lazy(() => import("./../pages/Page403"))
 const Page404 = lazy(() => import("./../pages/Page404"))
+const DashboardPage = lazy(() => import("./../../features/analytics/pages/DashboardPage"))
 
 
 export const router = createBrowserRouter([
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
                     </ProtectedRoute>
                 ),
                 children: [
+                    {
+                        index: true,
+                        element: <DashboardPage />
+                    },
                     ...usersRoutes,
                     ...categoriesRoutes,
                     ...authorsRoutes,

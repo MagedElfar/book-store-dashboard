@@ -16,8 +16,8 @@ import { useTranslation } from "react-i18next";
 
 interface DataFilterToolbarProps {
     searchPlaceholder?: string;
-    searchValue: string;
-    onSearchChange: (value: string) => void;
+    searchValue?: string;
+    onSearchChange?: (value: string) => void;
     onClear?: () => void;
     children?: React.ReactNode;
 }
@@ -30,13 +30,13 @@ export function DataFilterToolbar({
     children
 }: DataFilterToolbarProps) {
     const { t } = useTranslation("common");
-    const [localSearch, setLocalSearch] = useState(searchValue);
+    const [localSearch, setLocalSearch] = useState(searchValue || "");
     const [showFilters, setShowFilters] = useState(false);
     const debouncedSearch = useDebounce(localSearch, 500);
 
     useEffect(() => {
         if (debouncedSearch !== searchValue) {
-            onSearchChange(debouncedSearch);
+            onSearchChange?.(debouncedSearch);
         }
     }, [debouncedSearch, onSearchChange, searchValue]);
     const handleClearAll = () => {
@@ -52,7 +52,8 @@ export function DataFilterToolbar({
                 alignItems="center"
                 justifyContent="flex-end"
             >
-                <TextField
+
+                {searchValue && <TextField
                     size="small"
                     value={localSearch}
                     onChange={(e) => setLocalSearch(e.target.value)}
@@ -67,7 +68,7 @@ export function DataFilterToolbar({
                         }
                     }}
                     sx={{ flexGrow: 1, width: { xs: '100%', sm: 300 } }}
-                />
+                />}
 
                 <Button
                     variant={showFilters ? "outlined" : "contained"}
