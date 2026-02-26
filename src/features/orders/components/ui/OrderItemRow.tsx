@@ -29,7 +29,14 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
 
 
     return (
-        <Paper variant="outlined" sx={{ p: 1.5, borderRadius: 2 }}>
+        <Paper
+            variant="outlined"
+            sx={{
+                p: 1.5,
+                borderRadius: 2,
+                minWidth: { xs: "600px", md: "0" },
+            }}
+        >
             <Stack direction="row" alignItems="center" spacing={2}>
                 <Avatar
                     src={image}
@@ -56,7 +63,7 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                     />
                 </Box>
 
-                <Box sx={{ width: 100, textAlign: 'right' }}>
+                <Box sx={{ width: 100, textAlign: 'end' }}>
                     <Typography variant="subtitle2" color="primary">
                         {formatPrice(price * quantity, lang)}
                     </Typography>

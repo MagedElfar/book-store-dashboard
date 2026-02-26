@@ -5,6 +5,7 @@ import {
     Avatar,
     Chip,
     IconButton,
+    Link,
     Stack,
     Tooltip,
     Typography,
@@ -44,9 +45,19 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                     </Avatar>
 
                     <Stack spacing={0.1}>
-                        <Typography variant="subtitle2" noWrap>
-                            {row?.[`title_${lang}`]}
-                        </Typography>
+                        <Link
+                            component="a"
+                            href={paths.dashboard.books.details(row.id)}
+                            target='_blank'
+                            underline="hover"
+                            fontSize="subtitle2"
+                        >
+
+                            <Typography variant="subtitle2" noWrap>
+                                {row?.[`title_${lang}`]}
+                            </Typography>
+
+                        </Link>
 
                         <Typography variant="caption" sx={{ color: "text.secondary" }} noWrap>
                             {row.slug}

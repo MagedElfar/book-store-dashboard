@@ -1,17 +1,16 @@
 import { Stack, TextField, Chip, MenuItem, Box, CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from "../../config";
+import { ORDER_STATUS_CONFIG } from "../../config";
 import { useUpdateOrderStatus } from "../../hooks";
-import type { OrderStatus, PaymentStatus } from "../../types";
+import type { OrderStatus } from "../../types";
 
 interface Props {
     orderId: string;
-    currentStatus: OrderStatus;
-    currentPaymentStatus: string;
+    currentStatus: OrderStatus
 }
 
-export function OrderStatusActionsTable({ orderId, currentStatus, currentPaymentStatus }: Props) {
+export function OrderStatusActionsTable({ orderId, currentStatus }: Props) {
     const { t } = useTranslation("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
 
@@ -31,8 +30,16 @@ export function OrderStatusActionsTable({ orderId, currentStatus, currentPayment
     };
 
     return (
-        <Stack direction="row" spacing={1} alignItems="center">
-            {/* 1. قائمة حالة الطلب */}
+        <Stack
+            direction="row"
+            spacing={1}
+            alignItems="center"
+            sx={{
+                "& .MuiFormControl-root": {
+                    background: "transparent"
+                }
+            }}
+        >
             <TextField
                 select
                 value={currentStatus}
@@ -66,35 +73,6 @@ export function OrderStatusActionsTable({ orderId, currentStatus, currentPayment
                 ))}
             </TextField>
 
-            <TextField
-                select
-                value={currentPaymentStatus}
-                size="small"
-                disabled={isPending}
-                onChange={(e) => updateStatus({ payment_status: e.target.value as PaymentStatus })}
-                sx={selectSx}
-                slotProps={{
-                    select: {
-                        renderValue: (selected) => (
-                            <Chip
-                                label={t(`payments.${selected}` as any)}
-                                size="small"
-                                variant="outlined"
-                                color={PAYMENT_STATUS_CONFIG[selected as PaymentStatus].color}
-                                sx={{ fontWeight: 'bold', height: 22, cursor: 'pointer' }}
-                            />
-                        )
-                    }
-                }}
-            >
-                {(Object.keys(PAYMENT_STATUS_CONFIG) as PaymentStatus[]).map((pStatus) => (
-                    <MenuItem key={pStatus} value={pStatus} sx={{ typography: 'body2' }}>
-                        {t(`payments.${pStatus}`)}
-                    </MenuItem>
-                ))}
-            </TextField>
-
-            {/* مؤشر التحميل الصغير */}
             {isPending && <CircularProgress size={16} thickness={5} />}
         </Stack>
     );

@@ -205,7 +205,7 @@ export function DataTable<T>({
                 </Table>
             </TableContainer>
 
-            {page && limit && onPageChange && <TablePagination
+            {page !== undefined && limit !== undefined && onPageChange && <TablePagination
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 component="div"
                 count={count}

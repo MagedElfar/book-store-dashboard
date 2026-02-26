@@ -6,13 +6,15 @@ import {
     Chip,
     Card,
     CardContent,
-    Button
+    Button,
+    Link
 } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import { usePermission } from '@/features/auth';
 import { DataTable } from '@/shared/components';
+import { paths } from '@/shared/constants';
 import { useDialog } from '@/shared/hooks';
 import type { Column, SupportedLang } from "@/shared/types";
 import { formatPrice } from "@/shared/utilities";
@@ -54,7 +56,19 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
 
                     <Stack spacing={0.1}>
                         <Typography variant="subtitle2" noWrap sx={{ maxWidth: 250 }}>
-                            {row.book?.[`title_${lang}`]}
+                            <Link
+                                component="a"
+                                href={paths.dashboard.books.details(row.book_id!)}
+                                target='_blank'
+                                underline="hover"
+                                fontSize="subtitle2"
+                            >
+
+                                <Typography variant="subtitle2" noWrap>
+                                    {row.book?.[`title_${lang}`]}
+                                </Typography>
+
+                            </Link>
                         </Typography>
 
                         <Typography variant="caption" sx={{ color: "text.secondary" }} noWrap>

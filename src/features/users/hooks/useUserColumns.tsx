@@ -1,7 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Avatar, Chip, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { Avatar, Chip, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -33,9 +33,19 @@ export function useUserColumns(onDelete: (user: User) => void) {
                         <Typography textTransform="uppercase" variant="body2">{row.full_name?.[0]}</Typography>
                     </Avatar>
                     <Stack spacing={0.1}>
-                        <Typography textTransform="capitalize" variant="subtitle2" noWrap>
-                            {row.full_name}
-                        </Typography>
+                        <Link
+                            component="a"
+                            href={paths.dashboard.users.details(row.id)}
+                            target='_blank'
+                            underline="hover"
+                            fontSize="subtitle2"
+                        >
+
+                            <Typography textTransform="capitalize" variant="subtitle2" noWrap>
+                                {row.full_name}
+                            </Typography>
+                        </Link>
+
                         <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {row.email}
                         </Typography>

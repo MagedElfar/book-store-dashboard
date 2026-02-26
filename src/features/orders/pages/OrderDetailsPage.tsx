@@ -1,13 +1,17 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Button, Chip, Grid, Stack } from '@mui/material';
+import PrintIcon from '@mui/icons-material/Print';
+import { Box, Button, Chip, Grid, Stack } from '@mui/material';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
+import { useReactToPrint } from 'react-to-print';
 
 import { usePermission } from '@/features/auth';
 import { DataHandler, PageTitle, PageWrapper } from '@/shared/components';
 import { useDialog } from '@/shared/hooks';
+import type { SupportedLang } from '@/shared/types';
 
-import { EditOrderFormDialog, OrderAdditionalInfo, OrderCustomerInfo, OrderDetailsSkeleton, OrderItemsTable, OrderStatusActions } from '../components';
+import { EditOrderFormDialog, OrderAdditionalInfo, OrderCustomerInfo, OrderDetailsSkeleton, OrderInvoice, OrderItemsTable, OrderStatusActions } from '../components';
 import { OrderSummaryCard } from '../components/ui';
 import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from '../config';
 import { useGetOrderById } from '../hooks';
@@ -15,12 +19,17 @@ import type { Order, OrderStatus, PaymentStatus } from '../types';
 
 export default function OrderDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const { t } = useTranslation(["order", "common"]);
+  const { t, i18n } = useTranslation(["order", "common"]);
+  const invoiceRef = useRef<HTMLDivElement>(null);
 
   const { data: order, isLoading, isError, refetch } = useGetOrderById(id!);
   const { data: orderData, isEdit, openEdit, closeDialog } = useDialog<Order>();
   const { hasPermission } = usePermission()
 
+  const handlePrint = useReactToPrint({
+    contentRef: invoiceRef,
+    documentTitle: `Invoice-${order?.order_number || 'Order'}`,
+  })
   return (
     <PageWrapper>
       <PageTitle
@@ -42,6 +51,17 @@ export default function OrderDetailsPage() {
               color={PAYMENT_STATUS_CONFIG[order?.payment_status as PaymentStatus]?.color}
               sx={{ fontWeight: 'bold', height: 20 }}
             />}
+            {order && (
+              <Button
+                color="info"
+                onClick={() => handlePrint()}
+                size="small"
+                startIcon={<PrintIcon fontSize="small" />}
+                sx={{ bgcolor: 'background.paper' }}
+              >
+                {t("actions.print")}
+              </Button>
+            )}
             {order && hasPermission("order.manage") && <Button
               color="warning"
               onClick={() => openEdit(order)}
@@ -62,36 +82,45 @@ export default function OrderDetailsPage() {
         loadingComponent={<OrderDetailsSkeleton />}
       >
         {(orderData) => (
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12, md: 8 }}>
-              <Stack spacing={2}>
-                <OrderCustomerInfo order={orderData} />
-                <OrderAdditionalInfo order={orderData} />
-              </Stack>
-            </Grid>
+          <>
+            <Grid container spacing={3}>
+              <Grid size={{ xs: 12, md: 8 }}>
+                <Stack spacing={2}>
+                  <OrderCustomerInfo order={orderData} />
+                  <OrderAdditionalInfo order={orderData} />
+                </Stack>
+              </Grid>
 
-            <Grid size={{ xs: 12, md: 4 }}>
-              <Stack spacing={2}>
-                <OrderStatusActions
-                  orderId={orderData.id}
-                  currentStatus={orderData.status}
-                  currentPaymentStatus={orderData.payment_status}
-                />
+              <Grid size={{ xs: 12, md: 4 }}>
+                <Stack spacing={2}>
+                  <OrderStatusActions
+                    orderId={orderData.id}
+                    currentStatus={orderData.status}
+                    currentPaymentStatus={orderData.payment_status}
+                  />
 
-                <OrderSummaryCard
-                  subtotal={order?.subtotal_amount ?? 0}
-                  shippingCost={order?.shipping_fees ?? 0}
-                  vatCost={order?.vat_amount ?? 0}
-                  finalTotal={order?.total_amount ?? 0}
-                  variant="elevation"
-                />
-              </Stack>
-            </Grid>
+                  <OrderSummaryCard
+                    subtotal={order?.subtotal_amount ?? 0}
+                    shippingCost={order?.shipping_fees ?? 0}
+                    vatCost={order?.vat_amount ?? 0}
+                    finalTotal={order?.total_amount ?? 0}
+                    variant="elevation"
+                  />
+                </Stack>
+              </Grid>
 
-            <Grid size={{ xs: 12 }}>
-              <OrderItemsTable status={orderData.status} orderId={orderData.id} items={order?.items || []} />
+              <Grid size={{ xs: 12 }}>
+                <OrderItemsTable status={orderData.status} orderId={orderData.id} items={order?.items || []} />
+              </Grid>
             </Grid>
-          </Grid>
+            <Box sx={{ display: 'none' }}>
+              <OrderInvoice
+                ref={invoiceRef}
+                order={orderData}
+                lang={i18n.language as SupportedLang}
+              />
+            </Box>
+          </>
         )}
       </DataHandler>
 

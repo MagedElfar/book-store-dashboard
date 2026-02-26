@@ -50,7 +50,7 @@ export function OrderItemsStep() {
     };
 
     return (
-        <Stack data-test="items" spacing={3}>
+        <Stack width="100%" data-test="items" spacing={3}>
             {errors.items?.message && (
                 <Alert severity="error" sx={{ borderRadius: 2, mb: 2 }}>
                     {String(errors.items.message)}
@@ -87,7 +87,7 @@ export function OrderItemsStep() {
 
             <Divider />
 
-            <Stack spacing={1.5}>
+            <Stack overflow="auto" spacing={1.5}>
                 {fields.length > 0 ? (
                     fields.map((field, index) => (
                         <OrderItemRow

@@ -46,3 +46,17 @@ export interface Order {
 
     note?: string
 }
+
+
+export interface OrdersStats {
+    total_orders: number;
+    total_revenue: number;
+    orders_this_month: number;
+    orders_last_month: number;
+    growth_percentage: number;
+    pending_orders: number;
+    processing_orders: number;
+    shipped_orders: number;
+    completed_orders: number;
+    cancelled_orders: number;
+}

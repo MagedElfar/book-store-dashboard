@@ -1,4 +1,5 @@
 {
+  "orders": "Orders",
   "createOrder": "Create order",
   "editOrder": "Edit order",
   "orderDetails": "Order details {{orderNumber}}",
@@ -12,7 +13,8 @@
     "shipped": "Shipped",
     "completed": "Completed",
     "cancelled": "Cancelled",
-    "returned": "Returned"
+    "returned": "Returned",
+    "all": "All"
   },
   "payments": {
     "pending": "Pending",
@@ -80,7 +82,8 @@
     "next": "Next Step",
     "back": "Previous Step",
     "add_item": "Add Book",
-    "update_status": "Update status"
+    "update_status": "Update status",
+    "print": "Print invoice"
   },
   "feedback": {
     "successSave": "Order has been created successfully!"
@@ -107,5 +110,40 @@
     "price": "Price",
     "quantity": "Quantity",
     "total": "Total"
+  },
+  "status_options": {
+    "all": "All Orders",
+    "pending": "Pending",
+    "processing": "Processing",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled"
+  },
+  "filters": {
+    "search": "Search by order #, name, email or phone...",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "clear": "Clear Filters",
+    "status": "Status",
+    "sortBy": "Sort By",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "total_desc": "Price: High to Low",
+    "total_asc": "Price: Low to High"
+  },
+  "stats": {
+    "totalOrders": "Total orders",
+    "totalRevenue": "Total revenue",
+    "averageOrderValue": "Average orderValue"
+  },
+  "table": {
+    "order": "Order",
+    "customer": "Customer",
+    "date": "Date",
+    "total": "Total Amount",
+    "status": "Order Status",
+    "payment": "Payment",
+    "items": "Items",
+    "createdAt": "Created At"
   }
 }

@@ -30,3 +30,21 @@ export interface UpdateOrderStatusPayload {
     status?: OrderStatus;
     payment_status?: PaymentStatus;
 }
+
+export interface OrderParams {
+    page?: number;
+    limit?: number;
+    search?: string;
+    status?: OrderStatus | "all";
+    startDate?: string;
+    endDate?: string;
+    sortBy?: OrderSortBy;
+    order?: 'asc' | 'desc';
+}
+
+export type OrderSortBy =
+    | "newest"
+    | "oldest"
+    | "total_desc"
+    | "total_asc"
+    | "status"         

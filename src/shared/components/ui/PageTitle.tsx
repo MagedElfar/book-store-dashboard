@@ -60,6 +60,7 @@ export function PageTitle({ title, withBackArrow, actions, nested, ...props }: P
                     direction="row"
                     alignItems="center"
                     justifyContent="flex-end"
+                    flexWrap="wrap"
                     spacing={1}
                     sx={{ flexShrink: 0 }}
                 >

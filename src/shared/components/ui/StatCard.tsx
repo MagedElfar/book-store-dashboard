@@ -9,18 +9,15 @@ export interface StatItem {
     icon: React.ReactNode;
     color?: 'primary' | 'secondary' | 'error' | 'warning' | 'info' | 'success';
     loading?: boolean;
-    /** نسبة النمو: موجب للزيادة، سالب للنقصان، صفر للثبات */
     growth?: number;
 }
 
 export function StatCard({ item }: { item: StatItem }) {
     const theme = useTheme();
 
-    // الألوان الأساسية للكارت
     const colorMain = theme.palette[item.color || 'primary'].main;
     const colorLighter = alpha(colorMain, 0.1);
 
-    // منطق تحديد اتجاه النمو (Trend logic)
     const getTrendDetails = (growth: number) => {
         if (growth > 0) return {
             color: theme.palette.success.main,

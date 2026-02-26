@@ -33,7 +33,7 @@ export function FormDialog({ open, onClose, title, children, maxWidth = "sm" }: 
                 </IconButton>
             </DialogTitle>
 
-            <DialogContent dividers sx={{ p: 3 }}>
+            <DialogContent dividers sx={{ p: { xs: 1, md: 2 } }}>
                 <Box sx={{ pt: 1 }}>
                     {children}
                 </Box>

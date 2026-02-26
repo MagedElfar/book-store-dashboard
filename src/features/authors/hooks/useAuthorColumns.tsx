@@ -2,7 +2,7 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Avatar, Chip, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { Avatar, Chip, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -36,9 +36,19 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                         {row.name_en?.[0]}
                     </Avatar>
                     <Stack spacing={0.1}>
-                        <Typography variant="subtitle2" noWrap>
-                            {row?.[`name_${lang}`]}
-                        </Typography>
+                        <Link
+                            component="a"
+                            href={paths.dashboard.authors.details(row.id)}
+                            target='_blank'
+                            underline="hover"
+                            fontSize="subtitle2"
+                        >
+
+                            <Typography variant="subtitle2" noWrap>
+                                {row?.[`name_${lang}`]}
+                            </Typography>
+                        </Link>
+
                         <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {row.slug}
                         </Typography>
