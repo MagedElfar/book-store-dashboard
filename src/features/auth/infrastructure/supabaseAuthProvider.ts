@@ -30,8 +30,22 @@ export const supabaseAuthProvider: AuthApiProvider = {
     },
 
     logout: async function (): Promise<void> {
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) throw new Error(error.message);
+        try {
+            const { data: { user } } = await supabaseClient.auth.getUser();
+
+            if (user) {
+                await supabaseClient
+                    .from('profiles')
+                    .update({ fcm_token: null })
+                    .eq('id', user.id);
+            }
+
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) throw new Error(error.message);
+
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
     },
 
     refreshToken: async function (): Promise<AuthResponse> {

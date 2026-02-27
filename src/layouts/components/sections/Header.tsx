@@ -6,12 +6,11 @@ import {
 import { Box, IconButton, Stack } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { AccountDropdown } from "@/features/auth";
+import { AccountDropdown, useAuthState } from "@/features/auth";
+import { NotificationCenter } from "@/features/notifications";
 import { HEADER_HEIGHT } from "@/layouts/constants";
 
 import { ModeSwitch, LanguageSwitch } from "../ui";
-
-
 
 interface Props {
     onToggleBar: () => void,
@@ -20,6 +19,7 @@ interface Props {
 
 export function Header({ onToggleBar, open }: Props) {
     const { i18n } = useTranslation()
+    const { user } = useAuthState()
 
     const dir = i18n.dir()
 
@@ -70,6 +70,7 @@ export function Header({ onToggleBar, open }: Props) {
         >
             <ModeSwitch />
             <LanguageSwitch />
+            {user?.id && <NotificationCenter userId={user?.id} />}
             <AccountDropdown />
         </Stack>
 

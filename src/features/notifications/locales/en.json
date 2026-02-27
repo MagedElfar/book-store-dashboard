@@ -1,0 +1,10 @@
+{
+  "actions": {
+    "markAsRead": "Mark as read",
+    "delete": "Delete",
+    "clearAll": "Clear All",
+    "markAllRead": "Mark all as read"
+  },
+  "empty": "No notifications yet",
+  "title": "Notifications"
+}

@@ -20,7 +20,6 @@ export function fDate(date: string | number | Date) {
 export function fDateTime(date: string | number | Date) {
     if (!date) return '';
     setDayjsLocale();
-    // ملاحظة: حرف 'p' ليس تنسيقاً قياسياً في dayjs، نستخدم 'hh:mm A' للوقت
     return dayjs(date).format('DD MMM YYYY hh:mm A');
 }
 

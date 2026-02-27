@@ -1,7 +1,8 @@
 export const env = {
     supabaseUrl: getEnv("VITE_SUPABASE_URL"),
     supabaseKey: getEnv("VITE_SUPABASE_PUBLISHABLE_DEFAULT_KEY"),
-    supabaseProjectId: getEnv("VITE_SUPABASE_SUPABASE_PROJECT_ID")
+    supabaseProjectId: getEnv("VITE_SUPABASE_SUPABASE_PROJECT_ID"),
+    firebaseVapkeyId: getEnv("VITE_FIREBASE_VAPIDKEY")
 } as const
 
 function getEnv(name: string): string {

@@ -18,7 +18,6 @@ export function DashboardLayout() {
 
   return (
     <Box sx={{ display: "flex", height: "100vh", maxWidth: "100%" }}>
-
       <Sidebar
         open={open}
         onClose={() => setOpen(false)} nav={dashboardNav}

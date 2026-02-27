@@ -10,6 +10,8 @@ import bookAr from "@/features/books/locales/ar.json";
 import bookEn from "@/features/books/locales/en.json";
 import categoryAr from "@/features/categories/locales/ar.json";
 import categoryEn from "@/features/categories/locales/en.json";
+import notificationAr from "@/features/notifications/locales/ar.json";
+import notificationEn from "@/features/notifications/locales/en.json";
 import orderAr from "@/features/orders/locales/ar.json";
 import orderEN from "@/features/orders/locales/en.json";
 import tagAr from "@/features/tags/locales/ar.json";
@@ -41,7 +43,8 @@ export const resources = {
         tag: tagEn,
         book: bookEn,
         order: orderEN,
-        analytics: analyticsEN
+        analytics: analyticsEN,
+        notification: notificationEn
     },
     ar: {
         common: translationAR,
@@ -55,6 +58,7 @@ export const resources = {
         tag: tagAr,
         book: bookAr,
         orders: orderAr,
-        analytics: analyticsAr
+        analytics: analyticsAr,
+        notification: notificationAr
     },
 } as const;
