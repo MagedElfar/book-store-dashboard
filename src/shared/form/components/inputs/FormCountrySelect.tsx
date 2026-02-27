@@ -30,7 +30,7 @@ export const FormCountrySelect: React.FC<FormCountrySelectProps> = ({ name, labe
                         select: {
                             renderValue: (value) => {
                                 const country = COUNTRIES.find(c => c.value === (value as string));
-                                return (country ? country.label : (value as string)) as React.ReactNode;
+                                return (country ? t(country.label) : (value as string)) as React.ReactNode;
                             }
                         }
                     }}

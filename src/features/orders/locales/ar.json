@@ -1,1 +1,149 @@
-{}
+{
+  "orders": "الطلبات",
+  "createOrder": "إنشاء طلب",
+  "editOrder": "تعديل الطلب",
+  "orderDetails": "تفاصيل الطلب {{orderNumber}}",
+  "customer_info": "معلومات العميل",
+  "shipping_details": "تفاصيل الشحن",
+  "order_details_tab": "معلومات الطلب",
+  "orderItems": "عناصر الطلب",
+  "status": {
+    "pending": "قيد الانتظار",
+    "processing": "قيد المعالجة",
+    "shipped": "تم الشحن",
+    "completed": "تم الاكتمال",
+    "cancelled": "ملغي",
+    "returned": "مُرجع",
+    "all": "الكل"
+  },
+  "payments": {
+    "pending": "قيد الانتظار",
+    "paid": "تم الدفع",
+    "failed": "فشلت عملية الدفع",
+    "refunded": "تم استرداد المبلغ"
+  },
+  "methods": {
+    "cod": "الدفع عند الاستلام",
+    "credit_card": "بطاقة ائتمان",
+    "digital_wallet": "محفظة رقمية"
+  },
+  "validation": {
+    "name_required": "اسم العميل مطلوب",
+    "name_min": "يجب أن يكون الاسم 3 أحرف على الأقل",
+    "email_required": "البريد الإلكتروني مطلوب",
+    "email_invalid": "يرجى إدخال بريد إلكتروني صحيح",
+    "phone_required": "رقم الهاتف مطلوب",
+    "phone_invalid": "صيغة رقم الهاتف غير صحيحة",
+    "country_required": "الدولة مطلوبة",
+    "city_required": "المدينة مطلوبة",
+    "state_required": "المنطقة/المحافظة مطلوبة",
+    "address_required": "العنوان التفصيلي مطلوب",
+    "address_min": "يجب أن يكون العنوان أكثر تفصيلاً (10 أحرف على الأقل)",
+    "payment_method_required": "يرجى اختيار طريقة الدفع",
+    "book_required": "يجب اختيار كتاب",
+    "quantity_min": "يجب أن تكون الكمية 1 على الأقل",
+    "items_min": "يجب أن يحتوي الطلب على عنصر واحد على الأقل"
+  },
+  "fields": {
+    "searchCustomer": "البحث عن عميل حالي (اختياري)",
+    "shippingAddress": "عنوان الشحن",
+    "customerInfo": "المعلومات الأساسية للعميل",
+    "customer_name": "اسم العميل",
+    "customer_email": "البريد الإلكتروني",
+    "customer_phone": "رقم الهاتف",
+    "country": "الدولة",
+    "city": "المدينة",
+    "state_province": "المنطقة / المحافظة",
+    "address": "اسم الشارع / العنوان",
+    "apartment_suite": "شقة / جناح",
+    "landmark": "علامة مميزة",
+    "postal_code": "الرمز البريدي",
+    "payment_method": "طريقة الدفع",
+    "user": "المستخدم",
+    "addProducts": "إضافة كتاب",
+    "books": "الكتب",
+    "orderNotes": "ملاحظات الطلب",
+    "payment_status": "حالة الدفع",
+    "order_status": "حالة الطلب",
+    "status": "الحالة",
+    "payment": "الدفع",
+    "created_at": "تاريخ الإنشاء"
+  },
+  "steps": {
+    "items": "اختيار الكتب",
+    "shipping": "تفاصيل الشحن",
+    "paymentAndReview": "الدفع والمراجعة",
+    "customerInfo": "معلومات العميل",
+    "shippingDetails": "تفاصيل الشحن",
+    "orderItems": "عناصر الطلب"
+  },
+  "actions": {
+    "createOrder": "إنشاء طلب جديد",
+    "next": "الخطوة التالية",
+    "back": "الخطوة السابقة",
+    "add_item": "إضافة كتاب",
+    "update_status": "تحديث الحالة",
+    "print": "طباعة الفاتورة"
+  },
+  "feedback": {
+    "successSave": "تم إنشاء الطلب بنجاح!"
+  },
+  "messages": {
+    "noItemsYet": "لم يتم اختيار أي عناصر بعد"
+  },
+  "summary": {
+    "title": "ملخص الطلب",
+    "subtotal": "المجموع الفرعي",
+    "shipping": "الشحن",
+    "vat": "ضريبة القيمة المضافة",
+    "total": "الإجمالي",
+    "items_review": "مراجعة العناصر",
+    "confirmation_title": "تأكيد",
+    "confirmation_text": "طلب لـ <1>{{name}}</1> عبر <1>{{method}}</1>"
+  },
+  "user_types": {
+    "registered": "مسجل",
+    "guest": "زائر"
+  },
+  "itemsTable": {
+    "book": "الكتاب",
+    "price": "السعر",
+    "quantity": "الكمية",
+    "total": "المجموع"
+  },
+  "status_options": {
+    "all": "كل الطلبات",
+    "pending": "قيد الانتظار",
+    "processing": "قيد المعالجة",
+    "shipped": "تم الشحن",
+    "delivered": "تم التوصيل",
+    "cancelled": "ملغي"
+  },
+  "filters": {
+    "search": "بحث برقم الطلب، الاسم، البريد أو الهاتف...",
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء",
+    "clear": "مسح الفلاتر",
+    "status": "الحالة",
+    "sortBy": "ترتيب حسب",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "total_desc": "السعر: من الأعلى إلى الأقل",
+    "total_asc": "السعر: من الأقل إلى الأعلى"
+  },
+  "stats": {
+    "totalOrders": "إجمالي الطلبات",
+    "totalRevenue": "إجمالي الإيرادات",
+    "averageOrderValue": "متوسط قيمة الطلب"
+  },
+  "table": {
+    "order": "الطلب",
+    "customer": "العميل",
+    "date": "التاريخ",
+    "total": "المبلغ الإجمالي",
+    "status": "حالة الطلب",
+    "payment": "الدفع",
+    "items": "العناصر",
+    "createdAt": "أنشئ في"
+  }
+}

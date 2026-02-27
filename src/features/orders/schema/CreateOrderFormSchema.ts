@@ -24,7 +24,7 @@ export const CreateOrderFormSchema = (t: TFunction<Namespace<"order">>) => {
             .string()
             .nonempty({ message: t("order:validation.phone_required") })
             .regex(/^[0-9+]+$/, { message: t("order:validation.phone_invalid") }),
-        user: AutocompleteOptionSchema.nullable(),
+        user: AutocompleteOptionSchema.nullish(),
         shipping_details: ShippingAddressSchema(t),
         payment_method: z.enum(['cod', 'credit_card', 'digital_wallet'], {
             message: t("order:validation.payment_method_required"),

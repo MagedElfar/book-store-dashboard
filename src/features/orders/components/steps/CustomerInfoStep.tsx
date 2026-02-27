@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 
 import { useUserAutoComplete, type User } from "@/features/users";
-import { FormAutocomplete, FormCountrySelect, FormTextField } from "@/shared/form";
+import { FormAutocomplete, FormCountrySelect, FormPhoneInput, FormTextField } from "@/shared/form";
 
 import type { CreateOrderFormSchemaType } from "../../schema";
 import ShippingAddress from "../ui/ShippingAddress";
@@ -48,7 +48,7 @@ export function CustomerInfoStep() {
                     hasNextPage={userQuery.hasNextPage}
                     fetchNextPage={userQuery.fetchNextPage}
                     isFetchingNextPage={userQuery.isFetchingNextPage}
-                    defaultValue={watch("user")}
+                    defaultValue={watch("user") || null}
                     onOpen={() => setIsUserEnabled(true)}
                 />
             </Stack>
@@ -60,7 +60,7 @@ export function CustomerInfoStep() {
                     <FormTextField required name="customer_name" label={t("fields.customer_name")} />
                 </Grid>
                 <Grid size={{ xs: 12, md: 4 }}>
-                    <FormTextField required name="customer_phone" label={t("fields.customer_phone")} />
+                    <FormPhoneInput required name="customer_phone" label={t("fields.customer_phone")} />
                 </Grid>
                 <Grid size={{ xs: 12, md: 4 }}>
                     <FormTextField required name="customer_email" label={t("fields.customer_email")} />

@@ -13,9 +13,12 @@ export interface UserGrowthAnalytics {
 
 export interface TopBooksAnalytics {
     book_id: string;
-    book_title: string;
+    title_ar: string;
+    title_en: string;
     units_sold: number;
     revenue: number;
+    cover_image: string
+
 }
 
 export interface CustomerTypeComparison {

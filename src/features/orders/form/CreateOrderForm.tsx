@@ -23,6 +23,7 @@ export function CreateOrderForm() {
         customer_email: "",
         customer_phone: "",
         payment_method: "cod",
+        user: null,
         items: [],
         shipping_details: {
             country: "",

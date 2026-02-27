@@ -23,11 +23,23 @@
     "newUsers": "New Users",
     "inventoryHealth": "Inventory Health",
     "activeOrders": "Active Orders",
-    "inventoryItems": "Inventory items"
+    "inventoryItems": "Inventory items",
+    "totalBooksSold": "Total Units Sold",
+    "topBooksRevenue": "Top Books Revenue",
+    "outOfStock": "Out of Stock Items",
+    "avgPrice": "Avg. Unit Price",
+    "totalUsers": "Total Users",
+    "growthRate": "Growth Rate",
+    "activeNow": "Active Sessions",
+    "guestVsReg": "Guest vs Registered"
   },
   "charts": {
     "salesTrend": "Sales Trend Overview",
-    "customerTypes": "Customer Segmentation"
+    "customerTypes": "Customer Segmentation",
+    "topSellingBooks": "Top 5 Selling Books",
+    "inventoryStatus": "Inventory Distribution",
+    "userGrowth": "User Acquisition Trend",
+    "userDistribution": "User Type Distribution"
   },
   "status": {
     "active": "Active",

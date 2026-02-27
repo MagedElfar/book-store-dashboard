@@ -117,32 +117,22 @@ export const dashboardNav: NavItem[] = [
     // =========================
     // Chat
     // =========================
-    {
-        label: "nav.chat",
-        icon: Chat,
-        path: paths.dashboard.chat.root,
-        roles: ["admin", "support"],
-    },
+    // {
+    //     label: "nav.chat",
+    //     icon: Chat,
+    //     path: paths.dashboard.chat.root,
+    //     roles: ["admin", "support"],
+    // },
 
     // =========================
     // Notifications
     // =========================
-    {
-        label: "nav.notifications",
-        icon: Notifications,
-        path: paths.dashboard.notifications.root,
-        roles: ["admin", "support"],
-    },
-
-    // =========================
-    // Analytics (Admin only)
-    // =========================
-    {
-        label: "nav.analytics",
-        icon: Analytics,
-        path: paths.dashboard.analytics.root,
-        roles: ["admin"],
-    },
+    // {
+    //     label: "nav.notifications",
+    //     icon: Notifications,
+    //     path: paths.dashboard.notifications.root,
+    //     roles: ["admin", "support"],
+    // },
 
     // =========================
     // Settings (Admin only)

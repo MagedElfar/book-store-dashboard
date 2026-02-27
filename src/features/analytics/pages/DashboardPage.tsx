@@ -1,26 +1,21 @@
-import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
-import InventoryIcon from '@mui/icons-material/Inventory2';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import {
     Box,
     Typography,
-    Tabs,
-    Tab,
     Avatar,
     Stack,
     Skeleton,
     Paper
 } from '@mui/material';
 import dayjs from 'dayjs';
-import React, { useState, lazy, useMemo, Suspense } from 'react';
+import { useState, lazy, useMemo, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { useAuthState } from '@/features/auth';
 import { DataFilterToolbar, FilterDateRange, FilterSelect, PageWrapper } from '@/shared/components';
 
 const OverviewSection = lazy(() => import('./../sections/OverviewSection'));
-// const BooksSection = lazy(() => import('./sections/BooksSection'));
-// const UsersSection = lazy(() => import('./sections/UsersSection'));
+const BooksSection = lazy(() => import('./../sections/BooksSection'));
+const UsersSection = lazy(() => import('./../sections/UsersSection'));
 
 
 const DashboardPage = () => {
@@ -28,12 +23,9 @@ const DashboardPage = () => {
 
     const { t } = useTranslation("analytics")
     const { user } = useAuthState()
-    const [activeTab, setActiveTab] = useState(0);
     const [dateRange, setDateRange] = useState('7d');
     const [customStartDate, setCustomStartDate] = useState<string | null>(null);
     const [customEndDate, setCustomEndDate] = useState<string | null>(null);
-
-
 
     const analyticsParams = useMemo(() => {
         let startDate: string | null = null;
@@ -52,10 +44,6 @@ const DashboardPage = () => {
         }
         return { startDate, endDate };
     }, [dateRange, customStartDate, customEndDate]);
-
-    const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
-        setActiveTab(newValue);
-    };
 
     return (
 
@@ -104,7 +92,7 @@ const DashboardPage = () => {
             </Paper>
 
 
-            <Stack
+            {/* <Stack
                 spacing={3}
                 direction={{ xs: 'column', md: 'row' }}
                 justifyContent="space-between"
@@ -114,7 +102,7 @@ const DashboardPage = () => {
                     gap: 2,
                     borderBottom: '1px solid',
                     borderColor: 'divider',
-                    pb: 0.5 // تقليل الـ padding قليلاً لأن الأيقونات تأخذ مساحة
+                    pb: 0.5 
                 }}
             >
                 <Tabs
@@ -155,7 +143,7 @@ const DashboardPage = () => {
                         label={t("tabs.users")}
                     />
                 </Tabs>
-            </Stack>
+            </Stack> */}
 
             <DataFilterToolbar
                 onClear={() => setDateRange("7d")}
@@ -189,14 +177,21 @@ const DashboardPage = () => {
                 </>}
             </DataFilterToolbar>
 
-            <Box sx={{ mt: 4 }}>
+            <Stack spacing={3}>
                 <Suspense fallback={<LoadingSkeleton />}>
-                    {activeTab === 0 && (
-                        <OverviewSection params={analyticsParams} />
-                    )}
-
+                    <OverviewSection params={analyticsParams} />
                 </Suspense>
-            </Box>
+
+                <Suspense fallback={<LoadingSkeleton />}>
+                    <BooksSection params={analyticsParams} />
+                </Suspense>
+
+
+                <Suspense fallback={<LoadingSkeleton />}>
+                    <UsersSection params={analyticsParams} />
+                </Suspense>
+            </Stack>
+
 
         </PageWrapper>
     );

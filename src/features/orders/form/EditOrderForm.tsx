@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import { AppFormProvider, FormContainer, FormCountrySelect, FormRadioGroup, FormTextField } from '@/shared/form';
+import { AppFormProvider, FormContainer, FormCountrySelect, FormPhoneInput, FormRadioGroup, FormTextField } from '@/shared/form';
 import { errorMapper } from '@/shared/utilities';
 
 import { useUpdateOrder } from '../hooks';
@@ -75,7 +75,7 @@ export function EditOrderForm({ order, onSuccess }: Props) {
                             <FormTextField required name="customer_name" label={t("fields.customer_name")} />
                         </Grid>
                         <Grid size={{ xs: 12 }}>
-                            <FormTextField required name="customer_phone" label={t("fields.customer_phone")} />
+                            <FormPhoneInput required name="customer_phone" label={t("fields.customer_phone")} />
                         </Grid>
                         <Grid size={{ xs: 12 }}>
                             <FormTextField required name="customer_email" label={t("fields.customer_email")} />
