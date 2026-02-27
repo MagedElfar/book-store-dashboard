@@ -42,7 +42,8 @@
     "payment_method_required": "Please select a payment method",
     "book_required": "Book selection is required",
     "quantity_min": "Quantity must be at least 1",
-    "items_min": "Order must contain at least one item"
+    "items_min": "Order must contain at least one item",
+    "quantity_max": "Only {{max}} units available in stock"
   },
   "fields": {
     "searchCustomer": "Search Existing Customer (Optional)",

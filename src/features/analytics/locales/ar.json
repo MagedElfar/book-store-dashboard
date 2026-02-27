@@ -31,7 +31,8 @@
     "totalUsers": "إجمالي المستخدمين",
     "growthRate": "معدل النمو",
     "activeNow": "الجلسات النشطة",
-    "guestVsReg": "الزوار مقابل المسجلين"
+    "guestVsReg": "الزوار مقابل المسجلين",
+    "pendingRevenue": "إيرادات معلقة"
   },
   "charts": {
     "salesTrend": "مخطط اتجاه المبيعات",
@@ -39,7 +40,8 @@
     "topSellingBooks": "أفضل 5 كتب مبيعاً",
     "inventoryStatus": "توزيع حالة المخزون",
     "userGrowth": "اتجاه اكتساب المستخدمين",
-    "userDistribution": "توزيع أنواع المستخدمين"
+    "userDistribution": "توزيع أنواع المستخدمين",
+    "orderStatus": "توزيع حالة الطلبات"
   },
   "status": {
     "active": "نشط",

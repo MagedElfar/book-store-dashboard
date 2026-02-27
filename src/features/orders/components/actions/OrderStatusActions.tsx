@@ -4,6 +4,8 @@ import {
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
+import { usePermission } from "@/features/auth";
+
 import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from "../../config";
 import { useUpdateOrderStatus } from "../../hooks";
 import { type OrderStatus, type PaymentStatus } from "../../types";
@@ -17,6 +19,10 @@ interface Props {
 export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatus }: Props) {
     const { t } = useTranslation("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
+
+    const { hasPermission } = usePermission()
+
+    const isDisabled = !hasPermission("order.manage") || currentStatus === "completed" || currentStatus === "cancelled"
 
     return (
         <Card sx={{ borderRadius: 3, position: 'relative', overflow: 'hidden' }}>
@@ -38,6 +44,11 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
 
                 <Stack spacing={2.5}>
                     <TextField
+                        sx={{
+                            ...(isDisabled && {
+                                pointerEvents: "none"
+                            })
+                        }}
                         select
                         fullWidth
                         label={t("fields.order_status")}
@@ -77,6 +88,11 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
                     </TextField>
 
                     <TextField
+                        sx={{
+                            ...(isDisabled && {
+                                pointerEvents: "none"
+                            })
+                        }}
                         select
                         fullWidth
                         label={t("fields.payment_status")}
@@ -98,9 +114,19 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
                             }
                         }}
                     >
-                        {(Object.keys(PAYMENT_STATUS_CONFIG) as PaymentStatus[]).map((pStatus) => (
-                            <MenuItem key={pStatus} value={pStatus}>
-                                {t(`payments.${pStatus}`)}
+                        {(Object.keys(PAYMENT_STATUS_CONFIG) as PaymentStatus[]).map((status) => (
+                            <MenuItem key={status} value={status}>
+                                <Stack direction="row" alignItems="center" spacing={1}>
+                                    <Box
+                                        sx={{
+                                            width: 8, height: 8, borderRadius: '50%',
+                                            bgcolor: `${PAYMENT_STATUS_CONFIG[status].color}.main`
+                                        }}
+                                    />
+                                    <Typography variant="body2">
+                                        {t(`payments.${status}`)}
+                                    </Typography>
+                                </Stack>
                             </MenuItem>
                         ))}
                     </TextField>

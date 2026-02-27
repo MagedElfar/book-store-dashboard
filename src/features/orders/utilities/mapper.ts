@@ -9,14 +9,14 @@ export function mapCreateOrderFormToRequest(data: CreateOrderFormSchemaType): Cr
         user_id: data?.user_id || undefined,
         shipping_details: {
             country: data.shipping_details.country,
-            state: null,
+            // state: null,
             city: data.shipping_details.city,
             street_address: data.shipping_details.street_address,
-            postal_code: null,
+            // postal_code: null,
         },
         payment_method: data?.payment_method,
         items: data.items.map(item => mapOrderItemToPayloadItem(item)),
-        note: data?.orderNotes
+        note: data?.orderNotes || ""
     }
 }
 

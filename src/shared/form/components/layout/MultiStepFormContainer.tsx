@@ -34,7 +34,6 @@ export function MultiStepFormContainer({ steps, submitText, sx, buttonProps, sta
 
     const isUploading = Object.values(errors).some(err => err?.message === "uploading");
 
-    // نفس منطق الـ Error Handling بتاعك
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
             getAllErrorMessages(errors).forEach((err, index) => {

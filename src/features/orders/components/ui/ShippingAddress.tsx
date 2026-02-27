@@ -1,5 +1,5 @@
 import AddIcon from '@mui/icons-material/Add'; // لا تنسى استيراد الأيقونة
-import { Grid, Stack, Card, CardActionArea, Typography } from '@mui/material';
+import { Grid, Stack, Card, CardActionArea, Typography, Alert } from '@mui/material';
 import { motion, LayoutGroup } from 'framer-motion';
 import { useCallback, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form';
@@ -22,9 +22,11 @@ export default function ShippingAddress() {
         mass: 1
     } as const;
 
-    const { t } = useTranslation("address")
+    const { t } = useTranslation(["address", "common", "order"])
 
-    const { setValue, watch } = useFormContext<CreateOrderFormSchemaType>();
+    const { setValue, watch, formState: { errors } } = useFormContext<CreateOrderFormSchemaType>();
+
+    const addressError = errors?.shipping_details;
     const userId = watch("user_id") || "";
     const selectedAddress = watch("shipping_details");
 
@@ -55,6 +57,19 @@ export default function ShippingAddress() {
         >
             {(addresses) => (
                 <Stack spacing={3}>
+                    {addressError && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                        >
+                            <Alert severity="error" variant="outlined" sx={{ borderRadius: 2 }}>
+                                {addressError.country?.message ||
+                                    addressError.city?.message ||
+                                    addressError.street_address?.message ||
+                                    t("order:validation.address_required")}
+                            </Alert>
+                        </motion.div>
+                    )}
                     <LayoutGroup>
                         <Grid container spacing={3}>
                             {addresses.map((address) => (

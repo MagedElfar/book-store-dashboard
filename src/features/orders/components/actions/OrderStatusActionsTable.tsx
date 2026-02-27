@@ -1,18 +1,26 @@
 import { Stack, TextField, Chip, MenuItem, Box, CircularProgress } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
-import { ORDER_STATUS_CONFIG } from "../../config";
+import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from "../../config";
 import { useUpdateOrderStatus } from "../../hooks";
-import type { OrderStatus } from "../../types";
+import type { OrderStatus, PaymentStatus } from "../../types";
 
 interface Props {
     orderId: string;
-    currentStatus: OrderStatus
+    currentStatus: OrderStatus | PaymentStatus;
+    mode?: "order" | "payment";
+    isDisabled: boolean
 }
 
-export function OrderStatusActionsTable({ orderId, currentStatus }: Props) {
+export function OrderStatusActionsTable({ orderId, currentStatus, isDisabled, mode = "order" }: Props) {
     const { t } = useTranslation("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
+
+    const isOrder = mode === "order";
+
+    const CONFIG = isOrder ? ORDER_STATUS_CONFIG : PAYMENT_STATUS_CONFIG;
+    const translationKey = isOrder ? "status" : "payments";
+    const statusOptions = Object.keys(CONFIG) as (OrderStatus | PaymentStatus)[];
 
     const selectSx = {
         '& .MuiSelect-select': {
@@ -21,12 +29,15 @@ export function OrderStatusActionsTable({ orderId, currentStatus }: Props) {
             alignItems: 'center',
             minHeight: 'unset'
         },
-        '& .MuiOutlinedInput-notchedOutline': { border: 'none' }, // إخفاء الحدود لتبدو كـ Chip
+        '& .MuiOutlinedInput-notchedOutline': { border: 'none' },
         '&:hover .MuiOutlinedInput-notchedOutline': { border: '1px solid', borderColor: 'divider' },
         bgcolor: 'action.hover',
         borderRadius: 2,
         width: 'fit-content',
-        minWidth: 130
+        minWidth: 140,
+        ...(isDisabled && {
+            pointerEvents: "none"
+        })
     };
 
     return (
@@ -45,30 +56,43 @@ export function OrderStatusActionsTable({ orderId, currentStatus }: Props) {
                 value={currentStatus}
                 size="small"
                 disabled={isPending}
-                onChange={(e) => updateStatus({ status: e.target.value as OrderStatus })}
+                onChange={(e) =>
+                    updateStatus(
+                        isOrder
+                            ? { status: e.target.value as OrderStatus }
+                            : { payment_status: e.target.value as PaymentStatus }
+                    )
+                }
                 sx={selectSx}
                 slotProps={{
                     select: {
-                        renderValue: (selected) => (
-                            <Chip
-                                label={t(`status.${selected}` as any)}
-                                size="small"
-                                color={ORDER_STATUS_CONFIG[selected as OrderStatus].color}
-                                sx={{ fontWeight: 'bold', height: 22, cursor: 'pointer' }}
-                            />
-                        )
+                        renderValue: (selected) => {
+                            const statusKey = selected as keyof typeof CONFIG;
+                            const color = CONFIG[statusKey]?.color || 'default';
+                            return (
+                                <Chip
+                                    label={t(`${translationKey}.${selected}` as any)}
+                                    size="small"
+                                    color={color as any}
+                                    sx={{ fontWeight: 'bold', height: 22, cursor: 'pointer' }}
+                                />
+                            );
+                        }
                     }
                 }}
             >
-                {(Object.keys(ORDER_STATUS_CONFIG) as OrderStatus[]).map((status) => (
+                {statusOptions.map((status) => (
                     <MenuItem key={status} value={status} sx={{ typography: 'body2' }}>
                         <Box
                             sx={{
-                                width: 8, height: 8, borderRadius: '50%', mr: 1,
-                                bgcolor: `${ORDER_STATUS_CONFIG[status].color}.main`
+                                width: 8,
+                                height: 8,
+                                borderRadius: '50%',
+                                mr: 1,
+                                bgcolor: `${(CONFIG as any)[status].color}.main`
                             }}
                         />
-                        {t(`status.${status}`)}
+                        {t(`${translationKey}.${status}` as any)}
                     </MenuItem>
                 ))}
             </TextField>

@@ -53,5 +53,15 @@ export const supabaseAnalyticsProvider: AnalyticsApiProvider = {
 
         if (error) throw new Error(`Inventory Status Error: ${error.message}`);
         return data;
-    }
+    },
+
+    getOrderStatusData: async (params) => {
+        const { data, error } = await supabaseClient.rpc('get_analytics_order_status', {
+            p_start_date: params.startDate,
+            p_end_date: params.endDate
+        });
+
+        if (error) throw new Error(`Order Status Analytics Error: ${error.message}`);
+        return data;
+    },
 };

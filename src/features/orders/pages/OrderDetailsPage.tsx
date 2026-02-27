@@ -30,6 +30,9 @@ export default function OrderDetailsPage() {
     contentRef: invoiceRef,
     documentTitle: `Invoice-${order?.order_number || 'Order'}`,
   })
+
+  const isDisabled = !hasPermission("order.manage") || order?.status === "completed" || order?.status === "cancelled"
+
   return (
     <PageWrapper>
       <PageTitle
@@ -62,7 +65,7 @@ export default function OrderDetailsPage() {
                 {t("actions.print")}
               </Button>
             )}
-            {order && hasPermission("order.manage") && <Button
+            {order && !isDisabled && <Button
               color="warning"
               onClick={() => openEdit(order)}
               size="small"

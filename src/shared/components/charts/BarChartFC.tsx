@@ -53,7 +53,7 @@ export function BarChartFC({ data, xKey = "name", yKey = "value" }: BarChartFCPr
                     dataKey={yKey}
                     radius={[6, 6, 0, 0]}
                 >
-                    {data.map((entry, index) => (
+                    {data.map((_entry, index) => (
                         <Cell
                             key={`cell-${index}`}
                             fill={index % 2 === 0 ? theme.palette.primary.main : theme.palette.secondary.main}

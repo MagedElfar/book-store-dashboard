@@ -95,7 +95,7 @@ export default function BooksSection({ params }: { params: any }) {
             />
 
             <Grid container spacing={3}>
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 7 }}>
                     <AnalyticsChartCard
                         title={t("charts.topSellingBooks")}
                         loading={booksLoading}
@@ -108,7 +108,7 @@ export default function BooksSection({ params }: { params: any }) {
                     </AnalyticsChartCard>
                 </Grid>
 
-                <Grid size={{ xs: 12, md: 6 }}>
+                <Grid size={{ xs: 12, md: 5 }}>
                     <AnalyticsChartCard
                         title={t("charts.inventoryStatus")}
                         loading={invLoading}

@@ -1,6 +1,5 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
-    Chip,
     IconButton,
     Link,
     Stack,
@@ -17,8 +16,7 @@ import type { Column, SupportedLang } from "@/shared/types";
 import { fDate, formatPrice } from "@/shared/utilities";
 
 import { OrderStatusActionsTable } from "../components";
-import { PAYMENT_STATUS_CONFIG } from "../config";
-import type { Order, PaymentStatus } from "../types";
+import type { Order } from "../types";
 
 export function useOrderColumns() {
     const { t, i18n } = useTranslation(["order", "common"]);
@@ -28,7 +26,6 @@ export function useOrderColumns() {
     const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Order>[]>(() => [
-        // Order Number & Customer
         {
             id: "order_number",
             label: t("table.order"),
@@ -81,10 +78,14 @@ export function useOrderColumns() {
             id: "status",
             label: t("table.status"),
             render: (_, row) => {
+                const status = row.status
+                const isDisabled = !hasPermission("order.manage") || status === "completed" || status === "cancelled"
+
                 return (
                     <OrderStatusActionsTable
                         orderId={row.id}
                         currentStatus={row.status}
+                        isDisabled={isDisabled}
                     />
                 )
             },
@@ -94,15 +95,18 @@ export function useOrderColumns() {
         {
             id: "payment_status",
             label: t("table.payment"),
-            align: "center",
-            render: (status) => (
-                <Chip
-                    label={t(`payments.${status}` as any)}
-                    size="small"
-                    variant="filled"
-                    color={PAYMENT_STATUS_CONFIG?.[status as PaymentStatus]?.color}
-                />
-            ),
+            render: (_, row) => {
+                const status = row.status
+                const isDisabled = !hasPermission("order.manage") || status === "completed" || status === "cancelled"
+                return (
+                    <OrderStatusActionsTable
+                        orderId={row.id}
+                        currentStatus={row.payment_status}
+                        mode="payment"
+                        isDisabled={isDisabled}
+                    />
+                )
+            },
         },
 
         // Actions

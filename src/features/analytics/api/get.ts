@@ -13,5 +13,10 @@ export const getTopSellingBooksApi = (params: AnalyticsParams & { limit?: number
 export const getCustomerComparisonApi = (params: AnalyticsParams) =>
     apiProvider.getCustomerComparison(params);
 
+
+export const getOrderStatusDataApi = (params: AnalyticsParams) =>
+    apiProvider.getOrderStatusData(params);
+
+
 export const getInventoryStatusApi = () =>
     apiProvider.getInventoryStatus();

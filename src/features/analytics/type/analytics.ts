@@ -1,6 +1,9 @@
+import type { OrderStatus } from "@/features/orders/types";
+
 export interface SalesAnalytics {
     period_date: string;
     total_revenue: number;
+    pending_revenue: number;
     orders_count: number;
     registered_revenue: number;
     guest_revenue: number;
@@ -18,7 +21,11 @@ export interface TopBooksAnalytics {
     units_sold: number;
     revenue: number;
     cover_image: string
+}
 
+export interface OrderStatusAnalytics {
+    status_label: OrderStatus;
+    orders_count: number;
 }
 
 export interface CustomerTypeComparison {

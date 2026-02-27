@@ -15,7 +15,7 @@ import type { CreateOrderFormSchemaType } from '../../schema';
 export default function OrderItemRow({ index, onRemove }: { index: number; onRemove: () => void }) {
     const { watch } = useFormContext<CreateOrderFormSchemaType>();
 
-    const { i18n } = useTranslation("order")
+    const { t, i18n } = useTranslation(["order", "book"])
 
     const lang = i18n.language as SupportedLang
 
@@ -27,6 +27,7 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
     const name = book?.[`title_${lang}`];
     const image = book.cover_image || "";
 
+    const availableStock = book.stock || 0;
 
     return (
         <Paper
@@ -35,6 +36,7 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                 p: 1.5,
                 borderRadius: 2,
                 minWidth: { xs: "600px", md: "0" },
+                borderColor: quantity > availableStock ? 'error.main' : 'divider',
             }}
         >
             <Stack direction="row" alignItems="center" spacing={2}>
@@ -52,6 +54,9 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                         sale_price={book.sale_price}
                         price={book.price}
                     />
+                    <Typography variant="caption" color={availableStock > 0 ? "text.secondary" : "error"}>
+                        {t("book:label.stock")}: {availableStock}
+                    </Typography>
                 </Box>
 
                 <Box sx={{ width: 80 }}>
@@ -59,7 +64,9 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                         name={`items.${index}.quantity`}
                         type="number"
                         size="small"
-                        slotProps={{ htmlInput: { min: 1 } }}
+                        slotProps={{ htmlInput: { min: 1, max: availableStock } }}
+                        disabled={availableStock === 0}
+                        error={quantity > availableStock}
                     />
                 </Box>
 

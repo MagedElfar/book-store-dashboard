@@ -154,7 +154,7 @@ const DashboardPage = () => {
                     options={[
                         { value: "24h", label: t("filters.last24h") },
                         { value: "7d", label: t("filters.last7d") },
-                        { value: "30d7d", label: t("filters.last30d") },
+                        { value: "30d", label: t("filters.last30d") },
                         { value: "all", label: t("filters.allTime") },
                         { value: "custom", label: t("filters.custom") }
                     ]}

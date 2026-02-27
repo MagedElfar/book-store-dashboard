@@ -1,4 +1,4 @@
-import type { AnalyticsParams, SalesAnalytics, UserGrowthAnalytics, TopBooksAnalytics, CustomerTypeComparison, InventoryStatus } from "./analytics";
+import type { AnalyticsParams, SalesAnalytics, UserGrowthAnalytics, TopBooksAnalytics, CustomerTypeComparison, InventoryStatus, OrderStatusAnalytics } from "./analytics";
 
 export interface AnalyticsApiProvider {
     getSalesData: (params: AnalyticsParams) => Promise<SalesAnalytics[]>;
@@ -6,4 +6,5 @@ export interface AnalyticsApiProvider {
     getTopSellingBooks: (params: AnalyticsParams & { limit?: number }) => Promise<TopBooksAnalytics[]>;
     getCustomerComparison: (params: AnalyticsParams) => Promise<CustomerTypeComparison[]>;
     getInventoryStatus: () => Promise<InventoryStatus[]>;
+    getOrderStatusData: (params: AnalyticsParams) => Promise<OrderStatusAnalytics[]>
 }

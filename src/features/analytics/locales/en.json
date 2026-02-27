@@ -31,7 +31,8 @@
     "totalUsers": "Total Users",
     "growthRate": "Growth Rate",
     "activeNow": "Active Sessions",
-    "guestVsReg": "Guest vs Registered"
+    "guestVsReg": "Guest vs Registered",
+    "pendingRevenue": "Pending Revenue"
   },
   "charts": {
     "salesTrend": "Sales Trend Overview",
@@ -39,7 +40,8 @@
     "topSellingBooks": "Top 5 Selling Books",
     "inventoryStatus": "Inventory Distribution",
     "userGrowth": "User Acquisition Trend",
-    "userDistribution": "User Type Distribution"
+    "userDistribution": "User Type Distribution",
+    "orderStatus": "Order status Distribution"
   },
   "status": {
     "active": "Active",

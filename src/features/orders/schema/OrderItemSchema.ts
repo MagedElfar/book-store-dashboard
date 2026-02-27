@@ -14,14 +14,26 @@ export const OrderItemSchema = (t: TFunction<Namespace<"order">>) =>
             .min(1, { message: t("order:validation.quantity_min") }),
     });
 
-
 export const OrderListFormSchema = (t: TFunction<Namespace<"order">>) =>
     z.object({
-        tempBook: AutocompleteOptionSchema
-            .nullish(),
+        tempBook: AutocompleteOptionSchema.nullish(),
         items: z
             .array(OrderItemSchema(t))
-            .min(1, { message: t("order:validation.items_min") }),
+            .min(1, { message: t("order:validation.items_min") })
+            .superRefine((items, ctx) => {
+                items.forEach((item, index) => {
+                    const book = item.item.data;
+                    const availableStock = book?.stock || 0;
+
+                    if (item.quantity > availableStock) {
+                        ctx.addIssue({
+                            code: "custom",
+                            message: t("order:validation.quantity_max", { max: availableStock }),
+                            path: [index, 'quantity']
+                        });
+                    }
+                });
+            }),
     });
 
 
