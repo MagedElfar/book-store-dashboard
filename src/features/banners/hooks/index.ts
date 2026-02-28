@@ -11,3 +11,5 @@ export * from "./useUpdateBanner"
 export * from "./useBulkReorderBanners"
 
 export * from "./useBannerReorder"
+
+export * from "./useGetInfiniteBanners"

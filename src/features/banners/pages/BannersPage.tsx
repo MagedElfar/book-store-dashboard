@@ -4,10 +4,10 @@ import SaveIcon from '@mui/icons-material/Save';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import ViewModuleIcon from '@mui/icons-material/ViewModule';
 import {
-    Grid, Box, Pagination, Stack, Skeleton,
+    Grid, Box, Stack, Skeleton,
     Button, ToggleButton, ToggleButtonGroup
 } from "@mui/material";
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
@@ -21,11 +21,10 @@ import {
     FullSortableFileItem
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import { usePagination } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
 
 import { BannerCard, DeleteBannerDialog } from "../components";
-import { useGetBanners, useBannerReorder } from "../hooks";
+import { useBannerReorder, useGetInfiniteBanners } from "../hooks";
 import type { Banner, BannersParams } from "../types";
 
 const getStatusOptions = (t: any) => [
@@ -52,7 +51,7 @@ export default function BannersPage() {
 
     const [isReordering, setIsReordering] = useState(false);
 
-    const { page, limit, handlePageChange, setPage } = usePagination(100);
+
     const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
     const {
@@ -62,11 +61,17 @@ export default function BannersPage() {
         closeDialog,
     } = useDialog<Banner>();
 
-    const { data, isLoading, isError, refetch } = useGetBanners({
-        limit: 100,
-        page: page + 1,
-        ...filters
-    });
+    const {
+        data,
+        isError,
+        refetch,
+        isLoading,
+        hasNextPage, fetchNextPage, isFetchingNextPage
+    } = useGetInfiniteBanners(filters, true);
+
+    const banners = useMemo(() => {
+        return data?.pages.flatMap(p => p.items) || []
+    }, [data?.pages])
 
     const {
         items,
@@ -75,17 +80,15 @@ export default function BannersPage() {
         resetOrder,
         isSaving,
         hasChanges
-    } = useBannerReorder(data?.items || []);
+    } = useBannerReorder(banners || []);
 
     const handleFilterChange = useCallback((key: keyof BannersParams, value: any) => {
         setFilters(prev => ({ ...prev, [key]: value }));
-        setPage(0)
-    }, [setPage]);
+    }, []);
 
     const handleResetFilters = useCallback(() => {
         setFilters(DEFAULT_FILTERS);
-        setPage(0);
-    }, [setPage]);
+    }, []);
 
     const handleToggleMode = (_: any, nextMode: boolean | null) => {
         if (nextMode !== null) {
@@ -95,6 +98,10 @@ export default function BannersPage() {
             setIsReordering(nextMode);
         }
     };
+
+    const onEdit = useCallback((id: string) => navigate(paths.dashboard.banners.edit(id)), [navigate])
+
+    const onDelete = useCallback((banner: Banner) => openDelete(banner), [openDelete])
 
     const BannersLoading = (
         <Grid container spacing={3}>
@@ -106,7 +113,7 @@ export default function BannersPage() {
         </Grid>
     );
 
-    const listItems = isReordering ? items : (data?.items || []);
+    const listItems = isReordering ? items : banners;
 
     return (
         <PageWrapper>
@@ -191,7 +198,7 @@ export default function BannersPage() {
                     isEmpty={listItems.length === 0}
                 >
                     {() => (
-                        <>
+                        <Stack spacing={2} alignItems="center">
                             <SortableList
                                 itemIds={items.map(b => b.id)}
                                 onReorder={handleReorder}
@@ -205,8 +212,8 @@ export default function BannersPage() {
                                                 <BannerCard
                                                     isDirigible={isReordering}
                                                     banner={banner}
-                                                    onEdit={(id) => navigate(paths.dashboard.banners.edit(id))}
-                                                    onDelete={() => openDelete(banner)}
+                                                    onEdit={onEdit}
+                                                    onDelete={onDelete}
                                                 />
                                             </FullSortableFileItem>
                                         </Grid>
@@ -214,18 +221,16 @@ export default function BannersPage() {
                                 </Grid>
                             </SortableList>
 
-                            {!isReordering && data && data.total > limit && (
-                                <Stack alignItems="center" sx={{ mt: 5 }}>
-                                    <Pagination
-                                        count={Math.ceil(data.total / limit)}
-                                        page={page + 1}
-                                        onChange={(_, p) => handlePageChange(null, p - 1)}
-                                        color="primary"
-                                        shape="rounded"
-                                    />
-                                </Stack>
-                            )}
-                        </>
+                            {hasNextPage && <Button
+                                loading={isFetchingNextPage}
+                                disabled={isFetchingNextPage}
+                                onClick={() => fetchNextPage()}
+                                variant="contained"
+                                size="large"
+                            >
+                                {t("common:actions.loadMore")}
+                            </Button>}
+                        </Stack>
                     )}
                 </DataHandler>
             </Box>

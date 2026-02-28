@@ -1,7 +1,7 @@
 // src/features/banners/hooks/useBannerReorder.ts
 
 import { arrayMove } from "@dnd-kit/sortable";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
 
 import { errorMapper } from "@/shared/utilities";
@@ -15,10 +15,13 @@ export function useBannerReorder(initialItems: Banner[] = []) {
     const { mutateAsync: syncReorder, isPending } = useBulkReorderBanners();
 
     useEffect(() => {
-        setItems(initialItems);
-    }, [initialItems]);
+        if (initialItems.length !== items.length) {
+            setItems(initialItems);
+        }
+    }, [initialItems, items.length]);
 
     const handleReorder = useCallback((activeId: string | number, overId: string | number) => {
+
         if (activeId === overId) return;
 
         setItems((prev) => {
@@ -38,16 +41,19 @@ export function useBannerReorder(initialItems: Banner[] = []) {
         try {
             await syncReorder(payload);
             toast.success("Order updated successfully");
-            if (onSuccessCallback) onSuccessCallback();
+            onSuccessCallback?.();
         } catch (error) {
             errorMapper(error).forEach(err => toast.error(err))
         }
     };
 
-    // 6. وظيفة إلغاء التغييرات (الرجوع للترتيب الأصلي)
     const resetOrder = useCallback(() => {
         setItems(initialItems);
     }, [initialItems]);
+
+
+    const hasChanges = useMemo(() => items.length !== initialItems.length ||
+        items.some((item, index) => item.id !== initialItems[index]?.id), [initialItems, items])
 
     return {
         items,
@@ -55,6 +61,6 @@ export function useBannerReorder(initialItems: Banner[] = []) {
         saveOrder,
         resetOrder,
         isSaving: isPending,
-        hasChanges: JSON.stringify(items) !== JSON.stringify(initialItems)
+        hasChanges
     };
 }

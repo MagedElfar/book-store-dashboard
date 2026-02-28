@@ -16,6 +16,7 @@ import {
     Switch,
     CircularProgress
 } from '@mui/material';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
@@ -31,7 +32,7 @@ interface Props {
     isDirigible?: boolean
 }
 
-export function BannerCard({ banner, onEdit, onDelete, isDirigible }: Props) {
+function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
     const { t, i18n } = useTranslation(["banner", "common"]);
     const { mutate: updateBanner, isPending } = useUpdateBanner();
     const lang = i18n.language as SupportedLang
@@ -171,3 +172,5 @@ export function BannerCard({ banner, onEdit, onDelete, isDirigible }: Props) {
         </Card>
     );
 }
+
+export const BannerCard = React.memo(BannerCardFC)

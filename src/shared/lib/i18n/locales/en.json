@@ -46,7 +46,8 @@
     "title": "Actions",
     "edit": "Edit",
     "delete": "Delete",
-    "view": "View"
+    "view": "View",
+    "loadMore": "Load more"
   },
   "stats": {
     "overview": "Overview",

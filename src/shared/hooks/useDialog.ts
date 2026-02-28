@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import type { DialogState } from "../types";
 
@@ -21,25 +21,34 @@ export function useDialog<T>(initialState: DialogState<T> = { type: null }) {
         setDialog({ type: null });
     }, []);
 
-    return {
+    const data = useMemo(() => {
+        if (dialog.type === "edit" || dialog.type === "delete") {
+            return dialog.data ?? null;
+        }
+        return null;
+    }, [dialog]);
+
+    return useMemo(() => ({
         dialog,
         isOpen: dialog.type !== null,
         isCreate: dialog.type === "create",
         isEdit: dialog.type === "edit",
         isDelete: dialog.type === "delete",
 
-        // data
-        data: dialog.type === "edit" || dialog.type === "delete"
-            ? dialog.data
-            : null,
+        data,
 
-        // actions
         openCreate,
         openEdit,
         openDelete,
         closeDialog,
-
-        // raw setter (optional)
         setDialog,
-    };
+    }), [
+        dialog,
+        data,
+        openCreate,
+        openEdit,
+        openDelete,
+        closeDialog
+    ]);
+
 }
