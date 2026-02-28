@@ -200,7 +200,7 @@ export default function BannersPage() {
                     isEmpty={listItems.length === 0}
                 >
                     {() => (
-                        <Stack spacing={2} alignItems="center">
+                        <Stack width="100%" spacing={2} alignItems="center">
                             <SortableList
                                 itemIds={itemIds}
                                 onReorder={handleReorder}
