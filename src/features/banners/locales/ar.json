@@ -1,0 +1,101 @@
+{
+  "banners": "البانرات",
+  "bannersTitle": "إدارة البانرات",
+  "createBanner": "إضافة بانر جديد",
+  "editBanner": "تعديل البانر",
+  "bannerDetails": "تفاصيل البانر",
+  "deleteBannerTitle": "حذف البانر",
+  "deleteBannerConfirm": "هل أنت متأكد من رغبتك في حذف هذا البانر؟",
+  "deleteBannerConfirmWithTitle": "هل أنت متأكد من رغبتك في حذف البانر \"{{title}}\"؟",
+  "livePreview": "معاينة مباشرة",
+  "label": {
+    "titleEn": "عنوان البانر (EN)",
+    "titleAr": "عنوان البانر (AR)",
+    "descriptionEn": "الوصف (EN)",
+    "descriptionAr": "الوصف (AR)",
+    "buttonTextEn": "نص الزر (EN)",
+    "buttonTextAr": "نص الزر (AR)",
+    "imageUrl": "صورة البانر",
+    "linkUrl": "رابط التوجيه",
+    "position": "موقع المحتوى",
+    "textColor": "لون النص",
+    "btnColor": "لون نص الزر",
+    "btnBgColor": "لون خلفية الزر",
+    "overlayOpacity": "شفافية الطبقة فوق الصورة",
+    "priority": "أولوية العرض",
+    "status": "الحالة",
+    "isActive": "نشط"
+  },
+  "placeHolder": {
+    "titleEn": "مثلاً: تشكيلة صيف 2026",
+    "titleAr": "مثلاً: تشكيلة صيف ٢٠٢٦",
+    "descriptionEn": "اكتب وصفاً جذاباً وقصيراً...",
+    "descriptionAr": "اكتب وصفاً قصيراً جذاباً...",
+    "buttonTextEn": "Shop Now",
+    "buttonTextAr": "تسوق الآن",
+    "linkUrl": "https://example.com/collection",
+    "priority": "مثلاً: 1 (أعلى أولوية)",
+    "search": "ابحث عن بانر..."
+  },
+  "validation": {
+    "title_ar_required": "العنوان بالعربية مطلوب",
+    "title_en_required": "العنوان بالإنجليزية مطلوب",
+    "title_min": "يجب أن يكون العنوان 3 أحرف على الأقل",
+    "image_required": "صورة البانر مطلوبة",
+    "invalid_url": "يرجى إدخال رابط صحيح",
+    "priority_min": "يجب أن تكون الأولوية 1 على الأقل",
+    "invalid_hex_color": "تنسيق اللون غير صحيح",
+    "vertical_pos_required": "الموقع العمودي مطلوب",
+    "horizontal_pos_required": "الموقع الأفقي مطلوب"
+  },
+  "position": {
+    "top": "أعلى",
+    "middle": "منتصف",
+    "bottom": "أسفل",
+    "start": "بداية (يمين في AR)",
+    "center": "مركز",
+    "end": "نهاية (يسار في AR)"
+  },
+  "status": {
+    "all": "كل الحالات",
+    "active": "نشط",
+    "inactive": "غير نشط"
+  },
+  "table": {
+    "banner": "البانر",
+    "priority": "الأولوية",
+    "status": "الحالة",
+    "createdAt": "تاريخ الإضافة"
+  },
+  "feedback": {
+    "successDeleteBanner": "تم حذف البانر بنجاح",
+    "successUpdateBanner": "تم تحديث البانر بنجاح",
+    "successCreateBanner": "تم إنشاء البانر بنجاح"
+  },
+  "actions": {
+    "editBanner": "تعديل البانر",
+    "createBanner": "إضافة جديد",
+    "deleteBanner": "حذف البانر",
+    "save": "حفظ التغييرات",
+    "cancel": "إلغاء",
+    "display": "عرض",
+    "reorder": "إعادة ترتيب"
+  },
+  "filter": {
+    "searchPlaceholder": "ابحث عن عنوان البانر...",
+    "sortBy": "ترتيب حسب",
+    "priority": "الأولوية",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "status": "الحالة"
+  },
+  "helper": {
+    "previewInfo": "هذه معاينة حية لشكل البانر في متجرك. قم بتعديل الشفافية والمواقع لضمان وضوح النص فوق الصورة.",
+    "priorityInfo": "البانرات ذات الأرقام الأعلى ستظهر أولاً (مثلاً: 1 يظهر قبل 5)."
+  },
+  "messages": {
+    "confirmDeleteBanner": "هل أنت متأكد من حذف البانر \"{{title}}\"؟",
+    "confirmDeleteBannerGeneric": "هل أنت متأكد من حذف هذا البانر؟",
+    "permanentAction": "لا يمكن التراجع عن هذا الإجراء."
+  }
+}

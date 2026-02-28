@@ -44,6 +44,11 @@ export const rolePermissions: Record<Role, Permission[]> = {
         "book.update",
         "book.delete",
 
+        "banner.read",
+        "banner.create",
+        "banner.update",
+        "banner.delete",
+
         "author.read",
         "author.create",
         "author.update",

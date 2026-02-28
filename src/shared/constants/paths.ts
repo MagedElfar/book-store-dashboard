@@ -130,7 +130,7 @@ export const paths = {
 
             create: "/dashboard/banners/create",
 
-            edit: (id: string) => `/dashboard/banners/${id}/edit`,
+            edit: (id: string) => `/dashboard/banners/${id}`,
         },
 
         // =========================

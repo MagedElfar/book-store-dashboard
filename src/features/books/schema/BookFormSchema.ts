@@ -1,7 +1,7 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
-import { AutocompleteOptionSchema } from "@/shared/form";
+import { AutocompleteOptionSchema, imageValidator } from "@/shared/form";
 
 export const BookFormSchema = (t: TFunction<Namespace<"book">>) =>
     z.object({
@@ -66,21 +66,13 @@ export const BookFormSchema = (t: TFunction<Namespace<"book">>) =>
             .max(new Date().getFullYear(), { message: t("book:validation.year_invalid") })
             .nullable(),
 
-        cover_image: z
-            .string()
-            .pipe(
-                z.url({ message: t("book:validation.invalid_url") })
-            )
+        cover_image: imageValidator(t("book:validation.invalid_url"))
             .nullable()
             .optional(),
 
 
         images: z.array(
-            z
-                .string()
-                .pipe(
-                    z.url({ message: t("book:validation.invalid_url") })
-                )
+            imageValidator(t("book:validation.invalid_url"))
         ),
 
         authors: z.array(AutocompleteOptionSchema),

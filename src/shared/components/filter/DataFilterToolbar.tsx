@@ -20,6 +20,7 @@ interface DataFilterToolbarProps {
     onSearchChange?: (value: string) => void;
     onClear?: () => void;
     children?: React.ReactNode;
+    disableSearch?: boolean
 }
 
 export function DataFilterToolbar({
@@ -27,7 +28,8 @@ export function DataFilterToolbar({
     searchValue,
     onSearchChange,
     onClear,
-    children
+    children,
+    disableSearch
 }: DataFilterToolbarProps) {
     const { t } = useTranslation("common");
     const [localSearch, setLocalSearch] = useState(searchValue || "");
@@ -53,7 +55,7 @@ export function DataFilterToolbar({
                 justifyContent="flex-end"
             >
 
-                {searchValue && <TextField
+                {!disableSearch && <TextField
                     size="small"
                     value={localSearch}
                     onChange={(e) => setLocalSearch(e.target.value)}

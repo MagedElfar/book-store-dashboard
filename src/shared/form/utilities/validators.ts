@@ -34,3 +34,25 @@ export const passwordValidator = ({
         .string()
         .nonempty({ message: requireMsg })
         .min(minLength, { message: tooShortMsg });
+
+export const imageValidator = (message: string = "Invalid url") => z
+    .string()
+    .pipe(
+        z.url({ message })
+    )
+
+
+export const slugValidator = (message: string = "Invalid url") => z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+        message
+    })
+
+
+export const colorValidator = (message: string = "Invalid color") => z
+    .string()
+    .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
+        message
+    })
+    .optional()
+    .or(z.literal(""))

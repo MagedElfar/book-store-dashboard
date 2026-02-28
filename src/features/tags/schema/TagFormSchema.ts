@@ -1,6 +1,8 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
+import { colorValidator } from "@/shared/form";
+
 export const TagFormSchema = (
     t: TFunction<Namespace<"tag">>
 ) =>
@@ -22,13 +24,7 @@ export const TagFormSchema = (
                 message: t("tag:validation.slug_invalid")
             }),
 
-        color: z
-            .string()
-            .regex(/^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/, {
-                message: t("tag:validation.color_invalid")
-            })
-            .optional()
-            .or(z.literal("")),
+        color: colorValidator(t("tag:validation.color_invalid")),
 
         is_active: z.boolean()
     });

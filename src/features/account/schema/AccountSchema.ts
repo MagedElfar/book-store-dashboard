@@ -1,7 +1,7 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
-import { phoneValidator } from "@/shared/form";
+import { imageValidator, phoneValidator } from "@/shared/form";
 
 export const AccountSchema = (t: TFunction<Namespace<"account">>) => z
     .object({
@@ -11,13 +11,7 @@ export const AccountSchema = (t: TFunction<Namespace<"account">>) => z
             .min(2, { message: t("account:validation.full_name_min") }),
 
         phone: phoneValidator(t("account:validation.phone")).optional().nullable(),
-        avatar_url: z
-            .string()
-            .pipe(
-                z.url({
-                    message: t("account:validation.avatar_invalid"),
-                })
-            )
+        avatar_url: imageValidator(t("account:validation.avatar_invalid"))
             .nullable()
             .optional(),
 

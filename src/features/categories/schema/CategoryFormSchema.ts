@@ -3,6 +3,8 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
+import { imageValidator, slugValidator } from "@/shared/form";
+
 export const CategoryFormSchema = (
     t: TFunction<Namespace<"category">>
 ) =>
@@ -17,12 +19,7 @@ export const CategoryFormSchema = (
             .nonempty({ message: t("category:validation.name_en_required") })
             .min(2, { message: t("category:validation.name_min") }),
 
-        slug: z
-            .string()
-            .nonempty({ message: t("category:validation.slug_required") })
-            .regex(/^[a-z0-9-]+$/, {
-                message: t("category:validation.slug_invalid")
-            }),
+        slug: slugValidator(t("category:validation.slug_required")),
 
         description_ar: z
             .string()
@@ -34,11 +31,7 @@ export const CategoryFormSchema = (
             .nullable()
             .optional(),
 
-        image_url: z
-            .string()
-            .pipe(
-                z.url({ message: t("category:validation.invalid_url") })
-            )
+        image_url: imageValidator(t("category:validation.invalid_url"))
             .nullable()
             .optional(),
 

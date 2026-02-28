@@ -5,6 +5,7 @@ import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import { accountRoutes } from "@/features/account";
 import { authRoutes } from "@/features/auth";
 import { authorsRoutes } from "@/features/authors";
+import { bannersRoutes } from "@/features/banners";
 import { booksRoutes } from "@/features/books";
 import { categoriesRoutes } from "@/features/categories";
 import { ordersRoutes } from "@/features/orders/routes";
@@ -67,7 +68,9 @@ export const router = createBrowserRouter([
                     ...authorsRoutes,
                     ...tagsRoutes,
                     ...booksRoutes,
-                    ...ordersRoutes
+                    ...ordersRoutes,
+                    ...bannersRoutes
+
                 ],
             },
             { path: "403", element: <Suspense fallback={<SplashScreen withLogo sx={{ height: "100vh" }} />}><Page403 /></Suspense> },

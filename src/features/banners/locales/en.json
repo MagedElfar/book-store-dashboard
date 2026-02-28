@@ -1,0 +1,100 @@
+{
+  "banners": "Banners",
+  "bannersTitle": "Banners Management",
+  "createBanner": "Add New Banner",
+  "editBanner": "Edit Banner",
+  "bannerDetails": "Banner Details",
+  "deleteBannerTitle": "Delete Banner",
+  "deleteBannerConfirm": "Are you sure you want to delete this banner?",
+  "deleteBannerConfirmWithTitle": "Are you sure you want to delete banner \"{{title}}\"?",
+  "livePreview": "Live Preview",
+  "label": {
+    "titleEn": "Banner Title (EN)",
+    "titleAr": "Banner Title (AR)",
+    "descriptionEn": "Description (EN)",
+    "descriptionAr": "Description (AR)",
+    "buttonTextEn": "Button Text (EN)",
+    "buttonTextAr": "Button Text (AR)",
+    "imageUrl": "Banner Image",
+    "linkUrl": "Destination Link",
+    "position": "Content Position",
+    "textColor": "Text Color",
+    "btnColor": "Button Color",
+    "overlayOpacity": "Image Overlay Opacity",
+    "priority": "Display Priority",
+    "status": "Status",
+    "isActive": "Is Active"
+  },
+  "placeHolder": {
+    "titleEn": "e.g. Summer Collection 2026",
+    "titleAr": "مثلاً: تشكيلة صيف ٢٠٢٦",
+    "descriptionEn": "Write a short catchy description...",
+    "descriptionAr": "اكتب وصفاً قصيراً جذاباً...",
+    "buttonTextEn": "Shop Now",
+    "buttonTextAr": "تسوق الآن",
+    "linkUrl": "https://example.com/collection",
+    "priority": "e.g. 1 (Top priority)",
+    "search": "Search for banner..."
+  },
+  "validation": {
+    "title_ar_required": "Arabic title is required",
+    "title_en_required": "English title is required",
+    "title_min": "Title must be at least 3 characters",
+    "image_required": "Banner image is required",
+    "invalid_url": "Please enter a valid URL",
+    "priority_min": "Priority must be at least 1",
+    "invalid_hex_color": "Invalid color format",
+    "vertical_pos_required": "Vertical position is required",
+    "horizontal_pos_required": "Horizontal position is required"
+  },
+  "position": {
+    "top": "Top",
+    "middle": "Middle",
+    "bottom": "Bottom",
+    "start": "Start (Right in AR)",
+    "center": "Center",
+    "end": "End (Left in AR)"
+  },
+  "status": {
+    "all": "All Statuses",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "table": {
+    "banner": "Banner",
+    "priority": "Priority",
+    "status": "Status",
+    "createdAt": "Added At"
+  },
+  "feedback": {
+    "successDeleteBanner": "Banner deleted successfully",
+    "successUpdateBanner": "Banner updated successfully",
+    "successCreateBanner": "Banner created successfully"
+  },
+  "actions": {
+    "editBanner": "Edit Banner",
+    "createBanner": "Add New",
+    "deleteBanner": "Delete Banner",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "display": "Display",
+    "reorder": "Reorder"
+  },
+  "filter": {
+    "searchPlaceholder": "Search banner title...",
+    "sortBy": "Sort By",
+    "priority": "Priority",
+    "newest": "Newest",
+    "oldest": "Oldest",
+    "status": "Status"
+  },
+  "helper": {
+    "previewInfo": "This is a real-time preview of how the banner will look in your store. Adjust opacity and positions to ensure text readability over the image.",
+    "priorityInfo": "Higher priority numbers will appear first in the slider (e.g., 1 comes before 5)."
+  },
+  "messages": {
+    "confirmDeleteBanner": "Are you sure you want to delete the banner \"{{title}}\"?",
+    "confirmDeleteBannerGeneric": "Are you sure you want to delete this banner?",
+    "permanentAction": "This action cannot be undone."
+  }
+}

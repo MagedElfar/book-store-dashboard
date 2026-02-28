@@ -63,5 +63,13 @@
     "eg": "Egypt",
     "sa": "Saudi Arabia",
     "ae": "United Arab Emirates"
+  },
+  "status": {
+    "all": "All Statuses",
+    "active": "Active",
+    "inactive": "Inactive"
+  },
+  "error": {
+    "fetching": "Error fetching data, please try again."
   }
 }

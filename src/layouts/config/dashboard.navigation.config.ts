@@ -5,10 +5,6 @@ import {
     ShoppingCart,
     Category,
     Person,
-    Analytics,
-    Notifications,
-    Chat,
-    Settings,
     Image,
     Label,
     Add,
@@ -137,10 +133,10 @@ export const dashboardNav: NavItem[] = [
     // =========================
     // Settings (Admin only)
     // =========================
-    {
-        label: "nav.settings",
-        icon: Settings,
-        path: paths.dashboard.settings.root,
-        roles: ["admin"],
-    },
+    // {
+    //     label: "nav.settings",
+    //     icon: Settings,
+    //     path: paths.dashboard.settings.root,
+    //     roles: ["admin"],
+    // },
 ];

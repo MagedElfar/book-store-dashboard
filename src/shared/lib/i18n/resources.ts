@@ -6,6 +6,8 @@ import authAR from "@/features/auth/locales/ar.json";
 import authEN from "@/features/auth/locales/en.json";
 import authorsAr from "@/features/authors/locales/ar.json";
 import authorsEn from "@/features/authors/locales/en.json";
+import bannerAr from "@/features/banners/locales/ar.json";
+import bannerEn from "@/features/banners/locales/en.json";
 import bookAr from "@/features/books/locales/ar.json";
 import bookEn from "@/features/books/locales/en.json";
 import categoryAr from "@/features/categories/locales/ar.json";
@@ -44,7 +46,8 @@ export const resources = {
         book: bookEn,
         order: orderEN,
         analytics: analyticsEN,
-        notification: notificationEn
+        notification: notificationEn,
+        banner: bannerEn
     },
     ar: {
         common: translationAR,
@@ -59,6 +62,7 @@ export const resources = {
         book: bookAr,
         orders: orderAr,
         analytics: analyticsAr,
-        notification: notificationAr
+        notification: notificationAr,
+        banner: bannerAr
     },
 } as const;

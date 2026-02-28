@@ -120,5 +120,5 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
             ...data,
             growth_percentage: Math.round(growth)
         };
-    },
+    }
 };

@@ -1,6 +1,8 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
+import { imageValidator, slugValidator } from "@/shared/form";
+
 export const AuthorFormSchema = (
     t: TFunction<Namespace<"author">>
 ) =>
@@ -15,12 +17,8 @@ export const AuthorFormSchema = (
             .nonempty({ message: t("author:validation.name_en_required") })
             .min(2, { message: t("author:validation.name_min") }),
 
-        slug: z
-            .string()
-            .nonempty({ message: t("author:validation.slug_required") })
-            .regex(/^[a-z0-9-]+$/, {
-                message: t("author:validation.slug_invalid")
-            }),
+        slug: slugValidator(t("author:validation.slug_invalid"))
+            .nonempty({ message: t("author:validation.slug_required") }),
 
         bio_ar: z
             .string()
@@ -37,11 +35,7 @@ export const AuthorFormSchema = (
             .nullable()
             .optional(),
 
-        image_url: z
-            .string()
-            .pipe(
-                z.url({ message: t("author:validation.invalid_url") })
-            )
+        image_url: imageValidator(t("author:validation.invalid_url"))
             .nullable()
             .optional(),
 

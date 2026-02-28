@@ -10,6 +10,11 @@ export type Permission =
     | "book.update"
     | "book.delete"
 
+    | "banner.read"
+    | "banner.create"
+    | "banner.update"
+    | "banner.delete"
+
     | "category.read"
     | "category.create"
     | "category.update"
