@@ -123,6 +123,7 @@ export default function AuthorsPage() {
             />
 
             <StatsBoard
+                columns={{ xs: 12, sm: 6, md: 4 }}
                 items={statsItems}
             />
 

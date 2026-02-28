@@ -126,7 +126,10 @@ export default function TagsPage() {
                 </>}
             />
 
-            <StatsBoard items={statsItems} />
+            <StatsBoard
+                columns={{ xs: 12, sm: 6, md: 4 }}
+                items={statsItems}
+            />
 
             {/* Filters Toolbar */}
             <DataFilterToolbar
