@@ -207,7 +207,7 @@ export default function BannersPage() {
                                 strategy={rectSortingStrategy}
                                 disabled={!isReordering}
                             >
-                                <Grid container spacing={3}>
+                                <Grid width="100%" container spacing={3}>
                                     {listItems.map((banner) => (
                                         <Grid size={{ xs: 12, md: 6, lg: 4 }} key={banner.id}>
                                             <FullSortableFileItem id={banner.id} disabled={!isReordering}>
