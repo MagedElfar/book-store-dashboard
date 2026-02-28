@@ -7,7 +7,8 @@ export function SortableFileItem({ children, id, disabled }: { children: React.R
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
 
     const style = {
-        transform: CSS.Transform.toString(transform),
+        // transform: CSS.Transform.toString(transform),
+        transform: CSS.Translate.toString(transform),
         transition,
         zIndex: isDragging ? 1000 : 1,
         opacity: isDragging ? 0.6 : 1,

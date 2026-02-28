@@ -114,6 +114,8 @@ export default function BannersPage() {
     );
 
     const listItems = isReordering ? items : banners;
+    const itemIds = useMemo(() => items.map(b => b.id), [items]);
+
 
     return (
         <PageWrapper>
@@ -200,7 +202,7 @@ export default function BannersPage() {
                     {() => (
                         <Stack spacing={2} alignItems="center">
                             <SortableList
-                                itemIds={items.map(b => b.id)}
+                                itemIds={itemIds}
                                 onReorder={handleReorder}
                                 strategy={rectSortingStrategy}
                                 disabled={!isReordering}

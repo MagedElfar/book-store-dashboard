@@ -56,12 +56,16 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
                 flexDirection: 'column',
                 borderRadius: 3,
                 transition: 'transform 0.2s, box-shadow 0.2s',
-                '&:hover': {
-                    transform: 'translateY(-4px)',
-                    boxShadow: (theme) => theme.shadows[10],
-                },
                 position: 'relative',
                 opacity: banner.is_active ? 1 : 0.8,
+                willChange: 'transform',
+                '&:hover': {
+                    transform: isDirigible ? 'none' : 'translateY(-4px)',
+                    boxShadow: isDirigible ? 'none' : (theme) => theme.shadows[10],
+                },
+                '& img': {
+                    contentVisibility: 'auto',
+                },
                 ...(isDirigible && {
                     cursor: 'grab',
                     '&:active': { cursor: 'grabbing' },
@@ -70,12 +74,13 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
             <Box sx={{ position: 'relative', height: 180, overflow: 'hidden' }}>
                 <CardMedia
                     component="img"
+                    loading="lazy"
                     image={banner.image_url}
                     alt={banner.title_en}
                     sx={{
                         height: '100%',
                         objectFit: 'cover',
-                        filter: banner.is_active ? 'none' : 'grayscale(0.5)'
+                        filter: isDirigible ? 'none' : (banner.is_active ? 'none' : 'grayscale(0.5)')
                     }}
                 />
 
