@@ -1,5 +1,7 @@
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
     Avatar,
@@ -22,10 +24,14 @@ import { fDate } from "@/shared/utilities";
 
 import type { Book } from "../types";
 
+import { useUpdateBook } from "./useUpdateBook";
+
 export function useBookColumns(onDelete: (book: Book) => void) {
     const { t, i18n } = useTranslation(["book", "common"]);
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
+
+    const { mutate, isPending } = useUpdateBook()
 
     const lang = i18n.language as SupportedLang;
 
@@ -147,6 +153,26 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                     )}
 
                     {hasPermission("book.update") && (
+                        <Tooltip title={row.is_active ? t("status.inactive") : t("status.active")}>
+                            <IconButton
+                                onClick={() => mutate({
+                                    id: row.id, data: { is_active: !row.is_active }
+                                }
+                                )}
+                                size="small"
+                                disabled={isPending}
+                                color={row.is_active ? "success" : "default"}
+                            >
+                                {row.is_active ? (
+                                    <ToggleOnIcon fontSize="small" />
+                                ) : (
+                                    <ToggleOffIcon fontSize="small" />
+                                )}
+                            </IconButton>
+                        </Tooltip>
+                    )}
+
+                    {hasPermission("book.update") && (
                         <Tooltip title={t("common:actions.edit")}>
                             <IconButton
                                 onClick={() => navigate(paths.dashboard.books.edit(row.id))}
@@ -172,5 +198,5 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                 </Stack>
             ),
         },
-    ], [t, lang, hasPermission, navigate, onDelete]);
+    ], [t, lang, hasPermission, isPending, navigate, mutate, onDelete]);
 }

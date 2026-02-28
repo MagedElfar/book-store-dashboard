@@ -121,7 +121,7 @@ export const supabaseBookProvider: BookApiProvider = {
         };
     },
 
-    updateBook: async function (id: string, payload: BookRequestPayload) {
+    updateBook: async function (id: string, payload: Partial<BookRequestPayload>) {
         const { images, tag_ids, category_ids, author_ids, ...bookData } = payload;
 
         const { data: book, error: bookError } = await supabaseClient
@@ -133,54 +133,68 @@ export const supabaseBookProvider: BookApiProvider = {
 
         if (bookError) throw new Error(bookError.message);
 
-        await supabaseClient.from("book_images").delete().eq("book_id", id);
 
-        if (images.length > 0) {
-            const imagesWithId = images.map(img => ({
-                ...img,
-                book_id: id
-            }));
-            const { error: imgError } = await supabaseClient
-                .from("book_images")
-                .insert(imagesWithId);
-            if (imgError) throw new Error(imgError.message);
+        if (images) {
+            await supabaseClient.from("book_images").delete().eq("book_id", id);
+
+            if (images?.length > 0) {
+                const imagesWithId = images.map(img => ({
+                    ...img,
+                    book_id: id
+                }));
+                const { error: imgError } = await supabaseClient
+                    .from("book_images")
+                    .insert(imagesWithId);
+                if (imgError) throw new Error(imgError.message);
+            }
         }
 
-        await supabaseClient.from("book_categories").delete().eq("book_id", id);
-        await supabaseClient.from("book_authors").delete().eq("book_id", id);
 
-        if (category_ids.length > 0) {
-            const bookCategories = category_ids.map(catId => ({
-                book_id: id,
-                category_id: catId
-            }));
-            const { error: catError } = await supabaseClient
-                .from("book_categories")
-                .insert(bookCategories);
-            if (catError) throw new Error(catError.message);
+        if (category_ids) {
+            await supabaseClient.from("book_categories").delete().eq("book_id", id);
+
+            if (category_ids.length > 0) {
+                const bookCategories = category_ids.map(catId => ({
+                    book_id: id,
+                    category_id: catId
+                }));
+
+                const { error: catError } = await supabaseClient
+                    .from("book_categories")
+                    .insert(bookCategories);
+                if (catError) throw new Error(catError.message);
+            }
         }
 
-        if (author_ids.length > 0) {
-            const bookAuthors = author_ids.map(autId => ({
-                book_id: id,
-                author_id: autId
-            }));
-            const { error: authError } = await supabaseClient
-                .from("book_authors")
-                .insert(bookAuthors);
 
-            if (authError) throw new Error(authError.message);
+        if (author_ids) {
+            await supabaseClient.from("book_authors").delete().eq("book_id", id);
+            if (author_ids.length > 0) {
+                const bookAuthors = author_ids.map(autId => ({
+                    book_id: id,
+                    author_id: autId
+                }));
+                const { error: authError } = await supabaseClient
+                    .from("book_authors")
+                    .insert(bookAuthors);
+
+                if (authError) throw new Error(authError.message);
+            }
         }
-        await supabaseClient.from("book_tags").delete().eq("book_id", id);
-        if (tag_ids.length > 0) {
-            const bookTags = tag_ids.map(tagId => ({
-                book_id: id,
-                tag_id: tagId
-            }));
-            const { error: tagError } = await supabaseClient
-                .from("book_tags")
-                .insert(bookTags);
-            if (tagError) throw new Error(tagError.message);
+
+        if (tag_ids) {
+            await supabaseClient.from("book_tags").delete().eq("book_id", id);
+
+            if (tag_ids.length > 0) {
+                const bookTags = tag_ids.map(tagId => ({
+                    book_id: id,
+                    tag_id: tagId
+                }));
+                const { error: tagError } = await supabaseClient
+                    .from("book_tags")
+                    .insert(bookTags);
+                if (tagError) throw new Error(tagError.message);
+            }
         }
 
         return book;

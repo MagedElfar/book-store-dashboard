@@ -8,12 +8,13 @@ export function useUpdateBook() {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: ({ id, data }: { id: string; data: BookRequestPayload }) =>
+        mutationFn: ({ id, data }: { id: string; data: Partial<BookRequestPayload> }) =>
             updateBookApi(id, data),
 
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: [BOOK_QUERY_KEY]
+                queryKey: [BOOK_QUERY_KEY],
+                type: "all"
             });
 
         },
