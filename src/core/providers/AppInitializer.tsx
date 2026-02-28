@@ -1,4 +1,3 @@
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useQueryClient } from '@tanstack/react-query';
 import { onMessage } from 'firebase/messaging';
 import { useEffect } from 'react';
@@ -19,7 +18,7 @@ export default function AppInitializer() {
             setupNotificationsApi(user.id);
         }
 
-        const unsubscribe = onMessage(messaging, (payload) => {
+        const unsubscribe = onMessage(messaging, () => {
             // toast.info(
             //     <div>
             //         <strong>{payload.notification?.title}</strong>

@@ -1,4 +1,3 @@
-// import Container from './Container'
 import { LinearProgress, Stack, type StackProps } from '@mui/material'
 
 import { Logo } from '../ui/Logo'
@@ -17,7 +16,9 @@ export function SplashScreen({ withLogo, sx, ...props }: Props) {
             width: "100%",
             height: "100%",
             ...sx
-        }}>
+        }}
+        {...props}
+    >
         {withLogo && <Logo sx={{ pointerEvents: "none" }} />}
         <LinearProgress sx={{ width: "50%" }} color="secondary" />
     </Stack>

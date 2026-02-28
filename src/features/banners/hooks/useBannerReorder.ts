@@ -12,12 +12,10 @@ import { useBulkReorderBanners } from "./useBulkReorderBanners";
 
 export function useBannerReorder(initialItems: Banner[] = []) {
     const [items, setItems] = useState<Banner[]>(initialItems);
-    const [hasChanges, setHasChanges] = useState(false); // State بسيط بدل stringify
     const { mutateAsync: syncReorder, isPending } = useBulkReorderBanners();
 
     useEffect(() => {
         setItems(initialItems);
-        setHasChanges(false);
     }, [initialItems]);
 
     const handleReorder = useCallback((activeId: string | number, overId: string | number) => {
@@ -27,7 +25,6 @@ export function useBannerReorder(initialItems: Banner[] = []) {
             const oldIndex = prev.findIndex((item) => item.id === activeId);
             const newIndex = prev.findIndex((item) => item.id === overId);
             const newArray = arrayMove(prev, oldIndex, newIndex);
-            setHasChanges(true); // نغيرها هنا فقط
             return newArray;
         });
     }, []);

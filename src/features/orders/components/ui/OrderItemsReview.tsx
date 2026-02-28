@@ -49,7 +49,7 @@ export function OrderItemsReview({
             >
                 {items.length > 0 ? (
                     <Stack spacing={0.5}>
-                        {items.map((item, index) => (
+                        {items.map((item) => (
                             <Box
                                 key={item.id}
                                 sx={{

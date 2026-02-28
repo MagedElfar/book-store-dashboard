@@ -1,1 +1,1 @@
-export * from "./supabaseAuthProvider"
+export * from "./supabaseProfileProvider"

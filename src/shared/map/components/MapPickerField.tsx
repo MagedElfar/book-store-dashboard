@@ -109,7 +109,7 @@ function MapPickerField({ nameLat, nameLng, label }: MapPickerFieldProps) {
             if (lat && lng) {
                 map.flyTo([lat, lng], 15);
             }
-        }, [lat, lng, map]);
+        }, [map]);
 
         return (lat && lng) ? <Marker position={[lat, lng]} icon={DefaultIcon} /> : null;
     }
@@ -118,7 +118,7 @@ function MapPickerField({ nameLat, nameLng, label }: MapPickerFieldProps) {
         if (!navigator.geolocation) return;
         navigator.geolocation.getCurrentPosition(
             (position) => updatePosition(position.coords.latitude, position.coords.longitude),
-            (error) => toast.error("GPS Error")
+            () => toast.error("GPS Error")
         );
     };
 
