@@ -9,10 +9,15 @@ interface Props {
     orderId: string;
     currentStatus: OrderStatus | PaymentStatus;
     mode?: "order" | "payment";
-    isDisabled: boolean
+    // isDisabled: boolean
 }
 
-export function OrderStatusActionsTable({ orderId, currentStatus, isDisabled, mode = "order" }: Props) {
+export function OrderStatusActionsTable({
+    orderId,
+    currentStatus,
+    //  isDisabled,
+    mode = "order"
+}: Props) {
     const { t } = useTranslation("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
 
@@ -35,9 +40,9 @@ export function OrderStatusActionsTable({ orderId, currentStatus, isDisabled, mo
         borderRadius: 2,
         width: 'fit-content',
         minWidth: 140,
-        ...(isDisabled && {
-            pointerEvents: "none"
-        })
+        // ...(isDisabled && {
+        //     pointerEvents: "none"
+        // })
     };
 
     return (

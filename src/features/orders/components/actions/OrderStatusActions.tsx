@@ -22,7 +22,8 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
 
     const { hasPermission } = usePermission()
 
-    const isDisabled = !hasPermission("order.manage") || currentStatus === "completed" || currentStatus === "cancelled"
+    // const isDisabled = !hasPermission("order.manage") || currentStatus === "completed" || currentStatus === "cancelled"
+    const isDisabled = !hasPermission("order.manage")
 
     return (
         <Card sx={{ borderRadius: 3, position: 'relative', overflow: 'hidden' }}>
