@@ -22,8 +22,7 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
 
     const { hasPermission } = usePermission()
 
-    // const isDisabled = !hasPermission("order.manage") || currentStatus === "completed" || currentStatus === "cancelled"
-    const isDisabled = !hasPermission("order.manage")
+    const isDisabled = !hasPermission("order.manage") || currentStatus === "completed" || currentStatus === "cancelled"
 
     return (
         <Card sx={{ borderRadius: 3, position: 'relative', overflow: 'hidden' }}>
@@ -89,11 +88,6 @@ export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatu
                     </TextField>
 
                     <TextField
-                        sx={{
-                            ...(isDisabled && {
-                                pointerEvents: "none"
-                            })
-                        }}
                         select
                         fullWidth
                         label={t("fields.payment_status")}
