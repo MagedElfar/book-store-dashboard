@@ -1,16 +1,16 @@
 import { Stack, Typography, Divider, Alert } from "@mui/material";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
 import { useBookAutoComplete, type Book } from "@/features/books";
 import { FormAutocomplete, type OptionValue } from "@/shared/form";
+import { useLocalize } from "@/shared/lib";
 
 import type { OrderListFormType } from "../../schema";
 import OrderItemRow from "../ui/OrderItemRow";
 
 
 export function OrderItemsStep() {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
     const { control, watch, setValue, formState: { errors } } = useFormContext<OrderListFormType>();
 
     const tempBook = watch("tempBook") || null

@@ -3,19 +3,19 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 
 import { usePermission } from "@/features/auth";
 import { PageWrapper, PageTitle, DataHandler } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useLocalize } from '@/shared/lib';
 
 import { AddressCard, DeleteAddressDialog, LoadingAddressList } from "../components";
 import { useGetAddresses } from "../hooks";
 import type { UserAddress } from "../types";
 
 export default function UserAddressesPage() {
-    const { t } = useTranslation(["address", "common"]);
+    const { t } = useLocalize(["address", "common"]);
     const { id: userId } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { hasPermission } = usePermission()

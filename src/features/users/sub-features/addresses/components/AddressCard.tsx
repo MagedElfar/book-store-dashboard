@@ -6,9 +6,9 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIcon from '@mui/icons-material/Phone';
 import { Card, CardContent, Typography, Stack, IconButton, Chip, Divider, Tooltip } from "@mui/material";
 import { lazy, Suspense } from "react";
-import { useTranslation } from "react-i18next";
 
 import { usePermission } from "@/features/auth";
+import { useLocalize } from "@/shared/lib";
 import { MapSkeleton } from "@/shared/map";
 
 import type { UserAddress } from "../types";
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function AddressCard({ address, onEdit, onDelete }: Props) {
-    const { t } = useTranslation(["address", "common"]);
+    const { t } = useLocalize(["address", "common"]);
 
     const { hasPermission } = usePermission()
 

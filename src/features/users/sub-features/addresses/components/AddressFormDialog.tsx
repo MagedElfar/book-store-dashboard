@@ -1,6 +1,5 @@
-import { useTranslation } from "react-i18next";
-
 import { FormDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { AddressForm } from "../forms";
 import type { UserAddress } from "../types";
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export function AddressFormDialog({ open, onClose, address, userId }: Props) {
-    const { t } = useTranslation("address");
+    const { t } = useLocalize("address");
 
     return (
         <FormDialog

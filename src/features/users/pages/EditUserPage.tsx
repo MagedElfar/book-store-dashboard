@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 
 import { DeleteUserDialog, FormSkeleton } from "../components";
 import { UserForm } from "../forms";
 import { useGetUserById } from "../hooks";
 
 export default function EditUserPage() {
-    const { t } = useTranslation(["user", "common"]);
+    const { t } = useLocalize(["user", "common"]);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { data: user, isLoading, isError, refetch } = useGetUserById(id!);

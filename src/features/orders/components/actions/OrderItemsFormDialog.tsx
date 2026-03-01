@@ -1,6 +1,5 @@
-import { useTranslation } from "react-i18next";
-
 import { FormDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { UpdateOrderItemsForm } from "../../form";
 import type { OrderItem } from "../../types";
@@ -14,7 +13,7 @@ interface Props {
 }
 
 export function OrderItemsFormDialog({ open, onClose, orderId, items }: Props) {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
 
     return (
         <FormDialog

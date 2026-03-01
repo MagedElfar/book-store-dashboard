@@ -4,7 +4,7 @@ import { z } from "zod";
 import { colorValidator } from "@/shared/form";
 
 export const TagFormSchema = (
-    t: TFunction<Namespace<"tag">>
+    t: TFunction<Namespace<any>>
 ) =>
     z.object({
         name_ar: z

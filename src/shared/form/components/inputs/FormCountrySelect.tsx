@@ -1,9 +1,9 @@
 import { TextField, MenuItem, Box, type TextFieldProps } from "@mui/material";
 import React from "react";
 import { useFormContext, Controller } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
 import { COUNTRIES } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 
 type FormCountrySelectProps = TextFieldProps & {
     name: string;
@@ -11,7 +11,7 @@ type FormCountrySelectProps = TextFieldProps & {
 
 export const FormCountrySelect: React.FC<FormCountrySelectProps> = ({ name, label, ...props }) => {
     const { control } = useFormContext();
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
 
     return (
         <Controller

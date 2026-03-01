@@ -12,38 +12,41 @@ import {
 } from "@mui/material";
 import { useDebounce } from "minimal-shared/hooks";
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 
-interface DataFilterToolbarProps {
+import { useLocalize } from "@/shared/lib";
+
+interface DataFilterToolbarProps<T extends object> {
     searchPlaceholder?: string;
     searchValue?: string;
-    onSearchChange?: (value: string) => void;
+    onSearchChange?: (key: keyof T, value: string) => void;
     onClear?: () => void;
     children?: React.ReactNode;
-    disableSearch?: boolean
+    disableSearch?: boolean,
+    keySearch?: keyof T
 }
 
-export function DataFilterToolbar({
+export function DataFilterToolbar<T extends object>({
     searchPlaceholder = "Search...",
     searchValue,
     onSearchChange,
     onClear,
     children,
-    disableSearch
-}: DataFilterToolbarProps) {
-    const { t } = useTranslation("common");
+    disableSearch,
+    keySearch = "search" as keyof T
+}: DataFilterToolbarProps<T>) {
+    const { t } = useLocalize("common");
     const [localSearch, setLocalSearch] = useState(searchValue || "");
     const [showFilters, setShowFilters] = useState(false);
     const debouncedSearch = useDebounce(localSearch, 500);
 
     useEffect(() => {
-        if (debouncedSearch !== searchValue) {
-            onSearchChange?.(debouncedSearch);
-        }
-    }, [debouncedSearch, onSearchChange, searchValue]);
+        onSearchChange?.(keySearch, debouncedSearch);
+    }, [debouncedSearch, keySearch, onSearchChange]);
+
+
     const handleClearAll = () => {
         setLocalSearch("");
-        if (onClear) onClear();
+        onClear?.();
     };
 
     return (
@@ -79,7 +82,7 @@ export function DataFilterToolbar({
                     onClick={() => setShowFilters(!showFilters)}
                     sx={{ width: { xs: "100%", md: "auto" } }}
                 >
-                    {t("filter")}
+                    {t("filter" as any)}
                 </Button>
             </Stack>
 

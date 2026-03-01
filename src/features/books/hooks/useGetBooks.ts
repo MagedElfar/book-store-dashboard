@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
 
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 
 import { getBooKsApi } from "../api";
 import { BOOK_QUERY_KEY } from "../constants";
@@ -9,8 +8,7 @@ import type { BookParams } from "../types";
 
 export function useGetBooks(params: BookParams) {
 
-    const { i18n } = useTranslation()
-    const lang = i18n.language as SupportedLang
+    const { lang } = useLocalize()
 
     return useQuery({
         queryKey: [BOOK_QUERY_KEY, params, lang],

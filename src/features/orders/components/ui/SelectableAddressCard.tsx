@@ -4,10 +4,10 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import { Card, CardContent, Typography, Stack, Divider, CardActionArea } from "@mui/material";
 import { motion } from 'framer-motion';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { useUpdateAddress, type UserAddress } from '@/features/users';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import type { CreateOrderFormSchemaType } from '../../schema';
@@ -20,7 +20,7 @@ interface Props {
 
 export function SelectableAddressCard({ address, isSelected }: Props) {
 
-    const { t } = useTranslation(["address", "common"])
+    const { t } = useLocalize(["address", "common"])
     const { watch } = useFormContext<CreateOrderFormSchemaType>()
 
     const { mutateAsync } = useUpdateAddress(watch("user_id")!)

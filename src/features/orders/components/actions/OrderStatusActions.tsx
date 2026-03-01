@@ -2,9 +2,9 @@ import {
     Card, CardContent, Typography, TextField, MenuItem,
     Stack, CircularProgress, Box, Chip
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
 import { usePermission } from "@/features/auth";
+import { useLocalize } from "@/shared/lib";
 
 import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from "../../config";
 import { useUpdateOrderStatus } from "../../hooks";
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function OrderStatusActions({ orderId, currentStatus, currentPaymentStatus }: Props) {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
 
     const { hasPermission } = usePermission()

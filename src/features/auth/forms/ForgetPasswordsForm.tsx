@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 
 import { Logo, RouterLink } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { forgotPassword } from '../api';
@@ -14,7 +14,7 @@ import { ForgotPasswordSchema, type ForgotPasswordSchemaType } from '../schema'
 
 export function ForgetPasswordsForm() {
 
-    const { t } = useTranslation("auth")
+    const { t } = useLocalize("auth")
 
     const defaultValues: ForgotPasswordSchemaType = {
         email: "",

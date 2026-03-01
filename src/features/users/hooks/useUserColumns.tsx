@@ -3,11 +3,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Avatar, Chip, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { paths } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 import type { Column } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
@@ -15,7 +15,7 @@ import type { User } from "../types";
 
 
 export function useUserColumns(onDelete: (user: User) => void) {
-    const { t } = useTranslation(["user", "common"]);
+    const { t } = useLocalize(["user", "common"]);
     const { hasPermission } = usePermission()
     const navigate = useNavigate()
 

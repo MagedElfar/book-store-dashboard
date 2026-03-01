@@ -4,11 +4,11 @@ import {
     ChevronRight
 } from "@mui/icons-material";
 import { Box, IconButton, Stack } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
 import { AccountDropdown, useAuthState } from "@/features/auth";
 import { NotificationCenter } from "@/features/notifications";
 import { HEADER_HEIGHT } from "@/layouts/constants";
+import { useLocalize } from "@/shared/lib";
 
 import { ModeSwitch, LanguageSwitch } from "../ui";
 
@@ -18,10 +18,8 @@ interface Props {
 }
 
 export function Header({ onToggleBar, open }: Props) {
-    const { i18n } = useTranslation()
+    const { dir } = useLocalize()
     const { user } = useAuthState()
-
-    const dir = i18n.dir()
 
     return <Stack
         direction="row"

@@ -4,7 +4,6 @@ import LabelIcon from '@mui/icons-material/Label';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Button } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 // --- Shared Components ---
 import { usePermission } from "@/features/auth";
@@ -19,7 +18,7 @@ import {
 } from "@/shared/components";
 import { usePagination } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { DeleteTagDialog, TagFormDialog } from "../components";
 import { useGetTags, useGetTagsStats, useTagColumns } from "../hooks";
@@ -44,8 +43,7 @@ const DEFAULT_FILTERS: Omit<TagsParams, "page" | "limit"> = {
 };
 
 export default function TagsPage() {
-    const { t, i18n } = useTranslation(["tag", "common"]);
-    const lang = i18n.language as SupportedLang;
+    const { t, getLocalizedValue } = useLocalize(["tag", "common"]);
 
     const { hasPermission } = usePermission()
     // --- Pagination Hook ---
@@ -110,6 +108,9 @@ export default function TagsPage() {
         }
     ], [stats, isLoadingStats, t]);
 
+    const statusOptions = useMemo(() => getStatusOptions(t), [t])
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+
     return (
         <PageWrapper>
             {/* Page Header */}
@@ -135,20 +136,23 @@ export default function TagsPage() {
             <DataFilterToolbar
                 searchValue={filters.search || ""}
                 searchPlaceholder={t("filter.searchPlaceholder")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
+                keySearch="search"
             >
                 <FilterSelect
                     label={t("filter.status")}
                     value={filters.is_active || ""}
-                    options={getStatusOptions(t)}
-                    onChange={(val) => handleFilterChange("is_active", val)}
+                    options={statusOptions}
+                    onChange={handleFilterChange}
+                    inputKey="is_active"
                 />
                 <FilterSelect
                     label={t("filter.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
             </DataFilterToolbar>
 
@@ -185,7 +189,7 @@ export default function TagsPage() {
                 <DeleteTagDialog
                     open
                     tagId={selectedTag.id}
-                    tagName={selectedTag[`name_${lang}`]}
+                    tagName={getLocalizedValue(selectedTag)}
                     onClose={closeDialog}
                 />
             )}

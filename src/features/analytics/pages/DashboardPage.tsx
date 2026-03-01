@@ -7,27 +7,38 @@ import {
     Paper
 } from '@mui/material';
 import dayjs from 'dayjs';
-import { useState, lazy, useMemo, Suspense } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, lazy, useMemo, Suspense, useCallback } from 'react';
 
 import { useAuthState } from '@/features/auth';
 import { DataFilterToolbar, FilterDateRange, FilterSelect, PageWrapper } from '@/shared/components';
+import { useLocalize } from '@/shared/lib';
 
 const OverviewSection = lazy(() => import('./../sections/OverviewSection'));
 const BooksSection = lazy(() => import('./../sections/BooksSection'));
 const UsersSection = lazy(() => import('./../sections/UsersSection'));
 
+interface FilterType {
+    dateRange: string,
+    customStartDate: string | null
+    customEndDate: string | null
+}
+
+const initFilter: FilterType = {
+    dateRange: "7d",
+    customEndDate: null,
+    customStartDate: null
+}
 
 const DashboardPage = () => {
 
-
-    const { t } = useTranslation("analytics")
+    const { t } = useLocalize("analytics")
     const { user } = useAuthState()
-    const [dateRange, setDateRange] = useState('7d');
-    const [customStartDate, setCustomStartDate] = useState<string | null>(null);
-    const [customEndDate, setCustomEndDate] = useState<string | null>(null);
+
+    const [filter, setFilter] = useState<FilterType>(initFilter)
 
     const analyticsParams = useMemo(() => {
+
+        const { dateRange, customEndDate, customStartDate } = filter
         let startDate: string | null = null;
         let endDate = dayjs().toISOString();
 
@@ -43,7 +54,22 @@ const DashboardPage = () => {
             }
         }
         return { startDate, endDate };
-    }, [dateRange, customStartDate, customEndDate]);
+    }, [filter]);
+
+    const handleFilterChange = useCallback((key: keyof FilterType, value: any) => setFilter(prev => ({
+        ...prev,
+        [key]: value
+    })), [])
+
+    const handleRest = useCallback(() => setFilter(initFilter), []);
+
+    const rangeOptions = useMemo(() => [
+        { value: "24h", label: t("filters.last24h") },
+        { value: "7d", label: t("filters.last7d") },
+        { value: "30d", label: t("filters.last30d") },
+        { value: "all", label: t("filters.allTime") },
+        { value: "custom", label: t("filters.custom") }
+    ], [t])
 
     return (
 
@@ -91,88 +117,29 @@ const DashboardPage = () => {
                 </Stack>
             </Paper>
 
-
-            {/* <Stack
-                spacing={3}
-                direction={{ xs: 'column', md: 'row' }}
-                justifyContent="space-between"
-                alignItems={{ xs: 'stretch', md: 'center' }}
-                sx={{
-                    mb: 4,
-                    gap: 2,
-                    borderBottom: '1px solid',
-                    borderColor: 'divider',
-                    pb: 0.5 
-                }}
-            >
-                <Tabs
-                    value={activeTab}
-                    onChange={handleTabChange}
-                    textColor="primary"
-                    indicatorColor="primary"
-                    sx={{
-                        '& .MuiTab-root': {
-                            fontWeight: '700',
-                            textTransform: 'none',
-                            fontSize: '0.95rem',
-                            minWidth: 120,
-                            minHeight: 48, // ارتفاع مناسب لدمج الأيقونة مع النص
-                            display: 'flex',
-                            flexDirection: 'row', // الأيقونة بجانب النص
-                            alignItems: 'center',
-                            gap: 1, // مسافة بين الأيقونة والنص
-                            '& svg': {
-                                fontSize: '1.2rem', // حجم الأيقونة
-                            }
-                        }
-                    }}
-                >
-                    <Tab
-                        icon={<DashboardCustomizeIcon />}
-                        iconPosition="start"
-                        label={t("tabs.overview")}
-                    />
-                    <Tab
-                        icon={<InventoryIcon />}
-                        iconPosition="start"
-                        label={t("tabs.inventory")}
-                    />
-                    <Tab
-                        icon={<PeopleAltIcon />}
-                        iconPosition="start"
-                        label={t("tabs.users")}
-                    />
-                </Tabs>
-            </Stack> */}
-
             <DataFilterToolbar
-                onClear={() => setDateRange("7d")}
+                onClear={handleRest}
+                disableSearch
             >
                 <FilterSelect
                     label={t("filters.dateRange")}
-                    value={dateRange}
-                    options={[
-                        { value: "24h", label: t("filters.last24h") },
-                        { value: "7d", label: t("filters.last7d") },
-                        { value: "30d", label: t("filters.last30d") },
-                        { value: "all", label: t("filters.allTime") },
-                        { value: "custom", label: t("filters.custom") }
-                    ]}
-                    onChange={(val) => setDateRange(val as string)}
+                    value={filter.dateRange}
+                    options={rangeOptions}
+                    onChange={handleFilterChange}
+                    inputKey="dateRange"
                 />
 
-                {dateRange === 'custom' && <>
+                {filter.dateRange === 'custom' && <>
                     <FilterDateRange
-                        startDate={customStartDate || null}
-                        endDate={customEndDate || null}
+                        startDate={filter.customStartDate}
+                        endDate={filter.customEndDate}
                         labels={{
                             start: t("filters.startDate"),
                             end: t("filters.endDate")
                         }}
-                        onDateChange={(start, end) => {
-                            setCustomStartDate(start);
-                            setCustomEndDate(end);
-                        }}
+                        startKey="customStartDate"
+                        endKey="customEndDate"
+                        onDateChange={handleFilterChange}
                     />
                 </>}
             </DataFilterToolbar>

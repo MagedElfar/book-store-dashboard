@@ -17,8 +17,8 @@ import {
     Button,
     alpha
 } from "@mui/material";
-import { useTranslation } from 'react-i18next';
 
+import { useLocalize } from '@/shared/lib';
 import type { Column } from "@/shared/types";
 
 interface DataTableProps<T> {
@@ -47,7 +47,7 @@ export function DataTable<T>({
     onRefetch
 }: DataTableProps<T>) {
 
-    const { t } = useTranslation("common")
+    const { t } = useLocalize("common")
 
     const totalColumns = columns.length;
 

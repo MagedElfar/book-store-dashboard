@@ -4,7 +4,8 @@ import {
     Divider, List, Button, CircularProgress
 } from '@mui/material';
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+
+import { useLocalize } from '@/shared/lib';
 
 import { useGetNotifications, useMarkNotificationRead, useMarkAllNotificationsRead, useDeleteNotification, useDeleteAllNotifications } from '../hooks';
 
@@ -12,7 +13,7 @@ import { NotificationItem } from './NotificationItem';
 
 export const NotificationCenter = ({ userId }: { userId: string }) => {
 
-    const { t } = useTranslation("notification")
+    const { t } = useLocalize("notification")
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

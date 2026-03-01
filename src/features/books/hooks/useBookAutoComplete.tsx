@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import { INFINITE_RECORDED_LIMIT } from "@/core";
-import type { AutocompleteOptions, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { AutocompleteOptions } from "@/shared/types";
 
 import type { Book } from "../types";
 import { mapBookToOption } from "../utilities";
@@ -12,9 +12,7 @@ import { useGetInfiniteBooks } from "./useGetInfiniteBooks";
 export function useBookAutoComplete() {
     const [search, setSearch] = useState("");
     const [isBooksEnabled, setIsBooksEnabled] = useState(false);
-    const { i18n } = useTranslation()
-
-    const lang = i18n.language as SupportedLang;
+    const { lang } = useLocalize()
 
     const query = useGetInfiniteBooks({
         search,

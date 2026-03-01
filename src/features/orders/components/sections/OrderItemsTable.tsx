@@ -10,13 +10,13 @@ import {
     Link
 } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
 import { usePermission } from '@/features/auth';
 import { DataTable } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { useDialog } from '@/shared/hooks';
-import type { Column, SupportedLang } from "@/shared/types";
+import { useLocalize } from '@/shared/lib';
+import type { Column } from "@/shared/types";
 import { formatPrice } from "@/shared/utilities";
 
 import type { OrderItem, OrderStatus } from "../../types";
@@ -29,8 +29,7 @@ interface Props {
 }
 
 export function OrderItemsTable({ items, orderId, status }: Props) {
-    const { t, i18n } = useTranslation(["order", "common"]);
-    const lang = i18n.language as SupportedLang
+    const { t, getLocalizedValue, lang } = useLocalize(["order", "common"]);
 
     const { data: orderItems, isEdit, openEdit, closeDialog } = useDialog<OrderItem[]>();
 
@@ -47,11 +46,11 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
                         src={row.book?.cover_image || ""}
-                        alt={row.book?.title_en}
+                        alt={getLocalizedValue(row, "title")}
                         variant="rounded"
                         sx={{ width: 45, height: 60, bgcolor: "background.neutral" }}
                     >
-                        {row.book?.title_en?.[0]}
+                        {getLocalizedValue(row, "title")?.[0]}
                     </Avatar>
 
                     <Stack spacing={0.1}>
@@ -65,7 +64,7 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
                             >
 
                                 <Typography variant="subtitle2" noWrap>
-                                    {row.book?.[`title_${lang}`]}
+                                    {getLocalizedValue(row, "title")}
                                 </Typography>
 
                             </Link>
@@ -114,7 +113,7 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
                 </Typography>
             ),
         },
-    ], [t, lang]);
+    ], [t, getLocalizedValue, lang]);
 
     return <Card sx={{ borderRadius: 3, border: '1px solid', borderColor: 'divider' }}>
         <CardContent sx={{ p: 3 }}>

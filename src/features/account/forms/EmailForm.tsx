@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 
 import { useAuthState } from '@/features/auth';
 import { FormContainer, FormTextField, AppFormProvider } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { changeEmailApi } from '../api';
@@ -14,7 +14,7 @@ import { EmailSchema, type EmailSchemaType } from '../schema'
 export function EmailForm() {
 
     const { user } = useAuthState()
-    const { t } = useTranslation("account")
+    const { t } = useLocalize("account")
 
     const defaultValues: EmailSchemaType = {
         email: user!.email,

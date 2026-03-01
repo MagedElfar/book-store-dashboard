@@ -1,17 +1,17 @@
 import { Grid, Typography, Divider, Stack } from "@mui/material";
 import { useCallback, useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
 import { useUserAutoComplete, type User } from "@/features/users";
 import { FormAutocomplete, FormCountrySelect, FormPhoneInput, FormTextField } from "@/shared/form";
+import { useLocalize } from "@/shared/lib";
 
 import type { CreateOrderFormSchemaType } from "../../schema";
 import ShippingAddress from "../ui/ShippingAddress";
 
 
 export function CustomerInfoStep() {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
     const { watch, setValue } = useFormContext<CreateOrderFormSchemaType>();
 
     const { options, setSearch, setIsUserEnabled, ...userQuery } = useUserAutoComplete();

@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 
 import { useAuthActions, useAuthState } from '@/features/auth';
 import { FormContainer, FormTextField, AppFormProvider, FormPhoneInput } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper } from '@/shared/utilities';
 
@@ -16,7 +16,7 @@ export function MyAccountForm() {
 
     const { updateUser } = useAuthActions()
     const { user } = useAuthState()
-    const { t } = useTranslation("account")
+    const { t } = useLocalize("account")
 
     const defaultValues: AccountSchemaType = {
         phone: user?.phone,

@@ -1,9 +1,10 @@
 // src/features/categories/components/DeleteCategoryDialog.tsx
 
-import { useTranslation } from "react-i18next";
+import { } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteCategory } from "../hooks";
@@ -17,7 +18,7 @@ interface Props {
 }
 
 function DeleteCategoryDialog({ open, onClose, categoryId, categoryName, onRedirect }: Props) {
-    const { t } = useTranslation(["category", "common"]);
+    const { t } = useLocalize(["category", "common"]);
     const { mutateAsync: deleteCategory, isPending } = useDeleteCategory();
 
     const handleConfirm = async () => {

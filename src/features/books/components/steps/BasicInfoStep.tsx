@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
 import { FormCheckbox, FormRichTextField, FormTextField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 
 export function BasicInfoStep() {
-    const { t } = useTranslation("book");
+    const { t } = useLocalize("book");
     return (
         <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 6 }}>
@@ -14,7 +14,7 @@ export function BasicInfoStep() {
                 <FormTextField name="title_ar" label={t("label.titleAr")} required />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-                <FormTextField name="slug" label={t("label.slug")} required disabled />
+                <FormTextField name="slug" label={t("label.slug")} required />
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
                 <FormTextField name="sku" label={t("label.sku")} required />

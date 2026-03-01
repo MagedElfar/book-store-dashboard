@@ -10,10 +10,10 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 
-interface Props<T> {
+interface Props<T, TKey extends object> {
     label: string;
     value: any;
-    onChange: (value: any) => void;
+    onChange: (key: keyof TKey, value: any) => void;
     options: AutocompleteOptions<T>[];
     loading?: boolean;
     multiple?: boolean;
@@ -22,10 +22,11 @@ interface Props<T> {
     hasNextPage?: boolean;
     isFetchingNextPage?: boolean;
     fetchNextPage?: () => void;
-    onOpen?: () => void
+    onOpen?: (val: boolean) => void
+    filterKey: keyof TKey
 }
 
-export function FilterAutocomplete<T>({
+export function FilterAutocomplete<T, TKey extends object>({
     label,
     value,
     onChange,
@@ -37,8 +38,9 @@ export function FilterAutocomplete<T>({
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-    onOpen
-}: Props<T>) {
+    onOpen,
+    filterKey
+}: Props<T, TKey>) {
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearch = useDebounce(searchTerm, 500);
 
@@ -59,7 +61,7 @@ export function FilterAutocomplete<T>({
     return (
         <Autocomplete
             size="small"
-            onFocus={() => onOpen?.()}
+            onFocus={() => onOpen?.(true)}
             multiple={multiple}
             options={options}
             loading={loading}
@@ -68,9 +70,9 @@ export function FilterAutocomplete<T>({
             onInputChange={(_, newVal) => setSearchTerm(newVal)}
             onChange={(_, newValue: any) => {
                 if (multiple) {
-                    onChange(newValue.map((v: any) => v.value));
+                    onChange(filterKey, newValue.map((v: any) => v.value));
                 } else {
-                    onChange(newValue?.value ?? "");
+                    onChange(filterKey, newValue?.value ?? "");
                     setSearchTerm("")
                 }
 

@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material';
-import { useTranslation } from 'react-i18next';
 
 import { FormDatePicker, FormTextField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 
 export function PricingSpecStep() {
-    const { t } = useTranslation("book");
+    const { t } = useLocalize("book");
     return (
         <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 6 }}>

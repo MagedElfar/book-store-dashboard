@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteAddress } from "../hooks";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function DeleteAddressDialog({ open, onClose, addressId, userId, onSuccess }: Props) {
-    const { t } = useTranslation(["address", "common"]);
+    const { t } = useLocalize(["address", "common"]);
 
     const { mutateAsync: deleteAddress, isPending } = useDeleteAddress(userId);
 

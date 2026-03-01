@@ -1,5 +1,6 @@
 import { Box, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next';
+
+import { useLocalize } from '@/shared/lib';
 
 import type { BannerFormSchemaType } from '../schema';
 
@@ -9,7 +10,7 @@ interface Props {
 }
 
 export function BannerPreview({ data, language = 'en' }: Props) {
-    const { t } = useTranslation("banner");
+    const { t } = useLocalize("banner");
 
     const getAlignment = () => {
         const vertical = {

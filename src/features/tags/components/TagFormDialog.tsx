@@ -1,6 +1,5 @@
-import { useTranslation } from "react-i18next";
-
 import { FormDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import type { Tag } from "../types";
 
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export function TagFormDialog({ open, onClose, tag }: Props) {
-    const { t } = useTranslation("tag");
+    const { t } = useLocalize("tag");
 
     return (
         <FormDialog

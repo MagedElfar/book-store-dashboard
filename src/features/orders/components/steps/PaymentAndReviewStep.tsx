@@ -1,22 +1,20 @@
 import { Grid, Typography, Stack, Paper, Box } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { Trans, useTranslation } from "react-i18next";
+import { Trans } from "react-i18next";
 
 import { SHIPPING_FEE, VAT_FEE } from "@/core";
 import { FormRadioGroup, FormTextField } from "@/shared/form";
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 
 import type { CreateOrderFormSchemaType } from "../../schema";
 import { OrderItemsReview, OrderSummaryCard } from "../ui";
 
 
 export function PaymentAndReviewStep() {
-    const { t, i18n } = useTranslation("order");
+    const { t, getLocalizedValue } = useLocalize("order");
     const { watch } = useFormContext<CreateOrderFormSchemaType>();
     const customerName = watch("customer_name");
     const paymentMethod = watch("payment_method");
-
-    const lang = i18n.language as SupportedLang
 
     const translatedMethod = paymentMethod ? t(`methods.${paymentMethod}` as any) : "---";
     const items = watch("items") || [];
@@ -63,7 +61,7 @@ export function PaymentAndReviewStep() {
                                 id: item.bookId,
                                 price: item.price as number,
                                 quantity: item.quantity as number,
-                                name: item.item.data?.[`title_${lang}`]
+                                name: getLocalizedValue(item.item.data, "title")
                             }))}
                         />
                         <OrderSummaryCard

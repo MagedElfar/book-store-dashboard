@@ -4,8 +4,9 @@ import {
 } from '@mui/material';
 import { useState, useRef, useEffect, type ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
+import { useLocalize } from '@/shared/lib';
 
 import { getAllErrorMessages } from '../../utilities';
 
@@ -23,7 +24,7 @@ interface Props extends CardProps {
 }
 
 export function MultiStepFormContainer({ steps, submitText, sx, buttonProps, stackProps }: Props) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     const [activeStep, setActiveStep] = useState(0);
     const cardRef = useRef<HTMLDivElement>(null);
 

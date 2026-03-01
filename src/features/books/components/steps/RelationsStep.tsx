@@ -1,16 +1,16 @@
 import { Grid } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 
 import { useAuthorAutoComplete, type Author } from "@/features/authors";
 import { useCategoryAutoComplete, type Category } from "@/features/categories";
 import { useTagsAutoComplete, type Tag } from "@/features/tags";
 import { FormAutocomplete } from "@/shared/form";
+import { useLocalize } from "@/shared/lib";
 
 import type { BookFormSchemaType } from "../../schema";
 
 export function RelationsStep() {
-    const { t } = useTranslation("book");
+    const { t } = useLocalize("book");
     const { watch } = useFormContext<BookFormSchemaType>()
 
     const { options: tagOptions, setIsTagsEnabled, setSearch: setTagSearch, ...tagsQuery } = useTagsAutoComplete();

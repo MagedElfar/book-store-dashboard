@@ -2,7 +2,6 @@ import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import PersonIcon from '@mui/icons-material/Person';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 // --- Shared Components ---
@@ -18,7 +17,7 @@ import {
 import { paths } from "@/shared/constants";
 import { usePagination } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { DeleteAuthorDialog } from "../components";
 import { useGetAuthors, useGetAuthorsStats, useAuthorColumns } from "../hooks";
@@ -46,10 +45,8 @@ const DEFAULT_FILTERS: Omit<AuthorsParams, "page" | "limit"> = {
 };
 
 export default function AuthorsPage() {
-    const { t, i18n } = useTranslation(["author", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["author", "common"]);
     const navigate = useNavigate();
-
-    const lang = i18n.language as SupportedLang;
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
@@ -114,6 +111,9 @@ export default function AuthorsPage() {
         }
     ], [stats, isLoadingStats, t]);
 
+    const statusOptions = useMemo(() => getStatusOptions(t), [t]);
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+
     return (
         <PageWrapper>
             <RootPageTitle
@@ -128,22 +128,24 @@ export default function AuthorsPage() {
             />
 
             <DataFilterToolbar
-                searchValue={filters.search || ""}
+                searchValue={filters.search}
                 searchPlaceholder={t("filter.searchPlaceholder")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
             >
                 <FilterSelect
                     label={t("filter.status")}
                     value={filters.is_active || ""}
-                    options={getStatusOptions(t)}
-                    onChange={(val) => handleFilterChange("is_active", val)}
+                    options={statusOptions}
+                    onChange={handleFilterChange}
+                    inputKey="is_active"
                 />
                 <FilterSelect
                     label={t("filter.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
             </DataFilterToolbar>
 
@@ -164,7 +166,7 @@ export default function AuthorsPage() {
                 <DeleteAuthorDialog
                     open
                     authorId={selectedAuthor.id}
-                    authorName={selectedAuthor?.[`name_${lang}`]}
+                    authorName={getLocalizedValue(selectedAuthor)}
                     onClose={closeDialog}
                 />
             )}

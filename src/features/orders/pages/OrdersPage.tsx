@@ -5,13 +5,12 @@ import PaidIcon from '@mui/icons-material/Paid';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { DataFilterToolbar, DataTable, FilterDateRange, FilterSelect, PageWrapper, RootPageTitle, StatsBoard, type StatItem } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { usePagination } from '@/shared/hooks';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 import { formatPrice } from '@/shared/utilities';
 
 import { ORDER_STATUS_CONFIG } from '../config';
@@ -42,10 +41,9 @@ const DEFAULT_FILTERS: Omit<OrderParams, "page" | "limit"> = {
 
 export default function OrdersPage() {
 
-    const { t, i18n } = useTranslation(["order", "common"]);
+    const { t, lang } = useLocalize(["order", "common"]);
     const navigate = useNavigate();
 
-    const lang = i18n.language as SupportedLang
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
@@ -129,6 +127,9 @@ export default function OrdersPage() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     ], [stats, isLoadingStats, t]);
 
+    const statusOptions = useMemo(() => getStatusOptions(t), [t])
+    const sortOptions = useMemo(() => getOrderSortOptions(t), [t])
+
     return (
         <PageWrapper>
             <RootPageTitle
@@ -143,33 +144,35 @@ export default function OrdersPage() {
             />
 
             <DataFilterToolbar
-                searchValue={filters.search || ""}
+                searchValue={filters.search}
                 searchPlaceholder={t("filters.search")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
+                keySearch="search"
             >
                 <FilterSelect
                     label={t("filters.status")}
                     value={filters.status || "all"}
-                    options={getStatusOptions(t)}
-                    onChange={(val) => handleFilterChange("status", val)}
+                    options={statusOptions}
+                    onChange={handleFilterChange}
+                    inputKey="status"
                 />
 
                 <FilterSelect
                     label={t("filters.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getOrderSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
 
                 <FilterDateRange
                     startDate={filters.startDate || null}
                     endDate={filters.endDate || null}
                     labels={{ start: t("filters.startDate"), end: t("filters.endDate") }}
-                    onDateChange={(start, end) => {
-                        handleFilterChange("startDate", start);
-                        handleFilterChange("endDate", end);
-                    }}
+                    onDateChange={handleFilterChange}
+                    startKey="startDate"
+                    endKey="endDate"
                 />
             </DataFilterToolbar>
 

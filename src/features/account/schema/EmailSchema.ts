@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { emailValidator } from "@/shared/form";
 
-export const EmailSchema = (t: TFunction<Namespace<"account">>) => z
+export const EmailSchema = (t: TFunction<Namespace<any>>) => z
     .object({
         email: emailValidator({
             invalidEmailMsg: t("account:validation.invalid_email"),

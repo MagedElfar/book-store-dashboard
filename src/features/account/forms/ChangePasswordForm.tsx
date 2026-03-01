@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify';
 
 import { useAuthState } from '@/features/auth';
 import { FormContainer, AppFormProvider, FormPasswordField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { changePasswordApi } from '../api';
@@ -14,7 +14,7 @@ import { ChangePasswordSchema, type ChangePasswordSchemaType } from '../schema'
 export function ChangePasswordForm() {
 
     const { user } = useAuthState()
-    const { t } = useTranslation("account")
+    const { t } = useLocalize("account")
 
     const defaultValues: ChangePasswordSchemaType = {
         oldPassword: "",

@@ -1,11 +1,10 @@
-import { useTranslation } from "react-i18next";
-
 import { PageTitle, PageWrapper } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { CreateOrderForm } from "../form";
 
 export default function CreateOrderPage() {
-    const { t } = useTranslation("order")
+    const { t } = useLocalize("order")
 
     return (
         <PageWrapper>

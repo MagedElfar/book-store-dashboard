@@ -4,7 +4,7 @@ import { z } from "zod";
 import { phoneValidator } from "@/shared/form";
 
 export const AddressFormSchema = (
-    t: TFunction<Namespace<"address">>,
+    t: TFunction<Namespace<any>>,
 ) =>
     z.object({
         full_name: z

@@ -8,9 +8,9 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import PublicIcon from "@mui/icons-material/Public";
 import VerifiedIcon from '@mui/icons-material/Verified';
 import { Card, CardContent, Typography, Stack, Box, Divider, useTheme, useMediaQuery, Chip, Link } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
 import { COUNTRIES } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 
 import type { Order } from "../../types";
 
@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function OrderCustomerInfo({ order }: Props) {
-    const { t } = useTranslation(["order", "common"]);
+    const { t } = useLocalize(["order", "common"]);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 

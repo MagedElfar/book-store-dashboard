@@ -3,11 +3,11 @@ import { Grid, Stack, Card, CardActionArea, Typography, Alert } from '@mui/mater
 import { motion, LayoutGroup } from 'framer-motion';
 import { useCallback, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 
 import { AddressFormDialog, LoadingAddressList, useGetAddresses, type UserAddress } from '@/features/users';
 import { DataHandler } from '@/shared/components';
 import { useDialog } from '@/shared/hooks';
+import { useLocalize } from '@/shared/lib';
 
 import type { CreateOrderFormSchemaType } from '../../schema';
 
@@ -22,7 +22,7 @@ export default function ShippingAddress() {
         mass: 1
     } as const;
 
-    const { t } = useTranslation(["address", "common", "order"])
+    const { t } = useLocalize(["address", "common", "order"])
 
     const { setValue, watch, formState: { errors } } = useFormContext<CreateOrderFormSchemaType>();
 

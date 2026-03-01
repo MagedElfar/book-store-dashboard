@@ -1,25 +1,16 @@
 import LanguageIcon from "@mui/icons-material/Language";
 import { IconButton, Tooltip, Box } from "@mui/material";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+
+import { useLocalize } from "@/shared/lib";
 
 const MotionBox = motion(Box);
 
 export function LanguageSwitch() {
-    const { i18n } = useTranslation();
-
-    const currentLang = i18n.language.startsWith("ar") ? "ar" : "en";
-
-    const toggleLanguage = () => {
-        const newLang = currentLang === "en" ? "ar" : "en";
-        i18n.changeLanguage(newLang);
-
-        // optional: save manually
-        localStorage.setItem("i18nextLng", newLang);
-    };
+    const { lang, toggleLanguage } = useLocalize();
 
     return (
-        <Tooltip title={currentLang === "en" ? "العربية" : "English"}>
+        <Tooltip title={lang === "en" ? "العربية" : "English"}>
             <IconButton
                 component={MotionBox}
                 whileHover={{ scale: 1.1 }}
@@ -51,9 +42,10 @@ export function LanguageSwitch() {
                         fontSize: 11,
                         fontWeight: 700,
                         ml: 0.5,
+                        textTransform: "uppercase"
                     }}
                 >
-                    {currentLang.toUpperCase()}
+                    {lang}
                 </Box>
             </IconButton>
         </Tooltip>

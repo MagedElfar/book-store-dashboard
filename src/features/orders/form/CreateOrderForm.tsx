@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
 import { AppFormProvider, MultiStepFormContainer } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { CustomerInfoStep, OrderItemsStep, PaymentAndReviewStep } from '../components';
@@ -14,7 +14,7 @@ import { CreateOrderFormSchema, type CreateOrderFormSchemaType } from '../schema
 import { mapCreateOrderFormToRequest } from '../utilities';
 
 export function CreateOrderForm() {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
     const navigate = useNavigate();
     const { mutateAsync: createOrder } = useCreateOrder();
 

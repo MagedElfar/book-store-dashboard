@@ -4,12 +4,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Switch, FormControlLabel } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormDatePicker } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper, slugify } from '@/shared/utilities';
 
@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function AuthorForm({ author }: Props) {
-    const { t } = useTranslation("author");
+    const { t } = useLocalize("author");
     const { mutateAsync: createAuthor } = useCreateAuthor();
     const { mutateAsync: updateAuthor } = useUpdateAuthor();
     const navigate = useNavigate();
@@ -104,7 +104,6 @@ export function AuthorForm({ author }: Props) {
                             label={t("label.slug")}
                             placeholder={t("placeHolder.slug")}
                             required
-                            disabled
                             helperText={t("helper.slugInfo")}
                         />
                     </Grid>

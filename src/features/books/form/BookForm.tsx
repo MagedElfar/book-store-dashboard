@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
@@ -11,7 +10,7 @@ import { mapTagToOption } from '@/features/tags';
 import { paths } from '@/shared/constants';
 import { AppFormProvider } from '@/shared/form';
 import { MultiStepFormContainer } from '@/shared/form';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateBook, useUpdateBook } from '../hooks';
@@ -25,9 +24,8 @@ interface Props {
 }
 
 export function BookForm({ book }: Props) {
-    const { t, i18n } = useTranslation("book");
+    const { t, lang } = useLocalize("book");
     const navigate = useNavigate();
-    const lang = i18n.language as SupportedLang
 
     const { mutateAsync: createBook } = useCreateBook()
     const { mutateAsync: updateBook } = useUpdateBook()
@@ -65,7 +63,7 @@ export function BookForm({ book }: Props) {
     const titleEnValue = useWatch({ control, name: 'title_en' });
 
     useEffect(() => {
-        if (titleEnValue) {
+        if (!book && titleEnValue) {
             setValue('slug', slugify(titleEnValue), { shouldValidate: true });
         }
     }, [titleEnValue, setValue, book]);

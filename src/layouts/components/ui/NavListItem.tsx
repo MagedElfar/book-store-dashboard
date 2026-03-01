@@ -1,10 +1,10 @@
 import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import { ListItemButton, ListItemIcon, ListItemText, Collapse } from "@mui/material";
-import { useState, useEffect } from "react"; // 1. أضفنا useEffect
-import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 import type { NavItem } from "@/layouts/types";
 import { isPathActive } from "@/layouts/utilities";
+import { useLocalize } from "@/shared/lib";
 
 import { NavList } from "../sections";
 
@@ -25,7 +25,7 @@ export function NavListItem({
     depth,
     rootPath = "/"
 }: Props) {
-    const { t } = useTranslation("layout");
+    const { t } = useLocalize("layout");
     const Icon = item.icon;
     const hasChildren = !!item.children?.length;
 

@@ -1,9 +1,7 @@
-// src/features/books/components/DeleteBookDialog.tsx
-
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteBook } from "../../hooks";
@@ -17,7 +15,7 @@ interface Props {
 }
 
 function DeleteBookDialog({ open, onClose, bookId, bookTitle, onRedirect }: Props) {
-    const { t } = useTranslation(["book", "common"]);
+    const { t } = useLocalize(["book", "common"]);
     const { mutateAsync: deleteBook, isPending } = useDeleteBook();
 
     const handleConfirm = async () => {

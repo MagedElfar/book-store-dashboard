@@ -1,5 +1,6 @@
 import { Stack, TextField, Chip, MenuItem, Box, CircularProgress } from "@mui/material";
-import { useTranslation } from "react-i18next";
+
+import { useLocalize } from "@/shared/lib";
 
 import { ORDER_STATUS_CONFIG, PAYMENT_STATUS_CONFIG } from "../../config";
 import { useUpdateOrderStatus } from "../../hooks";
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export function OrderStatusActionsTable({ orderId, currentStatus, isDisabled, mode = "order" }: Props) {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
     const { mutate: updateStatus, isPending } = useUpdateOrderStatus(orderId);
 
     const isOrder = mode === "order";

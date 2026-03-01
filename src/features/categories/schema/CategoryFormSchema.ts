@@ -6,7 +6,7 @@ import { z } from "zod";
 import { imageValidator, slugValidator } from "@/shared/form";
 
 export const CategoryFormSchema = (
-    t: TFunction<Namespace<"category">>
+    t: TFunction<Namespace<any>>
 ) =>
     z.object({
         name_ar: z

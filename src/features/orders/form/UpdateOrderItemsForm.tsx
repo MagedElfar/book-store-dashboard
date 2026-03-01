@@ -1,11 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { mapBookToOption, type Book } from '@/features/books';
 import { AppFormProvider, FormContainer } from '@/shared/form';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { OrderItemsStep } from '../components';
@@ -21,8 +20,7 @@ interface Props {
 }
 
 export function UpdateOrderItemsForm({ orderId, items, onSuccess }: Props) {
-    const { t, i18n } = useTranslation("order");
-    const lang = i18n.language as SupportedLang
+    const { t, lang } = useLocalize("order");
 
     const { mutateAsync: updateOrderItems } = useUpdateOrderItems(orderId);
 

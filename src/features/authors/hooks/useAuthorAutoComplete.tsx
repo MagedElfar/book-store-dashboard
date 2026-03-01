@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import { INFINITE_RECORDED_LIMIT } from "@/core";
-import type { AutocompleteOptions, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { AutocompleteOptions } from "@/shared/types";
 
 
 import type { Author } from "../types";
@@ -13,9 +13,7 @@ import { useGetInfiniteAuthors } from "./useGetInfiniteAuthors";
 export function useAuthorAutoComplete() {
     const [search, setSearch] = useState("");
     const [isAuthorsEnabled, setIsAuthorsEnabled] = useState(false);
-    const { i18n } = useTranslation()
-
-    const lang = i18n.language as SupportedLang;
+    const { lang } = useLocalize()
 
     const query = useGetInfiniteAuthors({
         search,

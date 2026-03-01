@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import { SuccessRedirect, ErrorRedirect } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 
 interface VerifiedPageProps {
     rootPath?: string;
@@ -11,7 +11,7 @@ interface VerifiedPageProps {
 const VerifiedPage: React.FC<VerifiedPageProps> = ({
     rootPath = paths.account.root,
 }) => {
-    const { t } = useTranslation("account");
+    const { t } = useLocalize("account");
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

@@ -7,7 +7,7 @@ import { AutocompleteOptionSchema } from "@/shared/form";
 import { OrderListFormSchema } from "./OrderItemSchema";
 import { ShippingAddressSchema } from "./ShippingAddressSchema";
 
-export const CreateOrderFormSchema = (t: TFunction<Namespace<"order">>) => {
+export const CreateOrderFormSchema = (t: TFunction<Namespace<any>>) => {
 
     const orderList = OrderListFormSchema(t);
 

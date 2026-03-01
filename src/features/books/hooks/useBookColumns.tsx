@@ -13,13 +13,13 @@ import {
     Typography,
 } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { PriceDisplay } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import type { Column, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { Column } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Book } from "../types";
@@ -27,27 +27,25 @@ import type { Book } from "../types";
 import { useUpdateBook } from "./useUpdateBook";
 
 export function useBookColumns(onDelete: (book: Book) => void) {
-    const { t, i18n } = useTranslation(["book", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["book", "common"]);
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
 
     const { mutate, isPending } = useUpdateBook()
 
-    const lang = i18n.language as SupportedLang;
-
     return useMemo<Column<Book>[]>(() => [
         {
-            id: "title_en",
+            id: "title",
             label: t("table.book"),
             render: (_, row) => (
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
                         src={row.cover_image || ""}
-                        alt={row.title_en}
+                        alt={getLocalizedValue(row, "title")}
                         variant="rounded"
                         sx={{ width: 45, height: 45, bgcolor: "background.neutral" }}
                     >
-                        {row.title_en?.[0]}
+                        {getLocalizedValue(row, "title")?.[0]}
                     </Avatar>
 
                     <Stack spacing={0.1}>
@@ -60,7 +58,7 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                         >
 
                             <Typography variant="subtitle2" noWrap>
-                                {row?.[`title_${lang}`]}
+                                {getLocalizedValue(row, "title")}
                             </Typography>
 
                         </Link>
@@ -198,5 +196,5 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                 </Stack>
             ),
         },
-    ], [t, lang, hasPermission, isPending, navigate, mutate, onDelete]);
+    ], [t, getLocalizedValue, hasPermission, isPending, navigate, mutate, onDelete]);
 }

@@ -1,12 +1,12 @@
-import { useTranslation } from 'react-i18next'
 
 import { PageTitle, PageWrapper } from '@/shared/components'
+import { useLocalize } from '@/shared/lib'
 
 import { BookForm } from '../form'
 
 export default function CreateBookPage() {
 
-    const { t } = useTranslation("book")
+    const { t } = useLocalize("book")
 
     return (
         <PageWrapper>

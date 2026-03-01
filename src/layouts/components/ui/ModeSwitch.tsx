@@ -1,11 +1,12 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
 import { IconButton, useTheme, Tooltip, useColorScheme } from "@mui/material";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
+
+import { useLocalize } from "@/shared/lib";
 
 export function ModeSwitch() {
 
-    const { t } = useTranslation("common")
+    const { t } = useLocalize("common")
     const { mode, setMode } = useColorScheme()
     const theme = useTheme();
 

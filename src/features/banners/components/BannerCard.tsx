@@ -17,10 +17,9 @@ import {
     CircularProgress
 } from '@mui/material';
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { useUpdateBanner } from '../hooks';
 import type { Banner } from '../types';
@@ -33,9 +32,8 @@ interface Props {
 }
 
 function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
-    const { t, i18n } = useTranslation(["banner", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["banner", "common"]);
     const { mutate: updateBanner, isPending } = useUpdateBanner();
-    const lang = i18n.language as SupportedLang
 
     const handleToggleActive = () => {
         updateBanner({
@@ -102,7 +100,7 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
                             lineHeight: 1.2
                         }}
                     >
-                        {banner?.[`title_${lang}`]}
+                        {getLocalizedValue(banner, "title")}
                     </Typography>
                 </Box>
 
@@ -125,27 +123,30 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
                 <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
                     <Box>
                         <Typography variant="body2" color="text.secondary" noWrap sx={{ maxWidth: 150 }}>
-                            {banner?.[`title_${lang}`]}
+                            {getLocalizedValue(banner, "title")}
                         </Typography>
                     </Box>
 
-                    <Stack direction="row" alignItems="center" spacing={0.5}>
-                        {isPending ? (
-                            <CircularProgress size={16} color="inherit" />
-                        ) : (
-                            <Box onPointerDown={(e) => e.stopPropagation()}>
-                                <Tooltip title={banner.is_active ? t("status.active") : t("status.inactive")}>
-                                    <Switch
-                                        size="small"
-                                        checked={banner.is_active}
-                                        onChange={handleToggleActive}
-                                        color="success"
-                                    />
-                                </Tooltip>
-                            </Box>
+                    {
+                        !isDirigible && <Stack direction="row" alignItems="center" spacing={0.5}>
+                            {isPending ? (
+                                <CircularProgress size={16} color="inherit" />
+                            ) : (
+                                <Box onPointerDown={(e) => e.stopPropagation()}>
+                                    <Tooltip title={banner.is_active ? t("status.active") : t("status.inactive")}>
+                                        <Switch
+                                            size="small"
+                                            checked={banner.is_active}
+                                            onChange={handleToggleActive}
+                                            color="success"
+                                        />
+                                    </Tooltip>
+                                </Box>
 
-                        )}
-                    </Stack>
+                            )}
+                        </Stack>
+                    }
+
                 </Stack>
 
                 <Typography variant="caption" color="text.disabled" display="block" noWrap>
@@ -153,7 +154,7 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
                 </Typography>
             </CardContent>
 
-            <Box sx={{ p: 1.5, pt: 0, display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+            {!isDirigible && <Box sx={{ p: 1.5, pt: 0, display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
                 <Tooltip title={t("common:actions.edit")}>
                     <IconButton
                         size="small"
@@ -173,7 +174,8 @@ function BannerCardFC({ banner, onEdit, onDelete, isDirigible }: Props) {
                         <DeleteIcon fontSize="small" />
                     </IconButton>
                 </Tooltip>
-            </Box>
+            </Box>}
+
         </Card>
     );
 }

@@ -1,14 +1,12 @@
 import { CacheProvider } from '@emotion/react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
 
+import { useLocalize } from '@/shared/lib'
 import { createAppTheme, createEmotionCache } from '@/theme'
 
 export function AppThemeProvider({ children }: { children: React.ReactNode }) {
-  const { i18n } = useTranslation()
-
-  const direction = i18n.language === 'ar' ? 'rtl' : 'ltr'
+  const { dir: direction } = useLocalize()
 
   const theme = useMemo(() => {
     document.documentElement.dir = direction

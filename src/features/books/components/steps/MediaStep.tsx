@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material'
-import { useTranslation } from 'react-i18next'
 
+import { useLocalize } from '@/shared/lib'
 import { DropzoneField } from '@/shared/media'
 
 export function MediaStep() {
-    const { t } = useTranslation("book")
+    const { t } = useLocalize("book")
 
     return <Grid container spacing={{ xs: 2, md: 3 }}>
         <Grid size={{ xs: 12 }}>

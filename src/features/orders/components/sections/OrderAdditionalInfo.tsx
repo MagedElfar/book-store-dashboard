@@ -2,8 +2,8 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import NoteIcon from '@mui/icons-material/Note';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import { Card, CardContent, Stack, Box, Divider, useTheme, useMediaQuery, Typography, Chip } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
+import { useLocalize } from '@/shared/lib';
 import { fDateTime } from '@/shared/utilities';
 
 import type { Order } from "../../types";
@@ -13,7 +13,7 @@ interface Props {
 }
 
 export function OrderAdditionalInfo({ order }: Props) {
-    const { t } = useTranslation(["order", "common"]);
+    const { t } = useLocalize(["order", "common"]);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 

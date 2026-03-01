@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import { ErrorRedirect } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 
 import { ResetPasswordForm } from "../forms";
 
 function ResetPasswordPage() {
 
-    const { t } = useTranslation("auth")
+    const { t } = useLocalize("auth")
 
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
 

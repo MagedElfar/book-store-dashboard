@@ -6,19 +6,19 @@ import PersonIcon from "@mui/icons-material/Person";
 import PhoneIcon from "@mui/icons-material/Phone";
 import { Button, Card, CardContent, Divider, Grid, Stack, Typography, Avatar } from "@mui/material";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useLocalize } from "@/shared/lib";
 import { fDate } from "@/shared/utilities";
 
 import { DeleteUserDialog, LoadingUserDetails } from "../components";
 import { useGetUserById } from "../hooks";
 
 export default function UserDetailsPage() {
-    const { t } = useTranslation(["user", "common"]);
+    const { t } = useLocalize(["user", "common"]);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { hasPermission } = usePermission();

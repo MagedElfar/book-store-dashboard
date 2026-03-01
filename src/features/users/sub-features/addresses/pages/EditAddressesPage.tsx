@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { DeleteAddressDialog, AddressFormSkeleton } from "../components";
 import { AddressForm } from "../forms";
 import { useGetAddressById } from "../hooks";
 
 export default function EditAddressPage() {
-    const { t } = useTranslation(["address", "common"]);
+    const { t } = useLocalize(["address", "common"]);
     const { id: userId, addressId } = useParams<{ id: string; addressId: string }>();
     const navigate = useNavigate();
 

@@ -1,12 +1,10 @@
-// src/features/banners/validations/banner.ts
-
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
 import { colorValidator, imageValidator } from "@/shared/form";
 
 export const BannerFormSchema = (
-    t: TFunction<Namespace<"banner">>
+    t: TFunction<Namespace<any>>
 ) =>
     z.object({
         title_ar: z

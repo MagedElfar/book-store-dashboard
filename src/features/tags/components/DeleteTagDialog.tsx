@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteTag } from "../hooks";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function DeleteTagDialog({ open, onClose, tagId, tagName, onRedirect }: Props) {
-    const { t } = useTranslation(["tag", "common"]);
+    const { t } = useLocalize(["tag", "common"]);
     const { mutateAsync: deleteTag, isPending } = useDeleteTag();
 
     const handleConfirm = async () => {

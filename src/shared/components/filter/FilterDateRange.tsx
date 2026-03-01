@@ -4,14 +4,16 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs, { Dayjs } from 'dayjs';
 
-interface Props {
+interface Props<T extends object> {
     startDate: string | null;
     endDate: string | null;
-    onDateChange: (start: string | null, end: string | null) => void;
+    onDateChange: (key: keyof T, value: string | null) => void;
     labels?: { start: string; end: string };
+    startKey: keyof T
+    endKey: keyof T
 }
 
-export function FilterDateRange({ startDate, endDate, onDateChange, labels }: Props) {
+export function FilterDateRange<T extends object>({ startDate, endDate, onDateChange, labels, endKey, startKey }: Props<T>) {
     const startValue = startDate ? dayjs(startDate) : null;
     const endValue = endDate ? dayjs(endDate) : null;
 
@@ -24,8 +26,10 @@ export function FilterDateRange({ startDate, endDate, onDateChange, labels }: Pr
                     value={startValue}
                     onChange={(newValue: Dayjs | null) => {
                         const dateStr = newValue ? newValue.toISOString() : null;
-                        const newEnd = endValue && newValue && newValue.isAfter(endValue) ? null : endDate;
-                        onDateChange(dateStr, newEnd);
+                        // const newEnd = endValue && newValue && newValue.isAfter(endValue) ? null : endDate;
+                        // onDateChange(dateStr, newEnd);
+
+                        onDateChange(startKey, dateStr);
                     }}
                     slotProps={{ textField: { size: 'small', sx: { minWidth: 150 } } }}
                 />
@@ -35,7 +39,8 @@ export function FilterDateRange({ startDate, endDate, onDateChange, labels }: Pr
                     value={endValue}
                     minDate={startValue || undefined}
                     onChange={(newValue: Dayjs | null) => {
-                        onDateChange(startDate, newValue ? newValue.toISOString() : null);
+                        const dateStr = newValue ? newValue.toISOString() : null;
+                        onDateChange(endKey, dateStr);
                     }}
                     slotProps={{
                         textField: {

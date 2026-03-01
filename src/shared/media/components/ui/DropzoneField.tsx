@@ -3,9 +3,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import ReplayIcon from "@mui/icons-material/Replay";
 import { Box, Typography, Paper, IconButton, LinearProgress, useTheme, Stack } from "@mui/material";
 import { useDropzone, type Accept } from "react-dropzone";
-import { useTranslation } from "react-i18next";
 
 import { CircularProgressWithLabel, SortableFileItem, SortableList } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { useFileUpload } from "../../hooks";
 
@@ -19,7 +19,7 @@ interface DropzoneFieldProps {
 
 export function DropzoneField({ multiple = false, accept, label, name, maxSize }: DropzoneFieldProps) {
     const theme = useTheme();
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
 
     const { files, handleDrop, handleCancelUpload, handleRemoveFile, handleRetry, handleReorder } =
         useFileUpload({ name, multiple, maxSize });

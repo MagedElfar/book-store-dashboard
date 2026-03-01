@@ -2,10 +2,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Switch, FormControlLabel } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { FormTextField, AppFormProvider, FormContainer, FormColorField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper, slugify } from '@/shared/utilities';
 
 import { useCreateTag, useUpdateTag } from '../hooks';
@@ -18,7 +18,7 @@ interface Props {
 }
 
 export function TagForm({ tag, onSuccess }: Props) {
-    const { t } = useTranslation("tag");
+    const { t } = useLocalize("tag");
     const { mutateAsync: createTag } = useCreateTag();
     const { mutateAsync: updateTag } = useUpdateTag();
 
@@ -91,7 +91,6 @@ export function TagForm({ tag, onSuccess }: Props) {
                             label={t("label.slug")}
                             placeholder={t("placeHolder.slug")}
                             required
-                            disabled={!!tag}
                             helperText={t("helper.slugInfo")}
                         />
                     </Grid>

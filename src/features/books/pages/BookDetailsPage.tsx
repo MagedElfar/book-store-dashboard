@@ -14,20 +14,19 @@ import {
     Avatar, Box, Chip, Rating
 } from "@mui/material";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { DataHandler, DetailItem, HtmlContent, ImageGallery, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 import { formatPrice } from "@/shared/utilities";
 
 import { LoadingBookDetails, DeleteBookDialog } from "../components";
 import { useGetBookById } from "../hooks";
 
 export default function BookDetailsPage() {
-    const { t, i18n } = useTranslation(["book", "common"]);
+    const { t, getLocalizedValue, lang } = useLocalize(["book", "common"]);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { hasPermission } = usePermission();
@@ -35,9 +34,7 @@ export default function BookDetailsPage() {
     const { data: book, isLoading, isError, refetch } = useGetBookById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const lang = i18n.language as SupportedLang;
-
-    const descriptionHtml = book?.[`description_${lang}`];
+    const descriptionHtml = getLocalizedValue(book, "description")
 
     return (
         <PageWrapper>
@@ -105,7 +102,7 @@ export default function BookDetailsPage() {
                                         />
                                     }
                                     <Typography variant="h5" fontWeight="bold">
-                                        {bookData?.[`title_${lang}`]}
+                                        {getLocalizedValue(book, "title")}
                                     </Typography>
 
                                     <Stack direction="row" justifyContent="center" alignItems="center" spacing={1} sx={{ mt: 1 }}>

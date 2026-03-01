@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteBanner } from "../hooks";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export function DeleteBannerDialog({ open, onClose, bannerId, bannerTitle, onRedirect }: Props) {
-    const { t } = useTranslation(["banner", "common"]);
+    const { t } = useLocalize(["banner", "common"]);
     const { mutateAsync: deleteBanner, isPending } = useDeleteBanner();
 
     const handleConfirm = async () => {

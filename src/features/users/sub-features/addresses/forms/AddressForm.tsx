@@ -2,12 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid } from '@mui/material';
 import { lazy, Suspense } from 'react';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormPhoneInput, FormCheckbox } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { MapSkeleton } from '@/shared/map';
 import { errorMapper } from '@/shared/utilities';
 
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export function AddressForm({ address, onSuccess, usId }: Props) {
-    const { t } = useTranslation("address");
+    const { t } = useLocalize("address");
     const { id: userId } = useParams<{ id: string }>();
     const navigate = useNavigate();
 

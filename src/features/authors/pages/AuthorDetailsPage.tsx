@@ -8,13 +8,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 import LinkIcon from "@mui/icons-material/Link";
 import { Button, Card, CardContent, Divider, Grid, Stack, Typography, Avatar, Box, Chip } from "@mui/material";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 import { fDate } from "@/shared/utilities";
 
 import { LoadingAuthorDetails } from "../components";
@@ -22,7 +21,7 @@ import { DeleteAuthorDialog } from "../components/DeleteAuthorDialog";
 import { useGetAuthorById } from "../hooks";
 
 export default function AuthorDetailsPage() {
-    const { t, i18n } = useTranslation(["author", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["author", "common"]);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { hasPermission } = usePermission();
@@ -30,7 +29,6 @@ export default function AuthorDetailsPage() {
     const { data: author, isLoading, isError, refetch } = useGetAuthorById(id!);
     const [openDelete, setOpenDelete] = useState(false);
 
-    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -96,7 +94,7 @@ export default function AuthorDetailsPage() {
                                         }}
                                     />
                                     <Typography variant="h5" fontWeight="bold">
-                                        {authorData?.[`name_${lang}`]}
+                                        {getLocalizedValue(authorData)}
                                     </Typography>
                                     <Box sx={{ mt: 1 }}>
                                         <Chip
@@ -143,7 +141,7 @@ export default function AuthorDetailsPage() {
                                             <DetailItem
                                                 icon={<DescriptionIcon color="action" />}
                                                 label={t("label.bio")}
-                                                value={(authorData?.[`bio_${lang}`]) || "---"}
+                                                value={getLocalizedValue(authorData, "bio", "bio_en")}
                                             />
                                         </Stack>
                                     </CardContent>
@@ -154,7 +152,7 @@ export default function AuthorDetailsPage() {
                         <DeleteAuthorDialog
                             open={openDelete}
                             authorId={authorData.id}
-                            authorName={authorData?.[`name_${lang}`]}
+                            authorName={getLocalizedValue(authorData)}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.authors.root)}
                         />

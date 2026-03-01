@@ -6,13 +6,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 import LinkIcon from "@mui/icons-material/Link";
 import { Button, Card, CardContent, Divider, Grid, Stack, Typography, Avatar, Box, Chip } from "@mui/material";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { DataHandler, DetailItem, PageTitle, PageWrapper } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 import { fDate } from "@/shared/utilities";
 
 import { LoadingCategoryDetails } from "../components";
@@ -20,15 +19,13 @@ import { DeleteCategoryDialog } from "../components/DeleteCategoryDialog";
 import { useGetCategoryById } from "../hooks";
 
 export default function CategoryDetailsPage() {
-    const { t, i18n } = useTranslation(["category", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["category", "common"]);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const { hasPermission } = usePermission();
 
     const { data: category, isLoading, isError, refetch } = useGetCategoryById(id!);
     const [openDelete, setOpenDelete] = useState(false);
-
-    const lang = i18n.language as SupportedLang;
 
     return (
         <PageWrapper>
@@ -87,7 +84,7 @@ export default function CategoryDetailsPage() {
                                         sx={{ width: 140, height: 140, mx: 'auto', mb: 2, borderRadius: 3, border: '4px solid #f4f6f8' }}
                                     />
                                     <Typography variant="h5" fontWeight="bold">
-                                        {categoryData?.[`name_${lang}`]}
+                                        {getLocalizedValue(categoryData)}
                                     </Typography>
                                     <Box sx={{ mt: 1 }}>
                                         <Chip
@@ -127,7 +124,7 @@ export default function CategoryDetailsPage() {
                                             <DetailItem
                                                 icon={<DescriptionIcon color="action" />}
                                                 label={t("label.description")}
-                                                value={(categoryData?.[`description_${lang}`]) || "---"}
+                                                value={getLocalizedValue(categoryData, "description")}
                                             />
                                             <Divider variant="middle" />
                                             <DetailItem
@@ -144,7 +141,7 @@ export default function CategoryDetailsPage() {
                         <DeleteCategoryDialog
                             open={openDelete}
                             categoryId={categoryData.id}
-                            categoryName={categoryData?.[`name_${lang}`]}
+                            categoryName={getLocalizedValue(categoryData)}
                             onClose={() => setOpenDelete(false)}
                             onRedirect={() => navigate(paths.dashboard.categories.root)}
                         />

@@ -1,11 +1,10 @@
-import { useTranslation } from "react-i18next";
-
 import { PageTitle, PageWrapper } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { BannerForm } from "../forms";
 
 export default function CreateAuthorPage() {
-    const { t } = useTranslation("banner");
+    const { t } = useLocalize("banner");
 
     return (
         <PageWrapper>

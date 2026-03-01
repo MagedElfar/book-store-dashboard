@@ -1,13 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { useAuthState } from '@/features/auth';
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormPhoneInput, FormPasswordField, FormSelectField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper } from '@/shared/utilities';
 
@@ -22,7 +22,7 @@ interface Props {
 export function UserForm({ user }: Props) {
 
     const { user: authUser } = useAuthState()
-    const { t } = useTranslation("user")
+    const { t } = useLocalize("user")
     const { mutateAsync: createUser } = useCreateUser()
     const { mutateAsync: updateUser } = useUpdateUser()
 

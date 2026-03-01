@@ -1,11 +1,10 @@
-import { useTranslation } from "react-i18next";
-
 import { PageTitle, PageWrapper } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { CategoryForm } from "../forms";
 
 export default function CreateCategoryPage() {
-    const { t } = useTranslation("category");
+    const { t } = useLocalize("category");
 
     return (
         <PageWrapper>

@@ -5,15 +5,15 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { AreaChartFC, PieChartFC, StatsBoard, type StatItem } from '@/shared/components';
+import { useLocalize } from '@/shared/lib';
 
 import { AnalyticsChartCard } from '../components';
 import { useUserGrowth, useCustomerComparison } from '../hooks';
 
 export default function UsersSection({ params }: { params: any }) {
-    const { t } = useTranslation("analytics");
+    const { t } = useLocalize("analytics");
 
     const { data: userGrowth, isLoading: userLoading } = useUserGrowth(params);
     const { data: customers, isLoading: custLoading } = useCustomerComparison(params);

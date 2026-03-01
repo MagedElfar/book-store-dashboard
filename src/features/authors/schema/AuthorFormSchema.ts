@@ -4,7 +4,7 @@ import { z } from "zod";
 import { imageValidator, slugValidator } from "@/shared/form";
 
 export const AuthorFormSchema = (
-    t: TFunction<Namespace<"author">>
+    t: TFunction<Namespace<any>>
 ) =>
     z.object({
         name_ar: z

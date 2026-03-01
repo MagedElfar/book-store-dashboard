@@ -2,14 +2,13 @@ import EditIcon from '@mui/icons-material/Edit';
 import PrintIcon from '@mui/icons-material/Print';
 import { Box, Button, Chip, Grid, Stack } from '@mui/material';
 import { useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router';
 import { useReactToPrint } from 'react-to-print';
 
 import { usePermission } from '@/features/auth';
 import { DataHandler, PageTitle, PageWrapper } from '@/shared/components';
 import { useDialog } from '@/shared/hooks';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { EditOrderFormDialog, OrderAdditionalInfo, OrderCustomerInfo, OrderDetailsSkeleton, OrderInvoice, OrderItemsTable, OrderStatusActions } from '../components';
 import { OrderSummaryCard } from '../components/ui';
@@ -19,7 +18,7 @@ import type { Order, OrderStatus, PaymentStatus } from '../types';
 
 export default function OrderDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  const { t, i18n } = useTranslation(["order", "common"]);
+  const { t, lang } = useLocalize(["order", "common"]);
   const invoiceRef = useRef<HTMLDivElement>(null);
 
   const { data: order, isLoading, isError, refetch } = useGetOrderById(id!);
@@ -120,7 +119,7 @@ export default function OrderDetailsPage() {
               <OrderInvoice
                 ref={invoiceRef}
                 order={orderData}
-                lang={i18n.language as SupportedLang}
+                lang={lang}
               />
             </Box>
           </>

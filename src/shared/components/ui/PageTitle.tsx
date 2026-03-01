@@ -1,8 +1,9 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { IconButton, Stack, Typography, type TypographyProps } from '@mui/material'
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
+
+import { useLocalize } from '@/shared/lib';
 
 interface Props extends TypographyProps<"h1"> {
     title?: string;
@@ -12,9 +13,9 @@ interface Props extends TypographyProps<"h1"> {
 }
 
 export function PageTitle({ title, withBackArrow, actions, nested, ...props }: Props) {
-    const { i18n } = useTranslation();
+    const { dir } = useLocalize();
     const navigate = useNavigate();
-    const isRtl = i18n.dir() === "rtl";
+    const isRtl = dir === "rtl";
 
     return (
         <Stack

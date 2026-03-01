@@ -7,23 +7,22 @@ import {
     Typography,
 } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { paths } from "@/shared/constants";
-import type { Column, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { Column } from "@/shared/types";
 import { fDate, formatPrice } from "@/shared/utilities";
 
 import { OrderStatusActionsTable } from "../components";
 import type { Order } from "../types";
 
 export function useOrderColumns() {
-    const { t, i18n } = useTranslation(["order", "common"]);
+    const { t, lang } = useLocalize(["order", "common"]);
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
 
-    const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Order>[]>(() => [
         {

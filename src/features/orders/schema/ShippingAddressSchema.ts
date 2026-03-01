@@ -1,7 +1,7 @@
 import type { Namespace, TFunction } from "i18next";
 import { z } from "zod";
 
-export const ShippingAddressSchema = (t: TFunction<Namespace<"order">>) =>
+export const ShippingAddressSchema = (t: TFunction<Namespace<any>>) =>
     z.object({
         id: z.string().optional(),
         country: z

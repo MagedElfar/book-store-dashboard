@@ -4,7 +4,6 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { useAuthorAutoComplete } from '@/features/authors';
@@ -13,7 +12,7 @@ import { useTagsAutoComplete } from '@/features/tags';
 import { DataFilterToolbar, DataTable, FilterAutocomplete, FilterSelect, PageWrapper, RootPageTitle, StatsBoard, type StatItem } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { useDialog, usePagination } from '@/shared/hooks';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { DeleteBookDialog } from '../components';
 import { useBookColumns, useGetBooks, useGetBooksStats } from '../hooks';
@@ -39,15 +38,14 @@ const DEFAULT_FILTERS: Omit<BookParams, "page" | "limit"> = {
     is_active: "",
     category_id: "",
     author_id: "",
+    tagId: "",
     sortBy: "newest"
 };
 
 export default function BooksPage() {
 
-    const { t, i18n } = useTranslation(["book", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["book", "common"]);
     const navigate = useNavigate();
-
-    const lang = i18n.language as SupportedLang
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
@@ -147,6 +145,9 @@ export default function BooksPage() {
         }
     ], [stats, isLoadingStats, t]);
 
+    const statusOptions = useMemo(() => getStatusOptions(t), [t])
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+
     return (
         <PageWrapper>
             <RootPageTitle
@@ -160,63 +161,68 @@ export default function BooksPage() {
 
             />
             <DataFilterToolbar
-                searchValue={filters.search || ""}
+                searchValue={filters.search}
                 searchPlaceholder={t("filter.searchPlaceholder")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
+                keySearch="search"
             >
                 <FilterSelect
                     label={t("filter.status")}
                     value={filters.is_active || ""}
-                    options={getStatusOptions(t)}
-                    onChange={(val) => handleFilterChange("is_active", val)}
+                    options={statusOptions}
+                    onChange={handleFilterChange}
+                    inputKey="is_active"
                 />
 
                 <FilterSelect
                     label={t("filter.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
-
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
 
                 <FilterAutocomplete
                     label={t("filter.author")}
                     value={filters.author_id}
                     options={authorOptions}
-                    onChange={(val) => handleFilterChange("author_id", val)}
-                    onSearchChange={(s) => setAuthorSearch(s)}
+                    onSearchChange={setAuthorSearch}
                     loading={authorsQuery.isLoading}
-                    onOpen={() => setIsAuthorsEnabled(true)}
+                    onOpen={setIsAuthorsEnabled}
                     fetchNextPage={authorsQuery.fetchNextPage}
                     isFetchingNextPage={authorsQuery.isFetchingNextPage}
                     hasNextPage={authorsQuery.hasNextPage}
+                    onChange={handleFilterChange}
+                    filterKey="author_id"
                 />
 
                 <FilterAutocomplete
                     label={t("filter.category")}
                     value={filters.category_id}
                     options={categoryOptions}
-                    onChange={(val) => handleFilterChange("category_id", val)}
-                    onSearchChange={(s) => setCategorySearch(s)}
+                    onSearchChange={setCategorySearch}
                     loading={categoriesQuery.isLoading}
-                    onOpen={() => setIsCategoriesEnabled(true)}
+                    onOpen={setIsCategoriesEnabled}
                     fetchNextPage={categoriesQuery.fetchNextPage}
                     isFetchingNextPage={categoriesQuery.isFetchingNextPage}
                     hasNextPage={categoriesQuery.hasNextPage}
+                    onChange={handleFilterChange}
+                    filterKey="category_id"
                 />
 
                 <FilterAutocomplete
                     label={t("filter.tag")}
                     value={filters.tagId}
                     options={tagsOptions}
-                    onChange={(val) => handleFilterChange("tagId", val)}
-                    onSearchChange={(s) => setTagSearch(s)}
+                    onSearchChange={setTagSearch}
                     loading={tagsQuery.isLoading}
-                    onOpen={() => setIsTagsEnabled(true)}
+                    onOpen={setIsTagsEnabled}
                     fetchNextPage={tagsQuery.fetchNextPage}
                     isFetchingNextPage={tagsQuery.isFetchingNextPage}
                     hasNextPage={tagsQuery.hasNextPage}
+                    onChange={handleFilterChange}
+                    filterKey="tagId"
                 />
             </DataFilterToolbar>
 
@@ -238,7 +244,7 @@ export default function BooksPage() {
                 <DeleteBookDialog
                     open
                     bookId={selectedBook.id}
-                    bookTitle={selectedBook?.[`title_${lang}`]}
+                    bookTitle={getLocalizedValue(selectedBook, "title", "title_en")}
                     onClose={closeDialog}
                 />
             )}

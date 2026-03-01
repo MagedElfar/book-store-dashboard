@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { AutocompleteOptionSchema, imageValidator } from "@/shared/form";
 
-export const BookFormSchema = (t: TFunction<Namespace<"book">>) =>
+export const BookFormSchema = (t: TFunction<Namespace<any>>) =>
     z.object({
         title_ar: z
             .string()

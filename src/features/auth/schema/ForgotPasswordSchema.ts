@@ -3,7 +3,7 @@ import { z } from 'zod';
 
 import { emailValidator } from "@/shared/form";
 
-export const ForgotPasswordSchema = (t: TFunction<Namespace<"auth">>) => z
+export const ForgotPasswordSchema = (t: TFunction<Namespace<any>>) => z
     .object({
         email: emailValidator({
             invalidEmailMsg: t("auth:validation.invalid_email"),

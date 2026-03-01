@@ -2,21 +2,22 @@ import { MenuItem, TextField } from '@mui/material'
 
 import type { SelectOption, SelectValue } from '@/shared/types'
 
-interface Props {
+interface Props<T extends object> {
     label: string,
     value: SelectValue,
-    onChange: (value: SelectValue) => void;
+    onChange: (key: keyof T, value: SelectValue) => void;
     options: SelectOption[]
+    inputKey: keyof T
 }
 
-export function FilterSelect({ label, value, onChange, options }: Props) {
+export function FilterSelect<T extends object>({ label, value, onChange, options, inputKey }: Props<T>) {
     return (
         <TextField
             select
             size="small"
             label={label}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => onChange(inputKey, e.target.value)}
             sx={{ minWidth: 140 }}
             slotProps={{
                 inputLabel: {
@@ -24,11 +25,6 @@ export function FilterSelect({ label, value, onChange, options }: Props) {
                 },
                 select: {
                     displayEmpty: true,
-                    renderValue: (selected) => {
-                        const option = options.find(o => o.value === selected);
-                        return option?.label ?? "";
-                    }
-
                 }
             }}
         >

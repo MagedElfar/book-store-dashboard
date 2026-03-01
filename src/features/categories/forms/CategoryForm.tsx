@@ -1,15 +1,13 @@
-// src/features/categories/components/CategoryForm.tsx
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Switch, FormControlLabel } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper, slugify } from '@/shared/utilities';
 
@@ -22,7 +20,7 @@ interface Props {
 }
 
 export function CategoryForm({ category }: Props) {
-    const { t } = useTranslation("category");
+    const { t } = useLocalize("category");
     const { mutateAsync: createCategory } = useCreateCategory();
     const { mutateAsync: updateCategory } = useUpdateCategory();
     const navigate = useNavigate();
@@ -102,7 +100,6 @@ export function CategoryForm({ category }: Props) {
                             label={t("label.slug")}
                             placeholder={t("placeHolder.slug")}
                             required
-                            disabled
                             helperText={t("helper.slugInfo")}
                         />
                     </Grid>

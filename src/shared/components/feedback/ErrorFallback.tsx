@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
-import { useTranslation } from "react-i18next";
+
+import { useLocalize } from "@/shared/lib";
 
 import { ErrorRedirect } from "./ErrorRedirect";
 
@@ -10,7 +11,7 @@ interface Props {
 }
 
 export const ErrorFallback: React.FC<Props> = ({ error, reset }) => {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     return (
         <Box width="100%" height="100vh">
             <ErrorRedirect

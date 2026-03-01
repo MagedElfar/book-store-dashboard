@@ -1,12 +1,11 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Paper, Stack, Avatar, Box, Typography, IconButton } from "@mui/material";
 import { useFormContext } from "react-hook-form";
-import { useTranslation } from 'react-i18next';
 
 import type { Book } from '@/features/books';
 import { PriceDisplay } from '@/shared/components';
 import { FormTextField } from "@/shared/form";
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 import { formatPrice } from '@/shared/utilities';
 
 import type { CreateOrderFormSchemaType } from '../../schema';
@@ -15,16 +14,14 @@ import type { CreateOrderFormSchemaType } from '../../schema';
 export default function OrderItemRow({ index, onRemove }: { index: number; onRemove: () => void }) {
     const { watch } = useFormContext<CreateOrderFormSchemaType>();
 
-    const { t, i18n } = useTranslation(["order", "book"])
-
-    const lang = i18n.language as SupportedLang
+    const { t, getLocalizedValue, lang } = useLocalize(["order", "book"])
 
     const bookItem = watch(`items.${index}`)
     const book = bookItem.item.data as Book
 
     const quantity = bookItem.quantity as number;
     const price = bookItem.price as number;
-    const name = book?.[`title_${lang}`];
+    const name = getLocalizedValue(book, "title");
     const image = book.cover_image || "";
 
     const availableStock = book.stock || 0;

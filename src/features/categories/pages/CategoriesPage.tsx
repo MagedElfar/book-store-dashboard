@@ -2,7 +2,6 @@ import CategoryIcon from '@mui/icons-material/Category';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 // --- Shared Components ---
@@ -18,7 +17,7 @@ import {
 import { paths } from "@/shared/constants";
 import { usePagination } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { DeleteCategoryDialog } from "../components";
 import { useGetCategories, useGetCategoriesStats, useCategoryColumns } from "../hooks";
@@ -43,10 +42,9 @@ const DEFAULT_FILTERS: Omit<CategoriesParams, "page" | "limit"> = {
 };
 
 export default function CategoriesPage() {
-    const { t, i18n } = useTranslation(["category", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["category", "common"])
     const navigate = useNavigate();
 
-    const lang = i18n.language as SupportedLang
 
     // --- Pagination Hook ---
     const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
@@ -111,6 +109,9 @@ export default function CategoriesPage() {
         }
     ], [stats, isLoadingStats, t]);
 
+    const statusOptions = useMemo(() => getStatusOptions(t), [t])
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+
     return (
         <PageWrapper>
             <RootPageTitle
@@ -127,20 +128,22 @@ export default function CategoriesPage() {
             <DataFilterToolbar
                 searchValue={filters.search || ""}
                 searchPlaceholder={t("filter.searchPlaceholder")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
             >
                 <FilterSelect
                     label={t("filter.status")}
                     value={filters.is_active || ""}
-                    options={getStatusOptions(t)}
-                    onChange={(val) => handleFilterChange("is_active", val)}
+                    options={statusOptions}
+                    onChange={handleFilterChange}
+                    inputKey="is_active"
                 />
                 <FilterSelect
                     label={t("filter.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
             </DataFilterToolbar>
 
@@ -161,7 +164,7 @@ export default function CategoriesPage() {
                 <DeleteCategoryDialog
                     open
                     categoryId={selectedCategory.id}
-                    categoryName={selectedCategory?.[`name_${lang}`]}
+                    categoryName={getLocalizedValue(selectedCategory, "name", "name_en")}
                     onClose={closeDialog}
                 />
             )}

@@ -1,14 +1,12 @@
-// src/features/banners/components/BannerForm.tsx
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Grid, Typography, Divider, Paper, Box } from '@mui/material';
 import { useForm, useWatch } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
 import { FormContainer, FormTextField, AppFormProvider, FormColorField, FormSelectField, FormCheckbox, FormSliderField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper } from '@/shared/utilities';
 
@@ -22,7 +20,7 @@ interface Props {
 }
 
 export function BannerForm({ banner }: Props) {
-    const { t } = useTranslation("banner");
+    const { t } = useLocalize("banner");
     const { mutateAsync: createBanner } = useCreateBanner();
     const { mutateAsync: updateBanner } = useUpdateBanner();
     const navigate = useNavigate();

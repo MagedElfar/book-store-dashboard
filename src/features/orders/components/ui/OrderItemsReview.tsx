@@ -1,7 +1,6 @@
 import { Box, Stack, Typography, Paper } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 import { formatPrice } from "@/shared/utilities";
 
 interface ReviewItem {
@@ -22,9 +21,8 @@ export function OrderItemsReview({
     maxHeight = 240,
     title,
 }: OrderItemsReviewProps) {
-    const { t, i18n } = useTranslation("order");
+    const { t, lang } = useLocalize("order");
 
-    const lang = i18n.language as SupportedLang
 
     return (
         <Stack spacing={1.5}>

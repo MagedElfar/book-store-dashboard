@@ -1,7 +1,6 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PeopleIcon from '@mui/icons-material/People';
 import { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 
 // --- Icons ---
@@ -18,8 +17,9 @@ import {
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { usePagination } from "@/shared/hooks";
-
 // --- Local Components & Hooks ---
+import { useLocalize } from '@/shared/lib';
+
 import { DeleteUserDialog } from "../components";
 import { useGetUsers, useGetUsersStats, useUserColumns } from "../hooks";
 import type { User, UsersParams } from "../types";
@@ -37,7 +37,7 @@ const getSortOptions = (t: any) => [
 ];
 
 export default function UsersPage() {
-    const { t } = useTranslation(["user", "common"]);
+    const { t } = useLocalize(["user", "common"]);
     const navigate = useNavigate();
 
     // --- Pagination Hook ---
@@ -113,6 +113,10 @@ export default function UsersPage() {
         }
     ], [stats, isLoadingStats, t]);
 
+    const roleOptions = useMemo(() => getRoleOptions(t), [t])
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+
+
     return (
         <PageWrapper>
             <RootPageTitle
@@ -128,20 +132,22 @@ export default function UsersPage() {
             <DataFilterToolbar
                 searchValue={filters.search || ""}
                 searchPlaceholder={t("filter.search")}
-                onSearchChange={(val) => handleFilterChange("search", val)}
+                onSearchChange={handleFilterChange}
                 onClear={handleResetFilters}
             >
                 <FilterSelect
                     label={t("filter.role")}
                     value={filters.role || ""}
-                    options={getRoleOptions(t)}
-                    onChange={(val) => handleFilterChange("role", val)}
+                    options={roleOptions}
+                    onChange={handleFilterChange}
+                    inputKey="role"
                 />
                 <FilterSelect
                     label={t("filter.sortBy")}
                     value={filters.sortBy || "newest"}
-                    options={getSortOptions(t)}
-                    onChange={(val) => handleFilterChange("sortBy", val)}
+                    options={sortOptions}
+                    onChange={handleFilterChange}
+                    inputKey="sortBy"
                 />
             </DataFilterToolbar>
 

@@ -1,13 +1,13 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Stack, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { Logo, RouterLink } from '@/shared/components';
 import { paths } from '@/shared/constants';
 import { FormCheckbox, FormContainer, FormPasswordField, FormTextField, AppFormProvider } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { useAuthActions } from '../hooks/useAuthActions';
@@ -16,7 +16,7 @@ import { LoginSchema, type LoginSchemaType } from '../schema'
 export function LoginForm() {
 
     const { login } = useAuthActions()
-    const { t } = useTranslation("auth")
+    const { t } = useLocalize("auth")
 
     const navigate = useNavigate()
 

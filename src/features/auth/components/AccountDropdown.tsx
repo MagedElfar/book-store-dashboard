@@ -9,17 +9,17 @@ import {
     ListItemText,
 } from '@mui/material';
 import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 
 import { paths } from '@/shared/constants';
+import { useLocalize } from '@/shared/lib';
 
 import { useAuthActions } from '../hooks/useAuthActions';
 import { useAuthState } from '../hooks/useAuthState';
 
 export function AccountDropdown() {
 
-    const { t } = useTranslation("auth")
+    const { t } = useLocalize("auth")
     const { user } = useAuthState();
     const { logout } = useAuthActions();
     const navigate = useNavigate();

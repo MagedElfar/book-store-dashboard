@@ -4,7 +4,7 @@ import { z } from "zod";
 import { PASSWORD_MIN_LENGTH } from "@/core";
 import { passwordValidator } from "@/shared/form";
 
-export const ChangePasswordSchema = (t: TFunction<Namespace<"account">>) =>
+export const ChangePasswordSchema = (t: TFunction<Namespace<any>>) =>
     z
         .object({
             oldPassword: passwordValidator({

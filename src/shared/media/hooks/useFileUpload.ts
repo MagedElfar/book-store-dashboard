@@ -1,9 +1,9 @@
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
+import { useLocalize } from "@/shared/lib";
 import * as mediaApi from "@/shared/media/api";
 import type { UploadFile } from "@/shared/media/types";
 import { errorMapper } from "@/shared/utilities";
@@ -17,7 +17,7 @@ interface UseDropzoneLogicProps {
 }
 
 export function useFileUpload({ name, multiple = false, maxSize }: UseDropzoneLogicProps) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     const { setValue, getValues, watch, setError, clearErrors } = useFormContext();
     const [files, setFiles] = useState<UploadFile[]>([]);
 

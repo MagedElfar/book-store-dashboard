@@ -4,7 +4,7 @@ import { z } from 'zod';
 import { PASSWORD_MIN_LENGTH } from "@/core";
 import { emailValidator, passwordValidator } from "@/shared/form";
 
-export const LoginSchema = (t: TFunction<Namespace<"auth">>) => z
+export const LoginSchema = (t: TFunction<Namespace<any>>) => z
     .object({
         email: emailValidator({
             invalidEmailMsg: t("auth:validation.invalid_email"),

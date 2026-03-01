@@ -1,14 +1,14 @@
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 
 import { DataHandler, PageTitle, PageWrapper } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 
 import { BasicInfoStepSkeleton } from "../components";
 import { BookForm } from "../form";
 import { useGetBookById } from "../hooks";
 
 export default function EditBookPage() {
-    const { t } = useTranslation(["book", "common"]);
+    const { t } = useLocalize(["book", "common"]);
     const { id } = useParams<{ id: string }>();
 
     const { data: book, isLoading, isError, refetch } = useGetBookById(id!);

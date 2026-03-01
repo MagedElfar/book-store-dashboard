@@ -4,36 +4,38 @@ import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Avatar, Chip, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
 import { paths } from "@/shared/constants";
-import type { Column, SupportedLang } from "@/shared/types";
+import { useLocalize } from '@/shared/lib';
+import type { Column } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Author } from "../types";
 
 export function useAuthorColumns(onDelete: (author: Author) => void) {
-    const { t, i18n } = useTranslation(["author", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["author", "common"]);
     const { hasPermission } = usePermission();
     const navigate = useNavigate();
 
-    const lang = i18n.language as SupportedLang;
+    const canRead = hasPermission("author.read");
+    const canUpdate = hasPermission("author.update");
+    const canDelete = hasPermission("author.delete");
 
     return useMemo<Column<Author>[]>(() => [
         {
-            id: "name_en",
+            id: "name",
             label: t("table.author"),
             render: (_, row) => (
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
                         src={row.image_url || ""}
-                        alt={row.name_en}
+                        alt={getLocalizedValue(row)}
                         variant="circular"
                         sx={{ width: 45, height: 45, bgcolor: 'background.neutral' }}
                     >
-                        {row.name_en?.[0]}
+                        {getLocalizedValue(row)?.[0]}
                     </Avatar>
                     <Stack spacing={0.1}>
                         <Link
@@ -42,10 +44,11 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                             target='_blank'
                             underline="hover"
                             fontSize="subtitle2"
+                            rel="noopener"
                         >
 
                             <Typography variant="subtitle2" noWrap>
-                                {row?.[`name_${lang}`]}
+                                {getLocalizedValue(row)}
                             </Typography>
                         </Link>
 
@@ -97,7 +100,7 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
             align: "right",
             render: (_, row) => (
                 <Stack direction="row" justifyContent="flex-end" spacing={1}>
-                    {hasPermission("author.read") && (
+                    {canRead && (
                         <Tooltip title={t("common:actions.view")}>
                             <IconButton
                                 onClick={() => navigate(paths.dashboard.authors.details(row.id))}
@@ -108,7 +111,7 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                             </IconButton>
                         </Tooltip>
                     )}
-                    {hasPermission("author.update") && (
+                    {canUpdate && (
                         <Tooltip title={t("common:actions.edit")}>
                             <IconButton
                                 onClick={() => navigate(paths.dashboard.authors.edit(row.id))}
@@ -119,7 +122,7 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                             </IconButton>
                         </Tooltip>
                     )}
-                    {hasPermission("author.delete") && (
+                    {canDelete && (
                         <Tooltip title={t("common:actions.delete")}>
                             <IconButton
                                 onClick={() => onDelete(row)}
@@ -133,5 +136,5 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                 </Stack>
             ),
         },
-    ], [t, lang, hasPermission, navigate, onDelete]);
+    ], [t, getLocalizedValue, canRead, canUpdate, canDelete, navigate, onDelete]);
 }

@@ -1,5 +1,3 @@
-// src/features/banners/hooks/useBannerReorder.ts
-
 import { arrayMove } from "@dnd-kit/sortable";
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { toast } from "react-toastify";
@@ -14,25 +12,28 @@ export function useBannerReorder(initialItems: Banner[] = []) {
     const [items, setItems] = useState<Banner[]>(initialItems);
     const { mutateAsync: syncReorder, isPending } = useBulkReorderBanners();
 
+    const initialIds = useMemo(() => initialItems.map(i => i.id).join(','), [initialItems]);
+
     useEffect(() => {
-        if (initialItems.length !== items.length) {
-            setItems(initialItems);
-        }
-    }, [initialItems, items.length]);
+        setItems(initialItems);
+    }, [initialIds, initialItems])
 
-    const handleReorder = useCallback((activeId: string | number, overId: string | number) => {
-
+    const handleReorder = useCallback((activeId: any, overId: any) => {
         if (activeId === overId) return;
 
         setItems((prev) => {
-            const oldIndex = prev.findIndex((item) => item.id === activeId);
-            const newIndex = prev.findIndex((item) => item.id === overId);
-            const newArray = arrayMove(prev, oldIndex, newIndex);
-            return newArray;
+            const oldIndex = prev.findIndex((item) => String(item.id) === String(activeId));
+            const newIndex = prev.findIndex((item) => String(item.id) === String(overId));
+
+            if (oldIndex === -1 || newIndex === -1) return prev;
+
+            return arrayMove(prev, oldIndex, newIndex);
         });
     }, []);
 
     const saveOrder = async (onSuccessCallback?: () => void) => {
+        // تحويل المصفوفة لـ Payload مناسب للـ API
+        // Senior Note: بنستخدم الـ index الجديد عشان نبعت الـ priority
         const payload = items.map((item, index) => ({
             id: item.id,
             priority: index + 1
@@ -43,7 +44,7 @@ export function useBannerReorder(initialItems: Banner[] = []) {
             toast.success("Order updated successfully");
             onSuccessCallback?.();
         } catch (error) {
-            errorMapper(error).forEach(err => toast.error(err))
+            errorMapper(error).forEach(err => toast.error(err));
         }
     };
 
@@ -51,9 +52,11 @@ export function useBannerReorder(initialItems: Banner[] = []) {
         setItems(initialItems);
     }, [initialItems]);
 
-
-    const hasChanges = useMemo(() => items.length !== initialItems.length ||
-        items.some((item, index) => item.id !== initialItems[index]?.id), [initialItems, items])
+    // مقارنة ذكية عشان نعرف فيه تغيير ولا لا
+    const hasChanges = useMemo(() => {
+        const currentIds = items.map(i => i.id).join(',');
+        return currentIds !== initialIds;
+    }, [items, initialIds]);
 
     return {
         items,

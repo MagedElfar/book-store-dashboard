@@ -1,7 +1,6 @@
 import { Paper, Stack, Typography, Divider } from "@mui/material";
-import { useTranslation } from "react-i18next";
 
-import type { SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
 import { formatPrice } from "@/shared/utilities";
 
 interface OrderSummaryCardProps {
@@ -21,9 +20,8 @@ export function OrderSummaryCard({
     title,
     variant = "outlined"
 }: OrderSummaryCardProps) {
-    const { t, i18n } = useTranslation("order");
+    const { t, lang } = useLocalize("order");
 
-    const lang = i18n.language as SupportedLang
     return (
         <Paper
             variant={variant}

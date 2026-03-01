@@ -5,17 +5,15 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import StarIcon from '@mui/icons-material/Star';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { BarChartFC, StatsBoard, type StatItem } from '@/shared/components';
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 
 import { AnalyticsChartCard } from '../components';
 import { useTopBooks, useInventoryStatus } from '../hooks';
 
 export default function BooksSection({ params }: { params: any }) {
-    const { t, i18n } = useTranslation("analytics");
-    const lang = i18n.language as SupportedLang
+    const { t, getLocalizedValue } = useLocalize("analytics");
 
     const { data: topBooks, isLoading: booksLoading } = useTopBooks({ ...params, limit: 5 });
     const { data: inventory, isLoading: invLoading } = useInventoryStatus();
@@ -68,10 +66,10 @@ export default function BooksSection({ params }: { params: any }) {
 
     const topBooksData = useMemo(() =>
         topBooks?.map(book => ({
-            name: book?.[`title_${lang}`]?.length > 15 ? book?.[`title_${lang}`].substring(0, 15) + '...' : book?.[`title_${lang}`],
+            name: getLocalizedValue(book, "title")?.length > 15 ? getLocalizedValue(book, "title").substring(0, 15) + '...' : getLocalizedValue(book, "title"),
             sales: book.units_sold,
             revenue: book.revenue
-        })) || [], [lang, topBooks]);
+        })) || [], [getLocalizedValue, topBooks]);
 
     const inventoryData = useMemo(() =>
         inventory?.map(item => ({

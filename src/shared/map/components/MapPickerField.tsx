@@ -8,9 +8,10 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import { useDebounce } from 'minimal-shared/hooks';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import { toast } from 'react-toastify';
+
+import { useLocalize } from '@/shared/lib';
 
 const DefaultIcon = L.icon({
     iconUrl: markerIcon,
@@ -32,7 +33,7 @@ interface SearchResult {
 }
 
 function MapPickerField({ nameLat, nameLng, label }: MapPickerFieldProps) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     const { setValue, watch, formState: { errors } } = useFormContext();
     const [isLoading, setIsLoading] = useState(false);
 

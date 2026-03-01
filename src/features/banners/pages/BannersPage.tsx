@@ -8,8 +8,8 @@ import {
     Button, ToggleButton, ToggleButtonGroup
 } from "@mui/material";
 import { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 import {
     RootPageTitle,
@@ -22,6 +22,7 @@ import {
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { useDialog } from '@/shared/hooks/useDialog';
+import { useLocalize } from "@/shared/lib";
 
 import { BannerCard, DeleteBannerDialog } from "../components";
 import { useBannerReorder, useGetInfiniteBanners } from "../hooks";
@@ -46,7 +47,7 @@ const DEFAULT_FILTERS: Omit<BannersParams, "page" | "limit"> = {
 };
 
 export default function BannersPage() {
-    const { t } = useTranslation(["banner", "common"]);
+    const { t } = useLocalize(["banner", "common"]);
     const navigate = useNavigate();
 
     const [isReordering, setIsReordering] = useState(false);
@@ -92,6 +93,10 @@ export default function BannersPage() {
 
     const handleToggleMode = (_: any, nextMode: boolean | null) => {
         if (nextMode !== null) {
+            if (filters.sortBy !== "priority") {
+                toast.info(t("info.reorderOnlyWithPriority"))
+                return;
+            }
             if (!nextMode && hasChanges) {
                 resetOrder();
             }
@@ -113,8 +118,15 @@ export default function BannersPage() {
         </Grid>
     );
 
-    const listItems = isReordering ? items : banners;
-    const itemIds = useMemo(() => items.map(b => b.id), [items]);
+    const listItems = useMemo(() => {
+        return isReordering ? items : banners;
+    }, [isReordering, items, banners]);
+
+    const itemIds = useMemo(() => {
+        return listItems.map(b => b.id);
+    }, [listItems]);
+    const sortOptions = useMemo(() => getSortOptions(t), [t])
+    const statusOptions = useMemo(() => getStatusOptions(t), [t])
 
 
     return (
@@ -127,22 +139,25 @@ export default function BannersPage() {
 
             {!isReordering && (
                 <DataFilterToolbar
-                    searchValue={filters.search || ""}
+                    searchValue={filters.search}
                     searchPlaceholder={t("label.titleEn")}
-                    onSearchChange={(val) => handleFilterChange("search", val)}
+                    onSearchChange={handleFilterChange}
                     onClear={handleResetFilters}
+
                 >
                     <FilterSelect
                         label={t("filter.status")}
                         value={filters.is_active || ""}
-                        options={getStatusOptions(t)}
-                        onChange={(val) => handleFilterChange("is_active", val)}
+                        options={statusOptions}
+                        onChange={handleFilterChange}
+                        inputKey="is_active"
                     />
                     <FilterSelect
                         label={t("filter.sortBy")}
                         value={filters.sortBy || "priority"}
-                        options={getSortOptions(t)}
-                        onChange={(val) => handleFilterChange("sortBy", val)}
+                        options={sortOptions}
+                        onChange={handleFilterChange}
+                        inputKey="sortBy"
                     />
                 </DataFilterToolbar>
             )}
@@ -223,7 +238,7 @@ export default function BannersPage() {
                                 </Grid>
                             </SortableList>
 
-                            {hasNextPage && <Button
+                            {!isReordering && hasNextPage && <Button
                                 loading={isFetchingNextPage}
                                 disabled={isFetchingNextPage}
                                 onClick={() => fetchNextPage()}

@@ -7,7 +7,7 @@ import { emailValidator, passwordValidator, phoneValidator } from "@/shared/form
 export const allowedRoles = ["user", "support", "admin"] as const;
 
 export const UserFormSchema = (
-    t: TFunction<Namespace<"user">>,
+    t: TFunction<Namespace<any>>,
     isCreate: boolean = true //
 ) =>
     z.object({

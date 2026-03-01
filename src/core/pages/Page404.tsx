@@ -7,8 +7,9 @@ import {
     Stack,
     Typography,
 } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+
+import { useLocalize } from "@/shared/lib";
 
 interface Props {
     message?: string;
@@ -19,7 +20,7 @@ export default function Page404({
     message,
     reset,
 }: Props) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     const navigate = useNavigate();
 
     const handleAction = () => {

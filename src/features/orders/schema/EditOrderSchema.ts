@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { ShippingAddressSchema } from "./ShippingAddressSchema";
 
-export const EditOrderSchema = (t: TFunction<Namespace<"order">>) => {
+export const EditOrderSchema = (t: TFunction<Namespace<any>>) => {
     return z.object({
         customer_name: z
             .string()

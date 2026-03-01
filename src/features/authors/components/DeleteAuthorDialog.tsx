@@ -1,9 +1,7 @@
-// src/features/authors/components/DeleteAuthorDialog.tsx
-
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteAuthor } from "../hooks";
@@ -17,7 +15,7 @@ interface Props {
 }
 
 function DeleteAuthorDialog({ open, onClose, authorId, authorName, onRedirect }: Props) {
-    const { t } = useTranslation(["author", "common"]);
+    const { t } = useLocalize(["author", "common"]);
     const { mutateAsync: deleteAuthor, isPending } = useDeleteAuthor();
 
     const handleConfirm = async () => {

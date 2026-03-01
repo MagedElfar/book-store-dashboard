@@ -3,7 +3,7 @@ import { z } from "zod";
 
 import { imageValidator, phoneValidator } from "@/shared/form";
 
-export const AccountSchema = (t: TFunction<Namespace<"account">>) => z
+export const AccountSchema = (t: TFunction<Namespace<any>>) => z
     .object({
         full_name: z
             .string()

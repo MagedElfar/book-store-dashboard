@@ -97,5 +97,8 @@
     "confirmDeleteBanner": "هل أنت متأكد من حذف البانر \"{{title}}\"؟",
     "confirmDeleteBannerGeneric": "هل أنت متأكد من حذف هذا البانر؟",
     "permanentAction": "لا يمكن التراجع عن هذا الإجراء."
+  },
+  "info": {
+    "reorderOnlyWithPriority": "الترتيب اليدوي متاح فقط عند اختيار الترتيب حسب الأولوية (Priority)"
   }
 }

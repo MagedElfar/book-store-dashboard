@@ -14,7 +14,7 @@ export const OrderItemSchema = (t: TFunction<Namespace<"order">>) =>
             .min(1, { message: t("order:validation.quantity_min") }),
     });
 
-export const OrderListFormSchema = (t: TFunction<Namespace<"order">>) =>
+export const OrderListFormSchema = (t: TFunction<Namespace<any>>) =>
     z.object({
         tempBook: AutocompleteOptionSchema.nullish(),
         items: z

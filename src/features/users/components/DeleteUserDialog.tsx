@@ -1,7 +1,7 @@
-import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
 import { ConfirmDialog } from "@/shared/components";
+import { useLocalize } from "@/shared/lib";
 import { errorMapper } from "@/shared/utilities";
 
 import { useDeleteUser } from "../hooks";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function DeleteUserDialog({ open, onClose, userId, userName, onRedirect }: Props) {
-    const { t } = useTranslation(["user", "common"]);
+    const { t } = useLocalize(["user", "common"]);
     const { mutateAsync: deleteUser, isPending } = useDeleteUser();
 
     const handleConfirm = async () => {

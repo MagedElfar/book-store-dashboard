@@ -4,15 +4,15 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Grid, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { AreaChartFC, BarChartFC, PieChartFC, StatsBoard, type StatItem } from '@/shared/components';
+import { useLocalize } from '@/shared/lib';
 
 import { AnalyticsChartCard } from '../components';
 import { useSalesAnalytics, useCustomerComparison, useOrdersStatus } from '../hooks';
 
 export default function OverviewSection({ params }: { params: any }) {
-    const { t } = useTranslation(["analytics", "order"]);
+    const { t } = useLocalize(["analytics", "order"]);
 
 
     const { data: salesData, isLoading: salesLoading } = useSalesAnalytics(params);

@@ -1,7 +1,6 @@
 import { Stack, Typography } from '@mui/material';
-import { useTranslation } from 'react-i18next'
 
-import type { SupportedLang } from '@/shared/types';
+import { useLocalize } from '@/shared/lib';
 import { formatPrice } from '@/shared/utilities'
 
 interface Props {
@@ -10,9 +9,7 @@ interface Props {
 }
 
 export function PriceDisplay({ sale_price, price }: Props) {
-    const { i18n } = useTranslation();
-
-    const lang = i18n.language as SupportedLang
+    const { lang } = useLocalize();
 
     return <Stack spacing={0.3}>
         {sale_price ? (

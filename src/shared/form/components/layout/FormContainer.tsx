@@ -1,8 +1,9 @@
 import { Button, Card, Stack, type ButtonProps, type CardProps, type StackProps } from '@mui/material'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
+import { useLocalize } from '@/shared/lib';
 
 import { getAllErrorMessages, getFirstErrorPath } from '../../utilities';
 
@@ -14,7 +15,7 @@ interface Props extends CardProps {
 }
 
 export function FormContainer({ children, submitText, sx, buttonProps, stackProps }: Props) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
     const cardRef = useRef<HTMLDivElement>(null);
 
     const {

@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Divider, Grid, Stack } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { AppFormProvider, FormContainer, FormCountrySelect, FormPhoneInput, FormRadioGroup, FormTextField } from '@/shared/form';
+import { useLocalize } from '@/shared/lib';
 import { errorMapper } from '@/shared/utilities';
 
 import { useUpdateOrder } from '../hooks';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export function EditOrderForm({ order, onSuccess }: Props) {
-    const { t } = useTranslation("order");
+    const { t } = useLocalize("order");
 
     const { mutateAsync: updateOrder } = useUpdateOrder(order.id);
 

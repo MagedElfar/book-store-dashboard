@@ -1,5 +1,6 @@
 import { Stack, Skeleton } from "@mui/material";
-import { useTranslation } from "react-i18next";
+
+import { useLocalize } from "@/shared/lib";
 
 import { ErrorRedirect } from "./ErrorRedirect";
 import { NoDataRedirect } from "./NoDataRedirect";
@@ -26,9 +27,8 @@ export function DataHandler<T>({
     emptyComponent,
     children,
 }: DataHandlerProps<T>) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
 
-    // 1. حالة التحميل
     if (isLoading) {
         return (
             loadingComponent || (

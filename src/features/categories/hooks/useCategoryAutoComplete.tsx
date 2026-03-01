@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
 
 import { INFINITE_RECORDED_LIMIT } from "@/core";
-import type { AutocompleteOptions, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { AutocompleteOptions } from "@/shared/types";
 
 
 import type { Category } from "../types";
@@ -14,9 +14,7 @@ export function useCategoryAutoComplete() {
     const [search, setSearch] = useState("");
     const [isCategoriesEnabled, setIsCategoriesEnabled] = useState(false);
 
-    const { i18n } = useTranslation()
-
-    const lang = i18n.language as SupportedLang;
+    const { lang } = useLocalize()
 
     const query = useGetInfiniteCategories({
         search,

@@ -1,6 +1,7 @@
 import GppBadIcon from "@mui/icons-material/GppBad";
-import { Box, Button, Card, CardContent, Stack, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
+import { Box, Card, CardContent, Stack, Typography, Button } from "@mui/material";
+
+import { useLocalize } from "@/shared/lib";
 
 interface Props {
     message?: string;
@@ -11,7 +12,7 @@ export default function Page403({
     message,
     reset,
 }: Props) {
-    const { t } = useTranslation("common");
+    const { t } = useLocalize("common");
 
     return (
         <Box

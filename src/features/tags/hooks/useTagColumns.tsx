@@ -1,13 +1,11 @@
-// src/features/tags/hooks/useTagColumns.tsx
-
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import { Chip, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
 import { usePermission } from "@/features/auth";
-import type { Column, SupportedLang } from "@/shared/types";
+import { useLocalize } from "@/shared/lib";
+import type { Column } from "@/shared/types";
 import { fDate } from "@/shared/utilities";
 
 import type { Tag } from "../types";
@@ -15,19 +13,18 @@ import type { Tag } from "../types";
 type TagAction = (tag: Tag) => void
 
 export function useTagColumns(onEdit: TagAction, onDelete: TagAction) {
-    const { t, i18n } = useTranslation(["tag", "common"]);
+    const { t, getLocalizedValue } = useLocalize(["tag", "common"]);
     const { hasPermission } = usePermission();
 
-    const lang = i18n.language as SupportedLang;
 
     return useMemo<Column<Tag>[]>(() => [
         {
-            id: "name_en",
+            id: "name",
             label: t("table.tag"),
             render: (_, row) => (
                 <Stack spacing={0.1}>
                     <Typography variant="subtitle2" noWrap>
-                        {row?.[`name_${lang}`]}
+                        {getLocalizedValue(row)}
                     </Typography>
                     <Typography variant="caption" sx={{ color: 'text.secondary', fontFamily: 'monospace' }} noWrap>
                         #{row.slug}
@@ -88,5 +85,5 @@ export function useTagColumns(onEdit: TagAction, onDelete: TagAction) {
                 </Stack>
             ),
         },
-    ], [t, lang, hasPermission, onEdit, onDelete]);
+    ], [t, getLocalizedValue, hasPermission, onEdit, onDelete]);
 }
