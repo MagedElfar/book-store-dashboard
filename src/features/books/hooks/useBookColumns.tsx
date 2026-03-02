@@ -40,6 +40,7 @@ export function useBookColumns(onDelete: (book: Book) => void) {
             render: (_, row) => (
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
+                        slotProps={{ img: { loading: 'lazy' } }}
                         src={row.cover_image || ""}
                         alt={getLocalizedValue(row, "title")}
                         variant="rounded"

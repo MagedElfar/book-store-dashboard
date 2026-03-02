@@ -14,14 +14,7 @@ export interface UserGrowthAnalytics {
     new_users_count: number;
 }
 
-export interface TopBooksAnalytics {
-    book_id: string;
-    title_ar: string;
-    title_en: string;
-    units_sold: number;
-    revenue: number;
-    cover_image: string
-}
+
 
 export interface OrderStatusAnalytics {
     status_label: OrderStatus;
@@ -37,6 +30,15 @@ export interface CustomerTypeComparison {
 export interface InventoryStatus {
     status_label: string;
     books_count: number;
+}
+
+export interface TopBooksAnalytics {
+    book_id: string;
+    title_ar: string;
+    title_en: string;
+    units_sold: number;
+    revenue: number;
+    cover_image: string
 }
 
 export interface AnalyticsParams {
