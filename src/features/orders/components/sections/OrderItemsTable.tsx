@@ -46,11 +46,11 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
                         src={row.book?.cover_image || ""}
-                        alt={getLocalizedValue(row, "title")}
+                        alt={getLocalizedValue(row.book, "title")}
                         variant="rounded"
                         sx={{ width: 45, height: 60, bgcolor: "background.neutral" }}
                     >
-                        {getLocalizedValue(row, "title")?.[0]}
+                        {getLocalizedValue(row.book, "title")?.[0]}
                     </Avatar>
 
                     <Stack spacing={0.1}>
@@ -64,7 +64,7 @@ export function OrderItemsTable({ items, orderId, status }: Props) {
                             >
 
                                 <Typography variant="subtitle2" noWrap>
-                                    {getLocalizedValue(row, "title")}
+                                    {getLocalizedValue(row?.book, "title")}
                                 </Typography>
 
                             </Link>

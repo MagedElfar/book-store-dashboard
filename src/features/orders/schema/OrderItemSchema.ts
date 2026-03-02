@@ -20,20 +20,20 @@ export const OrderListFormSchema = (t: TFunction<Namespace<any>>) =>
         items: z
             .array(OrderItemSchema(t))
             .min(1, { message: t("order:validation.items_min") })
-            .superRefine((items, ctx) => {
-                items.forEach((item, index) => {
-                    const book = item.item.data;
-                    const availableStock = book?.stock || 0;
+        // .superRefine((items, ctx) => {
+        //     items.forEach((item, index) => {
+        //         const book = item.item.data;
+        //         const availableStock = book?.stock || 0;
 
-                    if (item.quantity > availableStock) {
-                        ctx.addIssue({
-                            code: "custom",
-                            message: t("order:validation.quantity_max", { max: availableStock }),
-                            path: [index, 'quantity']
-                        });
-                    }
-                });
-            }),
+        //         if (item.quantity > availableStock) {
+        //             ctx.addIssue({
+        //                 code: "custom",
+        //                 message: t("order:validation.quantity_max", { max: availableStock }),
+        //                 path: [index, 'quantity']
+        //             });
+        //         }
+        //     });
+        // }),
     });
 
 

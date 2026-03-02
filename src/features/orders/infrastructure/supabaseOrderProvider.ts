@@ -115,7 +115,8 @@ export const supabaseOrderProvider: OrderApiProvider = {
                     title_ar,
                     title_en,
                     price,
-                    cover_image
+                    cover_image,
+                    stock
                 )
             )
         `)

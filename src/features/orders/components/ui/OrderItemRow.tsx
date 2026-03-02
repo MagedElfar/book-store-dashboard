@@ -12,19 +12,30 @@ import type { CreateOrderFormSchemaType } from '../../schema';
 
 
 export default function OrderItemRow({ index, onRemove }: { index: number; onRemove: () => void }) {
-    const { watch } = useFormContext<CreateOrderFormSchemaType>();
+    const { watch, formState: { defaultValues } } = useFormContext<CreateOrderFormSchemaType>();
 
     const { t, getLocalizedValue, lang } = useLocalize(["order", "book"])
 
-    const bookItem = watch(`items.${index}`)
-    const book = bookItem.item.data as Book
+    const bookItem = watch(`items.${index}`);
+    const book = bookItem.item.data as Book;
 
-    const quantity = bookItem.quantity as number;
-    const price = bookItem.price as number;
     const name = getLocalizedValue(book, "title");
     const image = book.cover_image || "";
 
-    const availableStock = book.stock || 0;
+    // const availableStock = book.stock || 0;
+
+
+    const quantity = Number(bookItem.quantity) || 0;
+    const price = Number(bookItem.price) || 0;
+
+    const warehouseStock = book.stock || 0;
+
+    const originalQuantity = (defaultValues?.items?.[index] as any)?.quantity || 0;
+    const effectiveMax = warehouseStock + originalQuantity;
+
+
+    const isOverStock = quantity > effectiveMax
+
 
     return (
         <Paper
@@ -33,7 +44,7 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                 p: 1.5,
                 borderRadius: 2,
                 minWidth: { xs: "600px", md: "0" },
-                borderColor: quantity > availableStock ? 'error.main' : 'divider',
+                borderColor: isOverStock ? 'error.main' : 'divider',
             }}
         >
             <Stack direction="row" alignItems="center" spacing={2}>
@@ -51,8 +62,8 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                         sale_price={book.sale_price}
                         price={book.price}
                     />
-                    <Typography variant="caption" color={availableStock > 0 ? "text.secondary" : "error"}>
-                        {t("book:label.stock")}: {availableStock}
+                    <Typography variant="caption" color={!isOverStock ? "text.secondary" : "error"}>
+                        {t("book:label.stock")}: {effectiveMax}
                     </Typography>
                 </Box>
 
@@ -61,9 +72,9 @@ export default function OrderItemRow({ index, onRemove }: { index: number; onRem
                         name={`items.${index}.quantity`}
                         type="number"
                         size="small"
-                        slotProps={{ htmlInput: { min: 1, max: availableStock } }}
-                        disabled={availableStock === 0}
-                        error={quantity > availableStock}
+                        slotProps={{ htmlInput: { min: 1 } }}
+                        // disabled={isOverStock}
+                        error={isOverStock}
                     />
                 </Box>
 
