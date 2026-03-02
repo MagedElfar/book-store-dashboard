@@ -26,6 +26,10 @@ export default function OverviewSection({ params }: { params: any }) {
         return { revenue, orders, pending };
     }, [salesData]);
 
+    const activeOrders = useMemo(() => statusData
+        ?.filter(s => !["completed", "returned", "cancelled"].includes(s.status_label))
+        ?.reduce((acc, curr) => acc + curr.orders_count, 0) || 0, [statusData])
+
     const statsItems: StatItem[] = useMemo(() => [
         {
             title: t("stats.totalSales"),
@@ -43,12 +47,12 @@ export default function OverviewSection({ params }: { params: any }) {
         },
         {
             title: t("stats.activeOrders"),
-            value: totals.orders,
+            value: activeOrders,
             icon: <TrendingUpIcon fontSize="large" />,
             color: 'warning',
             loading: salesLoading
         }
-    ], [t, totals.revenue, totals.pending, totals.orders, salesLoading]);
+    ], [t, totals.revenue, totals.pending, salesLoading, activeOrders]);
 
     const chartData = useMemo(() => {
         return statusData?.map(item => ({
