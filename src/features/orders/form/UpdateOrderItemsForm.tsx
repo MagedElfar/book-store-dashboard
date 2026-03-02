@@ -34,7 +34,7 @@ export function UpdateOrderItemsForm({ orderId, items, onSuccess }: Props) {
     };
 
     const methods = useForm<OrderListFormType>({
-        resolver: zodResolver(OrderListFormSchema(t)),
+        resolver: zodResolver(OrderListFormSchema(t, defaultValues.items)),
         defaultValues,
     });
 

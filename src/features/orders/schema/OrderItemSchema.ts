@@ -14,28 +14,32 @@ export const OrderItemSchema = (t: TFunction<Namespace<"order">>) =>
             .min(1, { message: t("order:validation.quantity_min") }),
     });
 
-export const OrderListFormSchema = (t: TFunction<Namespace<any>>) =>
+export const OrderListFormSchema = (
+    t: TFunction<Namespace<any>>,
+    defaultItems: any[] = []
+) =>
     z.object({
         tempBook: AutocompleteOptionSchema.nullish(),
         items: z
             .array(OrderItemSchema(t))
             .min(1, { message: t("order:validation.items_min") })
-        // .superRefine((items, ctx) => {
-        //     items.forEach((item, index) => {
-        //         const book = item.item.data;
-        //         const availableStock = book?.stock || 0;
+            .superRefine((currentItems, ctx) => {
+                currentItems.forEach((item, index) => {
+                    const book = item.item.data;
+                    const stockInWarehouse = book?.stock || 0;
+                    const originalQty = defaultItems?.[index]?.quantity || 0;
+                    const effectiveMax = stockInWarehouse + originalQty;
 
-        //         if (item.quantity > availableStock) {
-        //             ctx.addIssue({
-        //                 code: "custom",
-        //                 message: t("order:validation.quantity_max", { max: availableStock }),
-        //                 path: [index, 'quantity']
-        //             });
-        //         }
-        //     });
-        // }),
+                    if (item.quantity > effectiveMax) {
+                        ctx.addIssue({
+                            code: "custom",
+                            message: `${book?.title_en}: ${t("order:validation.quantity_max", { max: effectiveMax })}`,
+                            path: [index, 'quantity']
+                        });
+                    }
+                });
+            }),
     });
-
 
 export type OrderItemFormType = z.input<ReturnType<typeof OrderItemSchema>>;
 export type OrderListFormType = z.input<ReturnType<typeof OrderListFormSchema>>;
