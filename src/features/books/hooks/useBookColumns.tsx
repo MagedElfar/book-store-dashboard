@@ -44,7 +44,7 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                         src={row.cover_image || ""}
                         alt={getLocalizedValue(row, "title")}
                         variant="rounded"
-                        sx={{ width: 45, height: 45, bgcolor: "background.neutral" }}
+                        sx={{ width: 45, height: 45, flexShrink: 0, bgcolor: "background.neutral" }}
                     >
                         {getLocalizedValue(row, "title")?.[0]}
                     </Avatar>

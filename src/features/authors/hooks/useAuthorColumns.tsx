@@ -30,10 +30,11 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
             render: (_, row) => (
                 <Stack direction="row" alignItems="center" spacing={2}>
                     <Avatar
+                        slotProps={{ img: { loading: 'lazy' } }}
                         src={row.image_url || ""}
                         alt={getLocalizedValue(row)}
                         variant="circular"
-                        sx={{ width: 45, height: 45, bgcolor: 'background.neutral' }}
+                        sx={{ flexShrink: 0, width: 45, height: 45, bgcolor: 'background.neutral' }}
                     >
                         {getLocalizedValue(row)?.[0]}
                     </Avatar>
