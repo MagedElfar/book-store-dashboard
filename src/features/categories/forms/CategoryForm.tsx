@@ -32,6 +32,7 @@ export function CategoryForm({ category }: Props) {
         description_ar: category?.description_ar || "",
         description_en: category?.description_en || "",
         image_url: category?.image_url || null,
+        banner_url: category?.banner_url || null,
         is_active: category?.is_active ?? true,
     };
 
@@ -145,6 +146,19 @@ export function CategoryForm({ category }: Props) {
                             name="image_url"
                             label={t("label.image")}
                             maxSize={3 * 1024 * 1024} // 3 MB
+                            accept={{
+                                "image/jpeg": [".jpeg", ".jpg"],
+                                "image/png": [".png"],
+                                "image/webp": [".webp"]
+                            }}
+                        />
+                    </Grid>
+
+                    <Grid size={{ xs: 12 }}>
+                        <DropzoneField
+                            name="banner_url"
+                            label={t("label.banner")}
+                            maxSize={10 * 1024 * 1024} // 3 MB
                             accept={{
                                 "image/jpeg": [".jpeg", ".jpg"],
                                 "image/png": [".png"],

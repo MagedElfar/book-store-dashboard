@@ -5,6 +5,7 @@ export interface Tag {
     name_en: string;
     slug: string;
     is_active: boolean;
+    is_pained: boolean
     color?: string;
 }
 

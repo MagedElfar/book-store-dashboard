@@ -9,6 +9,7 @@ export interface Category {
     description_en: string | null;
     slug: string;
     image_url: string | null;
+    banner_url: string | null;
     is_active: boolean;
 }
 

@@ -35,6 +35,10 @@ export const CategoryFormSchema = (
             .nullable()
             .optional(),
 
+        banner_url: imageValidator(t("category:validation.invalid_url"))
+            .nullable()
+            .optional(),
+
 
         is_active: z.boolean(),
     });

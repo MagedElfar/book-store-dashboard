@@ -30,7 +30,7 @@ export interface BookParams {
     author_id?: string | null;
     tagId?: string | null
     is_active?: string;
-    sortBy?: "newest" | "oldest" | "price_high" | "price_low" | "alpha";
+    sortBy?: "newest" | "oldest" | "price_high" | "price_low" | "alpha" | "stock_high" | "stock_low";
     page?: number;
     limit?: number;
     lang?: SupportedLang;

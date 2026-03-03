@@ -16,7 +16,8 @@
     "descriptionAr": "الوصف بالعربية",
     "status": "الحالة",
     "image": "صورة الصنف",
-    "isActive": "نشط"
+    "isActive": "نشط",
+    "banner": "لافتة الصنف"
   },
   "placeHolder": {
     "nameEn": "مثال: Electronics",

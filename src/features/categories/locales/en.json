@@ -16,7 +16,8 @@
     "descriptionAr": "Arabic Description",
     "status": "Status",
     "image": "Category Image",
-    "isActive": "Is active"
+    "isActive": "Is active",
+    "banner": "Category Banner"
   },
   "placeHolder": {
     "nameEn": "e.g. Electronics",

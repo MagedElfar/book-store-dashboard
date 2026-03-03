@@ -12,7 +12,8 @@
     "slug": "Slug",
     "status": "Status",
     "isActive": "Is Active",
-    "color": "Color"
+    "color": "Color",
+    "isPained": "Is Pained"
   },
   "placeHolder": {
     "nameEn": "e.g. Bestseller",

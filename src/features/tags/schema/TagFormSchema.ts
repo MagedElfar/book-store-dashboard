@@ -26,7 +26,9 @@ export const TagFormSchema = (
 
         color: colorValidator(t("tag:validation.color_invalid")),
 
-        is_active: z.boolean()
+        is_active: z.boolean(),
+
+        is_pained: z.boolean()
     });
 
 export type TagFormSchemaType = z.infer<ReturnType<typeof TagFormSchema>>;

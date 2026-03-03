@@ -247,6 +247,12 @@ export const supabaseBookProvider: BookApiProvider = {
             case "price_low":
                 query = query.order("price", { ascending: true });
                 break;
+            case "stock_high":
+                query = query.order("stock", { ascending: false });
+                break;
+            case "stock_low":
+                query = query.order("stock", { ascending: true });
+                break;
             case "alpha":
                 query = query.order(`title_${currentLang}`, { ascending: true });
                 break;

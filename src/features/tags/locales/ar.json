@@ -12,7 +12,8 @@
     "slug": "الرابط المختصر (Slug)",
     "status": "الحالة",
     "isActive": "نشط",
-    "color": "اللون"
+    "color": "اللون",
+    "isPained": "مثبت"
   },
   "placeHolder": {
     "nameEn": "مثلاً: Bestseller",

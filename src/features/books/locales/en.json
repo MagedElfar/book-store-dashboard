@@ -111,7 +111,8 @@
     "alphabetical": "Alphabetical",
     "priceHigh": "Price: High to Low",
     "priceLow": "Price: Low to High",
-    "stockLow": "Low Stock First",
+    "stockHigh": "Stock: High to Low",
+    "stockLow": "Stock: Low to High",
     "author": "Author",
     "tag": "Tag"
   },

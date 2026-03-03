@@ -31,6 +31,8 @@ const getSortOptions = (t: any) => [
     { value: "alpha", label: t("filter.alphabetical") },
     { value: "price_high", label: t("filter.priceHigh") },
     { value: "price_low", label: t("filter.priceLow") },
+    { value: "stock_high", label: t("filter.stockHigh") },
+    { value: "stock_low", label: t("filter.stockLow") },
 ];
 
 const DEFAULT_FILTERS: Omit<BookParams, "page" | "limit"> = {

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Grid, Switch, FormControlLabel } from '@mui/material';
+import { Grid, Switch, FormControlLabel, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
@@ -28,6 +28,8 @@ export function TagForm({ tag, onSuccess }: Props) {
         slug: tag?.slug || "",
         color: tag?.color || "",
         is_active: tag?.is_active ?? true,
+        is_pained: tag?.is_pained ?? false,
+
     };
 
     const methods = useForm<TagFormSchemaType>({
@@ -103,18 +105,29 @@ export function TagForm({ tag, onSuccess }: Props) {
                             helperText={t("helper.colorInfo")}
                         />
                     </Grid>
-
                     {/* Status Switch */}
                     <Grid size={{ xs: 12 }}>
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={useWatch({ control, name: 'is_active' })}
-                                    onChange={(e) => setValue('is_active', e.target.checked)}
-                                />
-                            }
-                            label={t("label.isActive")}
-                        />
+                        <Stack direction="row" alignItems="center" spacing={2} >
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={useWatch({ control, name: 'is_active' })}
+                                        onChange={(e) => setValue('is_active', e.target.checked)}
+                                    />
+                                }
+                                label={t("label.isActive")}
+                            />
+
+                            <FormControlLabel
+                                control={
+                                    <Switch
+                                        checked={useWatch({ control, name: 'is_pained' })}
+                                        onChange={(e) => setValue('is_pained', e.target.checked)}
+                                    />
+                                }
+                                label={t("label.isPained")}
+                            />
+                        </Stack>
                     </Grid>
                 </Grid>
             </FormContainer>
