@@ -9,7 +9,7 @@ export const useMarkAllNotificationsRead = (userId: string) => {
     return useMutation({
         mutationFn: () => markAllAsReadApi(userId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [NOTIFICATION_QUERY_KEY, userId] });
+            queryClient.invalidateQueries({ queryKey: [NOTIFICATION_QUERY_KEY, "infinite", userId] });
         },
     });
 };

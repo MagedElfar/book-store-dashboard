@@ -12,6 +12,7 @@
   "country": "country",
   "no_notes": "No notes from the customer",
   "cancel": "Cancel",
+  "quantity": "Quantity",
   "dropzone": {
     "defaultMessage": "Drag and drop files here or click to select",
     "multiple": "You can select multiple files",

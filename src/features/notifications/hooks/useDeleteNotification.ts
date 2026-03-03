@@ -9,7 +9,7 @@ export const useDeleteNotification = (userId: string) => {
     return useMutation({
         mutationFn: (notificationId: string) => deleteNotificationApi(notificationId),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: [NOTIFICATION_QUERY_KEY, userId] });
+            queryClient.invalidateQueries({ queryKey: [NOTIFICATION_QUERY_KEY, "infinite", userId] });
         },
     });
 };

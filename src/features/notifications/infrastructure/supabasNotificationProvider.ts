@@ -29,15 +29,33 @@ export const supabasNotificationProvider: NotificationApiProvider = {
         }
     },
 
-    fetchNotifications: async (userId: string) => {
-        const { data, error } = await supabaseClient
-            .from('notifications')
-            .select('*')
-            .eq('user_id', userId)
-            .order('created_at', { ascending: false });
+    fetchNotifications: async (userId: string, page: number = 1, limit: number = 10) => {
+        const from = (page - 1) * limit;
+        const to = from + limit - 1;
 
-        if (error) throw error;
-        return data
+        const [notificationsQuery, unreadCountQuery] = await Promise.all([
+            supabaseClient
+                .from('notifications')
+                .select('*', { count: 'exact' })
+                .eq('user_id', userId)
+                .order('created_at', { ascending: false })
+                .range(from, to),
+
+            supabaseClient
+                .from('notifications')
+                .select('*', { count: 'exact', head: true })
+                .eq('user_id', userId)
+                .eq('is_read', false)
+        ]);
+
+        if (notificationsQuery.error) throw new Error(notificationsQuery.error.message);
+        if (unreadCountQuery.error) throw new Error(unreadCountQuery.error.message);
+
+        return {
+            items: notificationsQuery.data || [],
+            total: notificationsQuery.count || 0,
+            unreadCount: unreadCountQuery.count || 0
+        };
     },
 
     markAsRead: async (notificationId: string) => {
@@ -46,7 +64,7 @@ export const supabasNotificationProvider: NotificationApiProvider = {
             .update({ is_read: true })
             .eq('id', notificationId);
 
-        if (error) throw error;
+        if (error) throw new Error(error.message);
     },
 
     markAllAsRead: async (userId: string) => {
@@ -56,7 +74,7 @@ export const supabasNotificationProvider: NotificationApiProvider = {
             .eq('user_id', userId)
             .eq('is_read', false);
 
-        if (error) throw error;
+        if (error) throw new Error(error.message);
     },
 
     deleteNotification: async (notificationId: string) => {
@@ -65,7 +83,7 @@ export const supabasNotificationProvider: NotificationApiProvider = {
             .delete()
             .eq('id', notificationId);
 
-        if (error) throw error;
+        if (error) throw new Error(error.message);
     },
 
     deleteAllNotifications: async (userId: string) => {
@@ -74,7 +92,7 @@ export const supabasNotificationProvider: NotificationApiProvider = {
             .delete()
             .eq('user_id', userId);
 
-        if (error) throw error;
+        if (error) throw new Error(error.message);
     }
 
 };

@@ -43,7 +43,7 @@ export const supabaseAuthorProvider: AuthorApiProvider = {
         } = params;
 
         let query = supabaseClient
-            .from("authors_with_counts") // نستخدم الـ View هنا
+            .from("authors_with_counts")
             .select("*", { count: "exact" });
 
         if (search) {

@@ -3,7 +3,8 @@
     "markAsRead": "Mark as read",
     "delete": "Delete",
     "clearAll": "Clear All",
-    "markAllRead": "Mark all as read"
+    "markAllRead": "Mark all as read",
+    "loadMore": "Load more"
   },
   "empty": "No notifications yet",
   "title": "Notifications"

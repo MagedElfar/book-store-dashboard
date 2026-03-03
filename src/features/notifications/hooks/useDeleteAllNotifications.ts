@@ -10,7 +10,7 @@ export const useDeleteAllNotifications = (userId: string) => {
         mutationFn: () => deleteAllNotificationsApi(userId),
         onSuccess: () => {
             queryClient.setQueryData([NOTIFICATION_QUERY_KEY, userId], []);
-            queryClient.invalidateQueries({ queryKey: ['notifications', userId] });
+            queryClient.invalidateQueries({ queryKey: ['notifications', "infinite", userId] });
         },
     });
 };

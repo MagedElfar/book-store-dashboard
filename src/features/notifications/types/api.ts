@@ -1,13 +1,19 @@
+import type { GetManyResponse } from "@/shared/types";
+
 import type { Notification } from "./notification";
 
 export interface NotificationApiProvider {
     setupNotifications: (userId: string) => Promise<void>;
 
-    fetchNotifications: (userId: string) => Promise<Notification[]>;
+    fetchNotifications: (userId: string, page: number, limit: number) => Promise<NotificationsResponse>;
 
     markAsRead: (notificationId: string) => Promise<void>;
     markAllAsRead: (userId: string) => Promise<void>;
 
     deleteNotification: (notificationId: string) => Promise<void>;
     deleteAllNotifications: (userId: string) => Promise<void>;
+}
+
+export interface NotificationsResponse extends GetManyResponse<Notification> {
+    unreadCount: number;
 }

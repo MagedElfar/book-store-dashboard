@@ -1,1 +1,14 @@
-{}
+{
+  "actions": {
+    "markAsRead": "تحديد كمقروء",
+    "delete": "حذف",
+    "clearAll": "مسح الكل",
+    "markAllRead": "تحديد الكل كمقروء",
+    "loadMore": "تحميل المزيد"
+  },
+  "empty": "لا توجد تنبيهات حالياً",
+  "title": "التنبيهات",
+  "messages": {
+    "confirmDeleteAll": "هل أنت متأكد من مسح جميع التنبيهات؟"
+  }
+}

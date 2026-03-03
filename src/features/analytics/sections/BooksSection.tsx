@@ -3,19 +3,20 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import Inventory2Icon from '@mui/icons-material/Inventory2';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import StarIcon from '@mui/icons-material/Star';
-import { Grid, Stack, Typography } from '@mui/material';
+import { Avatar, Card, CardContent, CardHeader, Grid, Stack, Typography } from '@mui/material';
 import { useMemo } from 'react';
 
-import { BarChartFC, StatsBoard, type StatItem } from '@/shared/components';
+import { BarChartFC, DataHandler, RouterLink, StatsBoard, type StatItem } from '@/shared/components';
+import { paths } from '@/shared/constants';
 import { useLocalize } from '@/shared/lib';
 
 import { AnalyticsChartCard } from '../components';
 import { useTopBooks, useInventoryStatus } from '../hooks';
 
 export default function BooksSection({ params }: { params: any }) {
-    const { t, getLocalizedValue } = useLocalize("analytics");
+    const { t, getLocalizedValue } = useLocalize(["analytics", "common"]);
 
-    const { data: topBooks, isLoading: booksLoading } = useTopBooks({ ...params, limit: 5 });
+    const { data: topBooks, isLoading: booksLoading, isError, refetch } = useTopBooks({ ...params, limit: 5 });
     const { data: inventory, isLoading: invLoading } = useInventoryStatus();
 
     const statsItems: StatItem[] = useMemo(() => {
@@ -64,12 +65,12 @@ export default function BooksSection({ params }: { params: any }) {
         ];
     }, [topBooks, inventory, booksLoading, invLoading, t]);
 
-    const topBooksData = useMemo(() =>
-        topBooks?.map(book => ({
-            name: getLocalizedValue(book, "title")?.length > 15 ? getLocalizedValue(book, "title").substring(0, 15) + '...' : getLocalizedValue(book, "title"),
-            sales: book.units_sold,
-            revenue: book.revenue
-        })) || [], [getLocalizedValue, topBooks]);
+    // const topBooksData = useMemo(() =>
+    //     topBooks?.map(book => ({
+    //         name: getLocalizedValue(book, "title")?.length > 15 ? getLocalizedValue(book, "title").substring(0, 15) + '...' : getLocalizedValue(book, "title"),
+    //         sales: book.units_sold,
+    //         revenue: book.revenue
+    //     })) || [], [getLocalizedValue, topBooks]);
 
     const inventoryData = useMemo(() =>
         inventory?.map(item => ({
@@ -94,7 +95,7 @@ export default function BooksSection({ params }: { params: any }) {
 
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 7 }}>
-                    <AnalyticsChartCard
+                    {/* <AnalyticsChartCard
                         title={t("charts.topSellingBooks")}
                         loading={booksLoading}
                     >
@@ -103,7 +104,58 @@ export default function BooksSection({ params }: { params: any }) {
                             xKey="name"
                             yKey="sales"
                         />
-                    </AnalyticsChartCard>
+                    </AnalyticsChartCard> */}
+
+                    <DataHandler
+                        isLoading={booksLoading}
+                        isError={isError}
+                        data={topBooks}
+                        onRetry={refetch}
+                    >
+                        {
+                            (data) => (<Card sx={{ p: 1, borderRadius: 4 }}>
+                                <CardHeader
+                                    title={
+                                        <Typography variant="h6">
+                                            {t("charts.topSellingBooks")}
+                                        </Typography>
+                                    }
+                                />
+
+                                <CardContent>
+                                    <Stack spacing={2}>
+                                        {data.map(b => <Stack key={b.book_id} direction="row" alignItems="center" spacing={2}>
+                                            <Avatar
+                                                slotProps={{ img: { loading: 'lazy' } }}
+                                                src={b.cover_image || ""}
+                                                alt={getLocalizedValue(b, "title")}
+                                                variant="rounded"
+                                                sx={{ width: 45, height: 45, flexShrink: 0, bgcolor: "background.neutral" }}
+                                            >
+                                                {getLocalizedValue(b, "title")?.[0]}
+                                            </Avatar>
+
+                                            <Stack spacing={0.1}>
+                                                <RouterLink
+                                                    to={paths.dashboard.books.details(b.book_id)}
+                                                    text={getLocalizedValue(b, "title")}
+                                                />
+                                                <Typography
+                                                    variant="caption"
+                                                    sx={{ color: "text.secondary" }}
+                                                    noWrap
+                                                >
+                                                    {t("stats.totalBooksSold")}: {b.units_sold}
+                                                </Typography>
+                                            </Stack>
+                                        </Stack>)}
+                                    </Stack>
+                                </CardContent>
+                            </Card>)
+                        }
+
+                    </DataHandler>
+
                 </Grid>
 
                 <Grid size={{ xs: 12, md: 5 }}>
