@@ -32,7 +32,7 @@ export function useOrderColumns() {
                 <Stack spacing={0.5}>
                     <RouterLink
                         to={paths.dashboard.orders.details(row.id)}
-                        text={`#${row.order_number}}`}
+                        text={`#${row.order_number}`}
                     />
 
 
