@@ -1,7 +1,6 @@
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import {
     IconButton,
-    Link,
     Stack,
     Tooltip,
     Typography,
@@ -10,6 +9,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
+import { RouterLink } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { useLocalize } from "@/shared/lib";
 import type { Column } from "@/shared/types";
@@ -30,18 +30,11 @@ export function useOrderColumns() {
             label: t("table.order"),
             render: (_, row) => (
                 <Stack spacing={0.5}>
-                    <Link
-                        component="a"
-                        href={paths.dashboard.orders.details(row.id)}
-                        target='_blank'
-                        underline="hover"
-                        fontSize="subtitle2"
-                    >
-                        <Typography variant="subtitle2" sx={{ color: "primary.main" }}>
-                            #{row.order_number}
-                        </Typography>
+                    <RouterLink
+                        to={paths.dashboard.orders.details(row.id)}
+                        text={`#${row.order_number}}`}
+                    />
 
-                    </Link>
 
                     <Typography variant="body2" fontWeight={600} noWrap>
                         {row.customer_name}

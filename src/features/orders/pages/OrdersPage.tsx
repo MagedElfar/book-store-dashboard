@@ -4,12 +4,12 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PaidIcon from '@mui/icons-material/Paid';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { DataFilterToolbar, DataTable, FilterDateRange, FilterSelect, PageWrapper, RootPageTitle, StatsBoard, type StatItem } from '@/shared/components';
 import { paths } from '@/shared/constants';
-import { usePagination } from '@/shared/hooks';
+import { useQueryFilters } from '@/shared/hooks';
 import { useLocalize } from '@/shared/lib';
 import { formatPrice } from '@/shared/utilities';
 
@@ -45,11 +45,15 @@ export default function OrdersPage() {
     const navigate = useNavigate();
 
 
-    // --- Pagination Hook ---
-    const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
-
-    // --- Local State ---
-    const [filters, setFilters] = useState<Omit<OrderParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+        handleLimitChange,
+        handlePageChange,
+        page,
+        limit
+    } = useQueryFilters(DEFAULT_FILTERS);
 
     const { data: stats, isLoading: isLoadingStats } = useGetOrdersStats();
     const { data, isLoading, isError, refetch } = useGetOrders({
@@ -57,20 +61,6 @@ export default function OrdersPage() {
         page: page + 1,
         ...filters
     });
-
-    // --- Handlers ---
-    const handleFilterChange = useCallback((key: keyof OrderParams, value: any) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: value
-        }));
-        setPage(0);
-    }, [setPage]);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters(DEFAULT_FILTERS)
-        handlePageChange(null, 0);
-    }, [handlePageChange]);
 
 
     const averageOrderValue = Number(stats?.total_orders) > 0

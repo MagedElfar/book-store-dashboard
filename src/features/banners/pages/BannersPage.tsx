@@ -21,6 +21,7 @@ import {
     FullSortableFileItem
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
+import { useQueryFilters } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
 import { useLocalize } from "@/shared/lib";
 
@@ -53,7 +54,11 @@ export default function BannersPage() {
     const [isReordering, setIsReordering] = useState(false);
 
 
-    const [filters, setFilters] = useState(DEFAULT_FILTERS);
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+    } = useQueryFilters(DEFAULT_FILTERS);
 
     const {
         data: selectedBanner,
@@ -83,13 +88,6 @@ export default function BannersPage() {
         hasChanges
     } = useBannerReorder(banners || []);
 
-    const handleFilterChange = useCallback((key: keyof BannersParams, value: any) => {
-        setFilters(prev => ({ ...prev, [key]: value }));
-    }, []);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters(DEFAULT_FILTERS);
-    }, []);
 
     const handleToggleMode = (_: any, nextMode: boolean | null) => {
         if (nextMode !== null) {

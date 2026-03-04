@@ -3,7 +3,7 @@ import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import LabelIcon from '@mui/icons-material/Label';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Button } from "@mui/material";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 // --- Shared Components ---
 import { usePermission } from "@/features/auth";
@@ -16,7 +16,7 @@ import {
     type StatItem,
     StatsBoard,
 } from "@/shared/components";
-import { usePagination } from "@/shared/hooks";
+import { useQueryFilters } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
 import { useLocalize } from '@/shared/lib';
 
@@ -46,8 +46,6 @@ export default function TagsPage() {
     const { t, getLocalizedValue } = useLocalize(["tag", "common"]);
 
     const { hasPermission } = usePermission()
-    // --- Pagination Hook ---
-    const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
 
     // --- Local State ---
     const {
@@ -61,7 +59,17 @@ export default function TagsPage() {
         closeDialog,
     } = useDialog<Tag>();
 
-    const [filters, setFilters] = useState<Omit<TagsParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+        handleLimitChange,
+        handlePageChange,
+        page,
+        limit
+    } = useQueryFilters(DEFAULT_FILTERS);
+
+
 
     // --- Data Fetching ---
     const { data: stats, isLoading: isLoadingStats } = useGetTagsStats();
@@ -70,16 +78,6 @@ export default function TagsPage() {
         page: page + 1,
         ...filters
     });
-
-    const handleFilterChange = useCallback((key: keyof TagsParams, value: any) => {
-        setFilters(prev => ({ ...prev, [key]: value }));
-        setPage(0);
-    }, [setPage]);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters(DEFAULT_FILTERS);
-        handlePageChange(null, 0);
-    }, [handlePageChange]);
 
     // --- Memoized Columns ---
     const columns = useTagColumns(openEdit, openDelete);

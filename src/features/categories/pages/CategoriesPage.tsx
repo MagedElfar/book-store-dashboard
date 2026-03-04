@@ -1,7 +1,7 @@
 import CategoryIcon from '@mui/icons-material/Category';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 
 // --- Shared Components ---
@@ -15,7 +15,7 @@ import {
     type StatItem
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import { usePagination } from "@/shared/hooks";
+import { useQueryFilters } from "@/shared/hooks";
 import { useDialog } from '@/shared/hooks/useDialog';
 import { useLocalize } from '@/shared/lib';
 
@@ -46,11 +46,15 @@ export default function CategoriesPage() {
     const navigate = useNavigate();
 
 
-    // --- Pagination Hook ---
-    const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
-
-    // --- Local State ---
-    const [filters, setFilters] = useState<Omit<CategoriesParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+        handleLimitChange,
+        handlePageChange,
+        page,
+        limit
+    } = useQueryFilters(DEFAULT_FILTERS);
 
     const {
         data: selectedCategory,
@@ -66,20 +70,6 @@ export default function CategoriesPage() {
         page: page + 1,
         ...filters
     });
-
-    // --- Handlers ---
-    const handleFilterChange = useCallback((key: keyof CategoriesParams, value: any) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: value
-        }));
-        setPage(0);
-    }, [setPage]);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters(DEFAULT_FILTERS)
-        handlePageChange(null, 0);
-    }, [handlePageChange]);
 
     // --- Memoized Columns ---
     const columns = useCategoryColumns(openDelete);

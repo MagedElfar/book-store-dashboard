@@ -2,11 +2,12 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { Avatar, Chip, IconButton, Link, Stack, Tooltip, Typography } from "@mui/material";
+import { Avatar, Chip, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
+import { RouterLink } from '@/shared/components';
 import { paths } from "@/shared/constants";
 import { useLocalize } from '@/shared/lib';
 import type { Column } from "@/shared/types";
@@ -39,20 +40,10 @@ export function useAuthorColumns(onDelete: (author: Author) => void) {
                         {getLocalizedValue(row)?.[0]}
                     </Avatar>
                     <Stack spacing={0.1}>
-                        <Link
-                            component="a"
-                            href={paths.dashboard.authors.details(row.id)}
-                            target='_blank'
-                            underline="hover"
-                            fontSize="subtitle2"
-                            rel="noopener"
-                        >
-
-                            <Typography variant="subtitle2" noWrap>
-                                {getLocalizedValue(row)}
-                            </Typography>
-                        </Link>
-
+                        <RouterLink
+                            to={paths.dashboard.authors.details(row.id)}
+                            text={getLocalizedValue(row)}
+                        />
                         <Typography variant="caption" sx={{ color: 'text.secondary' }} noWrap>
                             {row.slug}
                         </Typography>

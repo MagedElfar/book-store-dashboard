@@ -86,7 +86,7 @@ export const supabaseUserProvider: UserApiProvider = {
             query = query.or(`full_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`);
         }
 
-        if (role) {
+        if (role && role !== 'all') {
             query = query.eq("role", role);
         }
 

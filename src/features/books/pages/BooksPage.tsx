@@ -3,7 +3,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAuthorAutoComplete } from '@/features/authors';
@@ -11,7 +11,7 @@ import { useCategoryAutoComplete } from '@/features/categories';
 import { useTagsAutoComplete } from '@/features/tags';
 import { DataFilterToolbar, DataTable, FilterAutocomplete, FilterSelect, PageWrapper, RootPageTitle, StatsBoard, type StatItem } from '@/shared/components';
 import { paths } from '@/shared/constants';
-import { useDialog, usePagination } from '@/shared/hooks';
+import { useDialog, useQueryFilters } from '@/shared/hooks';
 import { useLocalize } from '@/shared/lib';
 
 import { DeleteBookDialog } from '../components';
@@ -35,13 +35,13 @@ const getSortOptions = (t: any) => [
     { value: "stock_low", label: t("filter.stockLow") },
 ];
 
-const DEFAULT_FILTERS: Omit<BookParams, "page" | "limit"> = {
+const DEFAULT_FILTERS: BookParams = {
     search: "",
     is_active: "",
     category_id: "",
     author_id: "",
     tagId: "",
-    sortBy: "newest"
+    sortBy: "newest",
 };
 
 export default function BooksPage() {
@@ -49,11 +49,15 @@ export default function BooksPage() {
     const { t, getLocalizedValue } = useLocalize(["book", "common"]);
     const navigate = useNavigate();
 
-    // --- Pagination Hook ---
-    const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
-
-    // --- Local State ---
-    const [filters, setFilters] = useState<Omit<BookParams, 'page' | 'limit'>>(DEFAULT_FILTERS);
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+        handleLimitChange,
+        handlePageChange,
+        page,
+        limit
+    } = useQueryFilters(DEFAULT_FILTERS);
 
     const {
         data: selectedBook,
@@ -65,9 +69,9 @@ export default function BooksPage() {
 
     const { data: stats, isLoading: isLoadingStats } = useGetBooksStats();
     const { data, isLoading, isError, refetch } = useGetBooks({
-        limit,
+        ...filters,
         page: page + 1,
-        ...filters
+        limit
     });
 
     const {
@@ -90,20 +94,6 @@ export default function BooksPage() {
         setSearch: setTagSearch,
         ...tagsQuery
     } = useTagsAutoComplete();
-
-    // --- Handlers ---
-    const handleFilterChange = useCallback((key: keyof BookParams, value: any) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: value
-        }));
-        setPage(0);
-    }, [setPage]);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters(DEFAULT_FILTERS)
-        handlePageChange(null, 0);
-    }, [handlePageChange]);
 
     // --- Memoized Columns ---
     const columns = useBookColumns(openDelete);

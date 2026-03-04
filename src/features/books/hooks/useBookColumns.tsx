@@ -7,7 +7,6 @@ import {
     Avatar,
     Chip,
     IconButton,
-    Link,
     Stack,
     Tooltip,
     Typography,
@@ -16,7 +15,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { usePermission } from "@/features/auth";
-import { PriceDisplay } from "@/shared/components";
+import { PriceDisplay, RouterLink } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { useLocalize } from "@/shared/lib";
 import type { Column } from "@/shared/types";
@@ -50,20 +49,10 @@ export function useBookColumns(onDelete: (book: Book) => void) {
                     </Avatar>
 
                     <Stack spacing={0.1}>
-                        <Link
-                            component="a"
-                            href={paths.dashboard.books.details(row.id)}
-                            target='_blank'
-                            underline="hover"
-                            fontSize="subtitle2"
-                        >
-
-                            <Typography variant="subtitle2" noWrap>
-                                {getLocalizedValue(row, "title")}
-                            </Typography>
-
-                        </Link>
-
+                        <RouterLink
+                            to={paths.dashboard.books.details(row.id)}
+                            text={getLocalizedValue(row, "title")}
+                        />
                         <Typography variant="caption" sx={{ color: "text.secondary" }} noWrap>
                             {row.slug}
                         </Typography>

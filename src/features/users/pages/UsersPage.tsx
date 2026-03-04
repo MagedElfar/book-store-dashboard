@@ -1,6 +1,6 @@
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PeopleIcon from '@mui/icons-material/People';
-import { useCallback, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useNavigate } from "react-router";
 
 // --- Icons ---
@@ -16,7 +16,7 @@ import {
     type StatItem
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
-import { usePagination } from "@/shared/hooks";
+import { useDialog, useQueryFilters } from "@/shared/hooks";
 // --- Local Components & Hooks ---
 import { useLocalize } from '@/shared/lib';
 
@@ -36,20 +36,33 @@ const getSortOptions = (t: any) => [
     { value: "oldest", label: t("filter.oldest") },
 ];
 
+const DEFAULT_FILTERS: UsersParams = {
+    search: "",
+    role: "all",
+    sortBy: "newest"
+}
+
 export default function UsersPage() {
     const { t } = useLocalize(["user", "common"]);
     const navigate = useNavigate();
 
-    // --- Pagination Hook ---
-    const { page, limit, handleLimitChange, handlePageChange, setPage } = usePagination();
-
     // --- Local State ---
-    const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    const [filters, setFilters] = useState<Omit<UsersParams, 'page' | 'limit'>>({
-        search: "",
-        role: "",
-        sortBy: "newest"
-    });
+    const {
+        data: selectedUser,
+        isDelete,
+        openDelete,
+        closeDialog,
+    } = useDialog<User>();
+
+    const {
+        filters,
+        handleFilterChange,
+        handleResetFilters,
+        handleLimitChange,
+        handlePageChange,
+        page,
+        limit
+    } = useQueryFilters(DEFAULT_FILTERS);
 
     // --- Data Fetching ---
     const { data: stats, isLoading: isLoadingStats } = useGetUsersStats();
@@ -60,25 +73,7 @@ export default function UsersPage() {
     });
 
     // --- Memoized Columns ---
-    const columns = useUserColumns(setSelectedUser);
-
-    // --- Handlers ---
-    const handleFilterChange = useCallback((key: keyof UsersParams, value: any) => {
-        setFilters(prev => ({
-            ...prev,
-            [key]: value
-        }));
-        setPage(0); // العودة لأول صفحة عند تغيير الفلتر
-    }, [setPage]);
-
-    const handleResetFilters = useCallback(() => {
-        setFilters({
-            search: "",
-            role: "",
-            sortBy: "newest"
-        });
-        handlePageChange(null, 0);
-    }, [handlePageChange]);
+    const columns = useUserColumns(openDelete);
 
     // --- Memoized Stats Data ---
     const statsItems: StatItem[] = useMemo(() => [
@@ -137,7 +132,7 @@ export default function UsersPage() {
             >
                 <FilterSelect
                     label={t("filter.role")}
-                    value={filters.role || ""}
+                    value={filters.role || "all"}
                     options={roleOptions}
                     onChange={handleFilterChange}
                     inputKey="role"
@@ -165,10 +160,10 @@ export default function UsersPage() {
             />
 
             {selectedUser && <DeleteUserDialog
-                open={Boolean(selectedUser)}
+                open={isDelete}
                 userId={selectedUser.id}
                 userName={selectedUser?.full_name}
-                onClose={() => setSelectedUser(null)}
+                onClose={closeDialog}
             />}
         </PageWrapper>
     );
