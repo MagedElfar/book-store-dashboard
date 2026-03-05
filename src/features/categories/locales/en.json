@@ -17,7 +17,8 @@
     "status": "Status",
     "image": "Category Image",
     "isActive": "Is active",
-    "banner": "Category Banner"
+    "banner": "Category Banner",
+    "inNavbar": "In Navbar"
   },
   "placeHolder": {
     "nameEn": "e.g. Electronics",

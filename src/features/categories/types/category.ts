@@ -10,6 +10,7 @@ export interface Category {
     slug: string;
     image_url: string | null;
     banner_url: string | null;
+    is_in_nav?: boolean
     is_active: boolean;
 }
 

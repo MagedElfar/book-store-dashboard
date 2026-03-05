@@ -17,7 +17,8 @@
     "status": "الحالة",
     "image": "صورة الصنف",
     "isActive": "نشط",
-    "banner": "لافتة الصنف"
+    "banner": "لافتة الصنف",
+    "inNavbar": "معروض في القائمة"
   },
   "placeHolder": {
     "nameEn": "مثال: Electronics",

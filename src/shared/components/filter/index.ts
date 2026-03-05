@@ -5,3 +5,5 @@ export * from "./FilterSelect"
 export * from "./FilterAutocomplete"
 
 export * from "./FilterDateRange"
+
+export * from "./FilterSwitch"

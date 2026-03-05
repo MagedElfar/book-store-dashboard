@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Grid, Switch, FormControlLabel } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 import { paths } from '@/shared/constants';
-import { FormContainer, FormTextField, AppFormProvider } from '@/shared/form';
+import { FormContainer, FormTextField, AppFormProvider, FormSwitch } from '@/shared/form';
 import { useLocalize } from '@/shared/lib';
 import { DropzoneField } from '@/shared/media';
 import { errorMapper, slugify } from '@/shared/utilities';
@@ -34,6 +34,7 @@ export function CategoryForm({ category }: Props) {
         image_url: category?.image_url || null,
         banner_url: category?.banner_url || null,
         is_active: category?.is_active ?? true,
+        is_in_nav: category?.is_in_nav ?? false,
     };
 
     const methods = useForm<CategoryFormSchemaType>({
@@ -95,7 +96,7 @@ export function CategoryForm({ category }: Props) {
                     </Grid>
 
                     {/* Slug */}
-                    <Grid size={{ xs: 12, md: 6 }}>
+                    <Grid size={{ xs: 12 }}>
                         <FormTextField
                             name="slug"
                             label={t("label.slug")}
@@ -105,18 +106,6 @@ export function CategoryForm({ category }: Props) {
                         />
                     </Grid>
 
-                    {/* Status Switch */}
-                    <Grid size={{ xs: 12, md: 6 }} display="flex" alignItems="center">
-                        <FormControlLabel
-                            control={
-                                <Switch
-                                    checked={useWatch({ control, name: 'is_active' })}
-                                    onChange={(e) => setValue('is_active', e.target.checked)}
-                                />
-                            }
-                            label={t("label.isActive")}
-                        />
-                    </Grid>
 
                     {/* Description English */}
                     <Grid size={{ xs: 12, md: 6 }}>
@@ -138,6 +127,14 @@ export function CategoryForm({ category }: Props) {
                             multiline
                             rows={3}
                         />
+                    </Grid>
+
+                    {/* Status Switch */}
+                    <Grid size={{ xs: 12 }}>
+                        <Stack direction="row" alignItems="center" spacing={2} >
+                            <FormSwitch label={t("label.isActive")} name="is_active" />
+                            <FormSwitch label={t("label.inNavbar")} name="is_in_nav" />
+                        </Stack>
                     </Grid>
 
                     {/* Category Image */}

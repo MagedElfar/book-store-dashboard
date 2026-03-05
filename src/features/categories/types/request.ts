@@ -12,4 +12,5 @@ export type CategoriesParams = {
     limit?: number;
     page?: number;
     lang?: SupportedLang
+    is_in_nav?: boolean
 }

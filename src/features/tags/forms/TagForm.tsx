@@ -1,10 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Grid, Switch, FormControlLabel, Stack } from '@mui/material';
+import { Grid, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { FormTextField, AppFormProvider, FormContainer, FormColorField } from '@/shared/form';
+import { FormTextField, AppFormProvider, FormContainer, FormColorField, FormSwitch } from '@/shared/form';
 import { useLocalize } from '@/shared/lib';
 import { errorMapper, slugify } from '@/shared/utilities';
 
@@ -105,28 +105,12 @@ export function TagForm({ tag, onSuccess }: Props) {
                             helperText={t("helper.colorInfo")}
                         />
                     </Grid>
+
                     {/* Status Switch */}
                     <Grid size={{ xs: 12 }}>
                         <Stack direction="row" alignItems="center" spacing={2} >
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={useWatch({ control, name: 'is_active' })}
-                                        onChange={(e) => setValue('is_active', e.target.checked)}
-                                    />
-                                }
-                                label={t("label.isActive")}
-                            />
-
-                            <FormControlLabel
-                                control={
-                                    <Switch
-                                        checked={useWatch({ control, name: 'is_pained' })}
-                                        onChange={(e) => setValue('is_pained', e.target.checked)}
-                                    />
-                                }
-                                label={t("label.isPained")}
-                            />
+                            <FormSwitch label={t("label.isActive")} name="is_active" />
+                            <FormSwitch label={t("label.isPained")} name="is_pained" />
                         </Stack>
                     </Grid>
                 </Grid>

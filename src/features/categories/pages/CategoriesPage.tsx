@@ -12,7 +12,8 @@ import {
     FilterSelect,
     PageWrapper,
     StatsBoard,
-    type StatItem
+    type StatItem,
+    FilterSwitch
 } from "@/shared/components";
 import { paths } from "@/shared/constants";
 import { useQueryFilters } from "@/shared/hooks";
@@ -38,7 +39,8 @@ const getSortOptions = (t: any) => [
 const DEFAULT_FILTERS: Omit<CategoriesParams, "page" | "limit"> = {
     search: "",
     is_active: "",
-    sortBy: "newest"
+    sortBy: "newest",
+    is_in_nav: false
 };
 
 export default function CategoriesPage() {
@@ -134,6 +136,12 @@ export default function CategoriesPage() {
                     options={sortOptions}
                     onChange={handleFilterChange}
                     inputKey="sortBy"
+                />
+                <FilterSwitch
+                    label={t("label.inNavbar")}
+                    checked={filters.is_in_nav || false}
+                    onChange={handleFilterChange}
+                    inputKey="is_in_nav"
                 />
             </DataFilterToolbar>
 

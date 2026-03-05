@@ -50,7 +50,8 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
             is_active,
             sortBy = "newest",
             page = 1,
-            limit = 10
+            limit = 10,
+            is_in_nav
         } = params;
 
         let query = supabaseClient
@@ -63,6 +64,10 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
 
         if (is_active !== "") {
             query = query.eq("is_active", is_active === "active");
+        }
+
+        if (is_in_nav) {
+            query = query.eq("is_in_nav", true);
         }
 
         if (sortBy === "newest") {

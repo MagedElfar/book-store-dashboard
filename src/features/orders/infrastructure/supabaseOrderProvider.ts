@@ -158,7 +158,6 @@ export const supabaseOrderProvider: OrderApiProvider = {
                 items:order_items (id, quantity, price_at_purchase)
             `, { count: 'exact' });
 
-        // 1. البحث (Search)
         if (params?.search) {
             const searchTerm = `%${params.search}%`;
 

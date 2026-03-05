@@ -107,6 +107,7 @@ export function DataFilterToolbar<T extends object>({
                             display: 'grid',
                             gap: 2,
                             width: "100%",
+                            alignItems: "center",
                             gridTemplateColumns: {
                                 md: "repeat(3 , 1fr)",
                                 sm: "repeat(2 , 1fr)",
