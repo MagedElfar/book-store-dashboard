@@ -57,7 +57,7 @@ export function CategoryForm({ category }: Props) {
             if (category) {
                 await updateCategory({ id: category.id, data: data as UpdateCategoryPayload });
                 toast.success(t("feedback.successUpdateCategory"));
-                navigate(paths.dashboard.categories.root);
+                navigate(-1);
                 return;
             }
 

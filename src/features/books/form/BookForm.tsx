@@ -85,8 +85,8 @@ export function BookForm({ book }: Props) {
         try {
             if (book) {
                 await updateBook({ id: book.id, data: payLoad })
-                navigate(paths.dashboard.books.root);
                 toast.success(t("feedback.successSave"));
+                navigate(-1);
                 return
             }
             await createBook(payLoad)
