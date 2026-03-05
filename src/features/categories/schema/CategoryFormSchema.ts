@@ -43,6 +43,8 @@ export const CategoryFormSchema = (
         is_active: z.boolean(),
 
         is_in_nav: z.boolean(),
+
+        is_featured: z.boolean()
     });
 
 export type CategoryFormSchemaType = z.infer<ReturnType<typeof CategoryFormSchema>>;

@@ -13,4 +13,5 @@ export type CategoriesParams = {
     page?: number;
     lang?: SupportedLang
     is_in_nav?: boolean
+    is_featured?: boolean
 }

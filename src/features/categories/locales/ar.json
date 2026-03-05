@@ -18,7 +18,8 @@
     "image": "صورة الصنف",
     "isActive": "نشط",
     "banner": "لافتة الصنف",
-    "inNavbar": "معروض في القائمة"
+    "inNavbar": "معروض في القائمة",
+    "isFeatured": "مميز"
   },
   "placeHolder": {
     "nameEn": "مثال: Electronics",

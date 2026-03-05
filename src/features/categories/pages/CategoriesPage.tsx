@@ -1,6 +1,7 @@
 import CategoryIcon from '@mui/icons-material/Category';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
+import { Stack } from '@mui/material';
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
 
@@ -40,7 +41,8 @@ const DEFAULT_FILTERS: Omit<CategoriesParams, "page" | "limit"> = {
     search: "",
     is_active: "",
     sortBy: "newest",
-    is_in_nav: false
+    is_in_nav: false,
+    is_featured: false
 };
 
 export default function CategoriesPage() {
@@ -137,12 +139,21 @@ export default function CategoriesPage() {
                     onChange={handleFilterChange}
                     inputKey="sortBy"
                 />
-                <FilterSwitch
-                    label={t("label.inNavbar")}
-                    checked={filters.is_in_nav || false}
-                    onChange={handleFilterChange}
-                    inputKey="is_in_nav"
-                />
+
+                <Stack direction="row" alignItems="center" spacing={2} >
+                    <FilterSwitch
+                        label={t("label.inNavbar")}
+                        checked={filters.is_in_nav || false}
+                        onChange={handleFilterChange}
+                        inputKey="is_in_nav"
+                    />
+                    <FilterSwitch
+                        label={t("label.isFeatured")}
+                        checked={filters.is_featured || false}
+                        onChange={handleFilterChange}
+                        inputKey="is_featured"
+                    />
+                </Stack>
             </DataFilterToolbar>
 
             <DataTable

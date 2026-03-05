@@ -51,7 +51,8 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
             sortBy = "newest",
             page = 1,
             limit = 10,
-            is_in_nav
+            is_in_nav,
+            is_featured
         } = params;
 
         let query = supabaseClient
@@ -68,6 +69,10 @@ export const supabaseCategoryProvider: CategoryApiProvider = {
 
         if (is_in_nav) {
             query = query.eq("is_in_nav", true);
+        }
+
+        if (is_featured) {
+            query = query.eq("is_featured", true);
         }
 
         if (sortBy === "newest") {

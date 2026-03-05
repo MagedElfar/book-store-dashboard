@@ -12,6 +12,7 @@ export interface Category {
     banner_url: string | null;
     is_in_nav?: boolean
     is_active: boolean;
+    is_featured: boolean
 }
 
 export interface CategoryStatistics {

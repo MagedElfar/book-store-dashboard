@@ -18,7 +18,8 @@
     "image": "Category Image",
     "isActive": "Is active",
     "banner": "Category Banner",
-    "inNavbar": "In Navbar"
+    "inNavbar": "In Navbar",
+    "isFeatured": "Is featured"
   },
   "placeHolder": {
     "nameEn": "e.g. Electronics",
