@@ -58,7 +58,7 @@ export function AuthorForm({ author }: Props) {
             if (author) {
                 await updateAuthor({ id: author.id, data: data as UpdateAuthorPayload });
                 toast.success(t("feedback.successUpdateAuthor"));
-                navigate(paths.dashboard.authors.details(author.id));
+                navigate(paths.dashboard.authors.root);
                 return;
             }
 
