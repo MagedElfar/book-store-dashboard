@@ -135,7 +135,7 @@ export function CategoryForm({ category }: Props) {
                         <Stack direction="row" alignItems="center" spacing={2} >
                             <FormSwitch label={t("label.isActive")} name="is_active" />
                             <FormSwitch label={t("label.inNavbar")} name="is_in_nav" />
-                            <FormSwitch label={t("label.isFeatured")} name="is_in_nav" />
+                            <FormSwitch label={t("label.isFeatured")} name="is_featured" />
                         </Stack>
                     </Grid>
 
