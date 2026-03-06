@@ -96,6 +96,19 @@ export function useBookColumns(onDelete: (book: Book) => void) {
             ),
         },
 
+        {
+            id: "sales_count",
+            label: t("salesCount"),
+            align: "center",
+            render: (sales_count) => (
+                <Chip
+                    label={sales_count}
+                    size="small"
+                    color="info"
+                />
+            ),
+        },
+
         // Status
         {
             id: "is_active",

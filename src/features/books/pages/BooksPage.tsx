@@ -33,6 +33,8 @@ const getSortOptions = (t: any) => [
     { value: "price_low", label: t("filter.priceLow") },
     { value: "stock_high", label: t("filter.stockHigh") },
     { value: "stock_low", label: t("filter.stockLow") },
+    { value: "sales_count", label: t("salesCount") },
+
 ];
 
 const DEFAULT_FILTERS: BookParams = {

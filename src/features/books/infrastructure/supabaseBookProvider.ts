@@ -238,6 +238,9 @@ export const supabaseBookProvider: BookApiProvider = {
 
         const currentLang = params?.lang || "en";
         switch (params?.sortBy) {
+            case "sales_count":
+                query = query.order("sales_count", { ascending: false })
+                break;
             case "oldest":
                 query = query.order("created_at", { ascending: true });
                 break;
@@ -267,6 +270,7 @@ export const supabaseBookProvider: BookApiProvider = {
         const { data, error, count } = await query.range(from, to);
 
         if (error) throw new Error(error.message);
+
 
 
         return {

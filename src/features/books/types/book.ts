@@ -30,7 +30,7 @@ export interface Book {
     author_id: string | null;
     created_at: string;
     updated_at: string;
-
+    sales_count?: number
     authors?: Author[];
     book_images?: BookImage[];
     categories?: Category[];

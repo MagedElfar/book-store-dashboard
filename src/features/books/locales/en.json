@@ -125,5 +125,6 @@
   "deleteBookConfirm": "Are you sure you want to delete this book?",
   "deleteBookConfirmWithTitle": "Are you sure you want to delete the book \"{{title}}\"?",
   "bookDetails": "Book Details",
-  "noDescription": "No description available for this book."
+  "noDescription": "No description available for this book.",
+  "salesCount": "Total sales"
 }

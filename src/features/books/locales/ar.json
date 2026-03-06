@@ -125,5 +125,6 @@
   "deleteBookConfirm": "هل أنت متأكد من رغبتك في حذف هذا الكتاب؟",
   "deleteBookConfirmWithTitle": "هل أنت متأكد من رغبتك في حذف الكتاب \"{{title}}\"؟",
   "bookDetails": "تفاصيل الكتاب",
-  "noDescription": "لا يوجد وصف متاح لهذا الكتاب."
+  "noDescription": "لا يوجد وصف متاح لهذا الكتاب.",
+  "salesCount": "إجمالي المبيعات"
 }
