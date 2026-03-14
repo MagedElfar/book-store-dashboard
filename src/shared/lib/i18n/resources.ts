@@ -60,7 +60,7 @@ export const resources = {
         author: authorsAr,
         tag: tagAr,
         book: bookAr,
-        orders: orderAr,
+        order: orderAr,
         analytics: analyticsAr,
         notification: notificationAr,
         banner: bannerAr
