@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 export const createAppTheme = (direction: 'ltr' | 'rtl' = 'ltr') =>
     createTheme({
+        defaultColorScheme: "dark",
         direction,
         typography: {
             fontFamily: "'Inter', 'Cairo', sans-serif",

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Stack, Typography } from '@mui/material'
+import { Alert, Stack, Typography } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
@@ -47,6 +47,15 @@ export function LoginForm() {
 
     return (
         <AppFormProvider<LoginSchemaType> methods={methods} onSubmit={onsubmit}>
+            <Stack
+                spacing={1}
+                dir="ltr"
+                sx={{ textAlign: "left" }}
+                mb={2}
+            >
+                <Alert dir="ltr" sx={{ textAlign: "left" }} color="info">Supported Login: support@example.com, 12345678</Alert>
+                <Alert dir="ltr" sx={{ textAlign: "left" }} color="info">Admin Login: admin@example.com, secret</Alert>
+            </Stack>
             <FormContainer
                 submitText={t("signinBtn")}
                 stackProps={{ alignItems: "center" }}
